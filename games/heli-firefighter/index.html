@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Löschhubschrauber</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #1a1a2e;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+    #game-container {
+      position: relative;
+      width: 100vmin;
+      height: 100vmin;
+      max-width: 600px;
+      max-height: 600px;
+    }
+    #game-canvas {
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    #ui {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      display: flex;
+      justify-content: space-between;
+      color: white;
+      font-size: 14px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+      pointer-events: none;
+    }
+    #status {
+      background: rgba(0,0,0,0.6);
+      padding: 8px 12px;
+      border-radius: 8px;
+    }
+    #water-indicator {
+      background: rgba(0,0,0,0.6);
+      padding: 8px 12px;
+      border-radius: 8px;
+    }
+    #message {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 16px;
+      text-align: center;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    #win-screen {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      border-radius: 12px;
+    }
+    #win-screen h1 { font-size: 32px; margin-bottom: 10px; }
+    #win-screen p { font-size: 18px; margin-bottom: 20px; }
+    #restart-btn {
+      padding: 12px 30px;
+      font-size: 18px;
+      background: #e63946;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+    }
+    #restart-btn:hover { background: #d62839; }
+  </style>
+</head>
+<body>
+  <div id="game-container">
+    <canvas id="game-canvas"></canvas>
+    <div id="ui">
+      <div id="status">🔥 Feuer: <span id="fire-level">100</span>%</div>
+      <div id="water-indicator">💧 Wasser: <span id="water-level">0</span>/3</div>
+    </div>
+    <div id="message">Tippe den Hubschrauber zum Starten!</div>
+    <div id="win-screen">
+      <h1>🎉 Feuer gelöscht!</h1>
+      <p>Du hast das Dorf gerettet!</p>
+      <button id="restart-btn">Nochmal spielen</button>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('game-canvas');
+    const ctx = canvas.getContext('2d');
+    const container = document.getElementById('game-container');
+    
+    // High DPI support
+    function resizeCanvas() {
+      const rect = container.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+      return { width: rect.width, height: rect.height };
+    }
+    let { width: W, height: H } = resizeCanvas();
+    window.addEventListener('resize', () => {
+      const size = resizeCanvas();
+      W = size.width; H = size.height;
+    });
+
+    // Game state
+    const state = {
+      phase: 'waiting', // waiting, flying, at-lake, flying-to-fire, at-fire
+      water: 0,
+      maxWater: 3,
+      fireLevel: 100,
+      helicopter: { x: W * 0.75, y: H * 0.75, targetX: null, targetY: null, rotation: 0 },
+      rotorAngle: 0,
+      rotorSpeed: 0,
+      particles: [],
+      waterDrops: [],
+      fireParticles: []
+    };
+
+    // Locations (relative to canvas)
+    const locations = {
+      helipad: { x: 0.75, y: 0.75, radius: 0.08 },
+      lake: { x: 0.28, y: 0.38, radius: 0.12 },
+      fire: { x: 0.62, y: 0.18, radius: 0.1 }
+    };
+
+    function getAbsoluteLocation(loc) {
+      return { x: loc.x * W, y: loc.y * H, radius: loc.radius * W };
+    }
+
+    // Draw landscape
+    function drawLandscape() {
+      // Sky gradient
+      const skyGrad = ctx.createLinearGradient(0, 0, 0, H);
+      skyGrad.addColorStop(0, '#87CEEB');
+      skyGrad.addColorStop(1, '#E0F4E0');
+      ctx.fillStyle = skyGrad;
+      ctx.fillRect(0, 0, W, H);
+
+      // Green fields
+      ctx.fillStyle = '#7CB342';
+      ctx.fillRect(0, H * 0.3, W, H * 0.7);
+
+      // Lighter field patches
+      ctx.fillStyle = '#8BC34A';
+      ctx.beginPath();
+      ctx.ellipse(W * 0.5, H * 0.6, W * 0.25, H * 0.15, 0.2, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#9CCC65';
+      ctx.beginPath();
+      ctx.ellipse(W * 0.2, H * 0.8, W * 0.15, H * 0.1, -0.3, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Roads
+      ctx.strokeStyle = '#D7CCC8';
+      ctx.lineWidth = W * 0.025;
+      ctx.beginPath();
+      ctx.moveTo(W * 0.75, H);
+      ctx.quadraticCurveTo(W * 0.5, H * 0.5, W * 0.1, H * 0.6);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(W * 0.5, H * 0.55);
+      ctx.lineTo(W * 0.62, H * 0.25);
+      ctx.stroke();
+
+      // Lake
+      const lake = getAbsoluteLocation(locations.lake);
+      const lakeGrad = ctx.createRadialGradient(lake.x - lake.radius * 0.3, lake.y - lake.radius * 0.3, 0, lake.x, lake.y, lake.radius);
+      lakeGrad.addColorStop(0, '#81D4FA');
+      lakeGrad.addColorStop(0.7, '#29B6F6');
+      lakeGrad.addColorStop(1, '#0288D1');
+      ctx.fillStyle = lakeGrad;
+      ctx.beginPath();
+      ctx.ellipse(lake.x, lake.y, lake.radius, lake.radius * 0.8, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Lake sparkles
+      ctx.fillStyle = 'rgba(255,255,255,0.6)';
+      for (let i = 0; i < 5; i++) {
+        const sx = lake.x - lake.radius * 0.5 + Math.random() * lake.radius;
+        const sy = lake.y - lake.radius * 0.3 + Math.random() * lake.radius * 0.5;
+        ctx.beginPath();
+        ctx.arc(sx, sy, 2 + Math.random() * 3, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Forest area
+      const fire = getAbsoluteLocation(locations.fire);
+      ctx.fillStyle = '#2E7D32';
+      ctx.beginPath();
+      ctx.ellipse(fire.x, fire.y, fire.radius * 1.5, fire.radius * 1.3, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Trees
+      drawTrees(fire.x, fire.y, fire.radius * 1.3);
+
+      // Village houses
+      drawVillage();
+
+      // Helipad
+      const helipad = getAbsoluteLocation(locations.helipad);
+      ctx.fillStyle = '#9E9E9E';
+      ctx.beginPath();
+      ctx.arc(helipad.x, helipad.y, helipad.radius, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#757575';
+      ctx.beginPath();
+      ctx.arc(helipad.x, helipad.y, helipad.radius * 0.85, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#FAFAFA';
+      ctx.font = `bold ${helipad.radius}px Arial`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('H', helipad.x, helipad.y);
+    }
+
+    function drawTrees(cx, cy, radius) {
+      const treePositions = [];
+      for (let i = 0; i < 15; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const dist = Math.random() * radius * 0.9;
+        treePositions.push({ x: cx + Math.cos(angle) * dist, y: cy + Math.sin(angle) * dist });
+      }
+      treePositions.sort((a, b) => a.y - b.y);
+      
+      treePositions.forEach(pos => {
+        // Tree
+        ctx.fillStyle = '#1B5E20';
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y - W * 0.04);
+        ctx.lineTo(pos.x - W * 0.015, pos.y);
+        ctx.lineTo(pos.x + W * 0.015, pos.y);
+        ctx.closePath();
+        ctx.fill();
+      });
+    }
+
+    function drawVillage() {
+      const houses = [
+        { x: 0.08, y: 0.65 }, { x: 0.15, y: 0.68 }, { x: 0.12, y: 0.58 },
+        { x: 0.05, y: 0.72 }, { x: 0.18, y: 0.62 }
+      ];
+      houses.forEach(h => {
+        const hx = h.x * W, hy = h.y * H;
+        const hw = W * 0.04, hh = W * 0.03;
+        // Wall
+        ctx.fillStyle = '#FFCCBC';
+        ctx.fillRect(hx - hw/2, hy - hh, hw, hh);
+        // Roof
+        ctx.fillStyle = '#C62828';
+        ctx.beginPath();
+        ctx.moveTo(hx - hw/2 - W*0.01, hy - hh);
+        ctx.lineTo(hx, hy - hh - W*0.025);
+        ctx.lineTo(hx + hw/2 + W*0.01, hy - hh);
+        ctx.closePath();
+        ctx.fill();
+      });
+    }
+
+    function drawFire() {
+      if (state.fireLevel <= 0) return;
+      
+      const fire = getAbsoluteLocation(locations.fire);
+      const intensity = state.fireLevel / 100;
+      
+      // Fire glow
+      const glowGrad = ctx.createRadialGradient(fire.x, fire.y, 0, fire.x, fire.y, fire.radius * 1.5 * intensity);
+      glowGrad.addColorStop(0, `rgba(255, 100, 0, ${0.3 * intensity})`);
+      glowGrad.addColorStop(1, 'rgba(255, 100, 0, 0)');
+      ctx.fillStyle = glowGrad;
+      ctx.beginPath();
+      ctx.arc(fire.x, fire.y, fire.radius * 1.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Fire particles
+      const numFlames = Math.floor(8 * intensity);
+      for (let i = 0; i < numFlames; i++) {
+        const angle = (i / numFlames) * Math.PI * 2 + Date.now() * 0.001;
+        const dist = fire.radius * 0.5 * Math.random();
+        const fx = fire.x + Math.cos(angle) * dist;
+        const fy = fire.y + Math.sin(angle) * dist * 0.7;
+        const fh = W * 0.03 * (0.5 + Math.random() * 0.5) * intensity;
+        
+        const flameGrad = ctx.createLinearGradient(fx, fy, fx, fy - fh);
+        flameGrad.addColorStop(0, '#FF6F00');
+        flameGrad.addColorStop(0.5, '#FF9800');
+        flameGrad.addColorStop(1, 'rgba(255, 200, 0, 0)');
+        ctx.fillStyle = flameGrad;
+        ctx.beginPath();
+        ctx.ellipse(fx, fy - fh/2, W * 0.01, fh/2, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Smoke
+      ctx.fillStyle = `rgba(100, 100, 100, ${0.4 * intensity})`;
+      for (let i = 0; i < 3; i++) {
+        const smokeY = fire.y - fire.radius - W * 0.05 * i - (Date.now() * 0.02 % (W * 0.1));
+        const smokeSize = W * 0.03 * (1 + i * 0.3);
+        ctx.beginPath();
+        ctx.arc(fire.x + Math.sin(Date.now() * 0.002 + i) * W * 0.02, smokeY, smokeSize, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function drawHelicopter() {
+      const heli = state.helicopter;
+      ctx.save();
+      ctx.translate(heli.x, heli.y);
+      
+      // Body
+      ctx.fillStyle = '#D32F2F';
+      ctx.beginPath();
+      ctx.ellipse(0, 0, W * 0.035, W * 0.025, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Cockpit
+      ctx.fillStyle = '#1565C0';
+      ctx.beginPath();
+      ctx.ellipse(0, -W * 0.008, W * 0.018, W * 0.012, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Tail
+      ctx.fillStyle = '#D32F2F';
+      ctx.beginPath();
+      ctx.moveTo(0, W * 0.02);
+      ctx.lineTo(-W * 0.008, W * 0.055);
+      ctx.lineTo(W * 0.008, W * 0.055);
+      ctx.closePath();
+      ctx.fill();
+
+      // Tail rotor
+      ctx.fillStyle = '#424242';
+      ctx.save();
+      ctx.translate(0, W * 0.055);
+      ctx.rotate(state.rotorAngle * 2);
+      ctx.fillRect(-W * 0.012, -W * 0.002, W * 0.024, W * 0.004);
+      ctx.restore();
+
+      // Main rotor
+      ctx.fillStyle = '#424242';
+      ctx.save();
+      ctx.rotate(state.rotorAngle);
+      ctx.fillRect(-W * 0.05, -W * 0.003, W * 0.1, W * 0.006);
+      ctx.rotate(Math.PI / 2);
+      ctx.fillRect(-W * 0.05, -W * 0.003, W * 0.1, W * 0.006);
+      ctx.restore();
+
+      // Cross symbols
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(-W * 0.025, -W * 0.004, W * 0.008, W * 0.008);
+      ctx.fillRect(W * 0.017, -W * 0.004, W * 0.008, W * 0.008);
+      ctx.fillStyle = '#D32F2F';
+      ctx.fillRect(-W * 0.023, -W * 0.001, W * 0.004, W * 0.002);
+      ctx.fillRect(-W * 0.022, -W * 0.002, W * 0.002, W * 0.004);
+
+      // Water bucket if carrying water
+      if (state.water > 0) {
+        ctx.fillStyle = '#FFA000';
+        ctx.beginPath();
+        ctx.moveTo(-W * 0.012, W * 0.025);
+        ctx.lineTo(-W * 0.015, W * 0.04);
+        ctx.lineTo(W * 0.015, W * 0.04);
+        ctx.lineTo(W * 0.012, W * 0.025);
+        ctx.closePath();
+        ctx.fill();
+        // Water in bucket
+        ctx.fillStyle = '#29B6F6';
+        const waterHeight = (state.water / state.maxWater) * W * 0.012;
+        ctx.fillRect(-W * 0.013, W * 0.04 - waterHeight, W * 0.026, waterHeight);
+      }
+
+      ctx.restore();
+    }
+
+    function drawWaterDrops() {
+      state.waterDrops = state.waterDrops.filter(drop => {
+        drop.y += drop.vy;
+        drop.vy += 0.3;
+        drop.alpha -= 0.02;
+        
+        if (drop.alpha <= 0) return false;
+        
+        ctx.fillStyle = `rgba(41, 182, 246, ${drop.alpha})`;
+        ctx.beginPath();
+        ctx.ellipse(drop.x, drop.y, W * 0.008, W * 0.012, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        return true;
+      });
+    }
+
+    function updateHelicopter() {
+      const heli = state.helicopter;
+      
+      // Rotor animation
+      if (state.phase !== 'waiting') {
+        state.rotorSpeed = Math.min(state.rotorSpeed + 0.01, 0.4);
+      } else {
+        state.rotorSpeed = Math.max(state.rotorSpeed - 0.005, 0.05);
+      }
+      state.rotorAngle += state.rotorSpeed;
+
+      // Movement
+      if (heli.targetX !== null && heli.targetY !== null) {
+        const dx = heli.targetX - heli.x;
+        const dy = heli.targetY - heli.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        
+        if (dist > 3) {
+          const speed = 3;
+          heli.x += (dx / dist) * speed;
+          heli.y += (dy / dist) * speed;
+        } else {
+          heli.x = heli.targetX;
+          heli.y = heli.targetY;
+          heli.targetX = null;
+          heli.targetY = null;
+          onArrived();
+        }
+      }
+    }
+
+    function onArrived() {
+      if (state.phase === 'flying-to-lake') {
+        state.phase = 'at-lake';
+        showMessage('Tippe den See um Wasser aufzunehmen!');
+      } else if (state.phase === 'flying-to-fire') {
+        state.phase = 'at-fire';
+        showMessage('Tippe den Wasserbehälter um zu löschen!');
+      } else if (state.phase === 'returning') {
+        state.phase = 'at-helipad';
+        if (state.fireLevel > 0) {
+          showMessage('Tippe den Hubschrauber zum Weiterfliegen!');
+        }
+      }
+    }
+
+    function handleTap(x, y) {
+      const helipad = getAbsoluteLocation(locations.helipad);
+      const lake = getAbsoluteLocation(locations.lake);
+      const fire = getAbsoluteLocation(locations.fire);
+      const heli = state.helicopter;
+
+      // Check if tapped helicopter
+      const heliDist = Math.sqrt((x - heli.x) ** 2 + (y - heli.y) ** 2);
+      const tappedHeli = heliDist < W * 0.05;
+
+      // Check locations
+      const tappedLake = Math.sqrt((x - lake.x) ** 2 + (y - lake.y) ** 2) < lake.radius;
+      const tappedFire = Math.sqrt((x - fire.x) ** 2 + (y - fire.y) ** 2) < fire.radius;
+
+      if (state.phase === 'waiting' || state.phase === 'at-helipad') {
+        if (tappedHeli) {
+          state.phase = 'flying-to-lake';
+          heli.targetX = lake.x;
+          heli.targetY = lake.y;
+          showMessage('Fliege zum See...');
+        }
+      } else if (state.phase === 'at-lake') {
+        if (tappedLake || tappedHeli) {
+          state.water = state.maxWater;
+          updateUI();
+          state.phase = 'flying-to-fire';
+          heli.targetX = fire.x;
+          heli.targetY = fire.y;
+          showMessage('Wasser aufgenommen! Fliege zum Feuer...');
+        }
+      } else if (state.phase === 'at-fire') {
+        if ((tappedFire || tappedHeli) && state.water > 0) {
+          // Drop water
+          for (let i = 0; i < 8; i++) {
+            state.waterDrops.push({
+              x: heli.x + (Math.random() - 0.5) * W * 0.03,
+              y: heli.y + W * 0.04,
+              vy: 1 + Math.random() * 2,
+              alpha: 1
+            });
+          }
+          state.water = 0;
+          state.fireLevel = Math.max(0, state.fireLevel - 35);
+          updateUI();
+          
+          if (state.fireLevel <= 0) {
+            showMessage('');
+            document.getElementById('win-screen').style.display = 'flex';
+          } else {
+            state.phase = 'returning';
+            heli.targetX = helipad.x;
+            heli.targetY = helipad.y;
+            showMessage('Zurück zum Landeplatz...');
+          }
+        }
+      }
+    }
+
+    function showMessage(msg) {
+      document.getElementById('message').textContent = msg;
+      document.getElementById('message').style.opacity = msg ? 1 : 0;
+    }
+
+    function updateUI() {
+      document.getElementById('fire-level').textContent = Math.round(state.fireLevel);
+      document.getElementById('water-level').textContent = state.water;
+    }
+
+    function gameLoop() {
+      ctx.clearRect(0, 0, W, H);
+      drawLandscape();
+      drawFire();
+      drawWaterDrops();
+      updateHelicopter();
+      drawHelicopter();
+      requestAnimationFrame(gameLoop);
+    }
+
+    function resetGame() {
+      const helipad = getAbsoluteLocation(locations.helipad);
+      state.phase = 'waiting';
+      state.water = 0;
+      state.fireLevel = 100;
+      state.helicopter.x = helipad.x;
+      state.helicopter.y = helipad.y;
+      state.helicopter.targetX = null;
+      state.helicopter.targetY = null;
+      state.waterDrops = [];
+      document.getElementById('win-screen').style.display = 'none';
+      showMessage('Tippe den Hubschrauber zum Starten!');
+      updateUI();
+    }
+
+    // Event listeners
+    canvas.addEventListener('click', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      handleTap(x, y);
+    });
+
+    canvas.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      const rect = canvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      const x = touch.clientX - rect.left;
+      const y = touch.clientY - rect.top;
+      handleTap(x, y);
+    }, { passive: false });
+
+    document.getElementById('restart-btn').addEventListener('click', resetGame);
+
+    // Initialize
+    resetGame();
+    gameLoop();
+  </script>
+</body>
+</html>
