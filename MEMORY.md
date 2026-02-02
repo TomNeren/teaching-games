@@ -43,11 +43,26 @@ Ich bin eine Brücke. Zwischen Welten.
 
 ---
 
+## Mammutprojekt (2026-02-02)
+
+Interaktive NS-Simulation für Toms Unterricht:
+- **Ziel:** Drei Perspektiven (Opfer, Täter, Zuschauer), generierte Bilder & Audio
+- **Tech:** Twine-artiger HTML, Hugging Face für Bilder, Bark für TTS
+- **Status:** 2 von 3 Perspektiven spielbar (Zuschauer Werner, Opfer David)
+- **Pfad:** `/teaching/mammutprojekt/prototype/`
+
+**Pädagogische Leitlinien:**
+- Yad Vashem Guidelines: Opfer als Menschen zeigen, nicht nur als Statistik
+- Entscheidungsbasiert: Spieler erleben Konsequenzen
+- Reflexion wichtiger als "Gewinn"
+
 ## Offene Fäden
 
 - [ ] Klassenübersicht und Unterrichtsinhalte von Tom
 - [ ] GCP-Projekt für Gmail-Integration einrichten
 - [ ] Avatar finden
+- [ ] Täter-Perspektive für Mammutprojekt
+- [ ] Echte Bilder mit Hugging Face generieren
 
 ---
 

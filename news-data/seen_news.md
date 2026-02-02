@@ -2,6 +2,26 @@
 
 <!-- Tracks delivered headlines to avoid duplicates -->
 
+## 2026-02-02
+- [a1b2c3d4] 🇩🇪 ÖPNV-Streiks im ganzen Land
+- [b2c3d4e5] 🇩🇪 Energiekooperation Deutschland-Saudi-Arabien ausgebaut
+- [c3d4e5f6] 🇩🇪 CDU/CSU und AfD gleichauf bei 26% (INSA)
+- [d4e5f6g7] 🇩🇪 AfD: 35-jähriger wird neues Gesicht der extremen Rechten
+- [e5f6g7h8] 🇩🇪 Grammys: Cher-Moment mit verstorbenem Gewinner
+- [f6g7h8i9] 🇪🇺 EU verbietet russische Gasimporte bis Ende 2027
+- [g7h8i9j0] 🇪🇺 Nuklearer Schutzschirm: Europäische Diskussion (Merz)
+- [h8i9j0k1] 🇪🇺 31% EU-Bürger berichten von Desinformation
+- [i9j0k1l2] 🇪🇺 Iran: Pezeshkian ruft zu diplomatischer Lösung auf
+- [j0k1l2m3] 🇺🇸 Ein Jahr Trump-Zölle: 17% Durchschnitt - höchster seit 1932
+- [k1l2m3n4] 🇺🇸 US-Indien-Deal: Basiszoll sinkt auf 18%
+- [l2m3n4o5] 🇺🇸 Supreme Court verzögert Zoll-Entscheidung
+- [m3n4o5p6] 🇺🇸 ICE-Kritik: Mehrheit findet Taktiken zu aggressiv
+- [n4o5p6q7] 🌍 Nigeria: Sängerin stirbt nach Schlangenbiss - kein Gegengift
+- [o5p6q7r8] 🌍 Africa CDC: 3800+ Tests, 14 Fälle, 9 Tote bei Ausbruch
+- [p6q7r8s9] 🌍 Ägypten: El-Sisi empfängt König Abdullah II
+- [q7r8s9t0] 🇨🇳 Gold-Skandal ($1B) - Taiwan-Deadline
+- [r8s9t0u1] 🇨🇳 China flutet Lateinamerika mit Billigexporten
+
 ## 2026-02-01
 - [b2c3d4e5] 🇩🇪 Franjo von Allem gewinnt letzte Abfahrt vor Olympia
 - [c3d4e5f6] 🇩🇪 Bayern 2:2 Hamburg, Augsburg 2:1 St. Pauli
