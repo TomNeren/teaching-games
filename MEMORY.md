@@ -61,8 +61,9 @@ Interaktive NS-Simulation für Toms Unterricht:
 - [ ] Klassenübersicht und Unterrichtsinhalte von Tom
 - [ ] GCP-Projekt für Gmail-Integration einrichten
 - [ ] Avatar finden
-- [ ] Täter-Perspektive für Mammutprojekt
-- [ ] Echte Bilder mit Hugging Face generieren
+- [ ] Täter-Perspektive für Mammutprojekt → Story-Struktur fertig!
+- [x] Echte Bilder mit Hugging Face generieren (12 Bilder ✓)
+- [ ] Suno-MP3s von Tom empfangen und integrieren
 
 ---
 
