@@ -1,0 +1,166 @@
+{
+  "metadata": {
+    "title": "Pflicht und Gewissen",
+    "subtitle": "Die Geschichte eines Ordnungspolizisten",
+    "perspective": "perpetrator",
+    "protagonist": "Friedrich 'Fritz' Müller",
+    "timeframe": "1942",
+    "setting": "Deutsches Reich / Besetzte Ostgebiete",
+    "warning": "Diese Perspektive zeigt die Sicht eines Täters. Sie soll nicht rechtfertigen, sondern verstehen helfen, wie gewöhnliche Menschen zu Mittätern wurden.",
+    "ageRating": "18+",
+    "version": "0.1-draft"
+  },
+  
+  "protagonist": {
+    "name": "Friedrich Müller",
+    "nickname": "Fritz",
+    "age": 32,
+    "occupation": "Ordnungspolizist (Wachtmeister)",
+    "family": {
+      "wife": "Helga",
+      "child": "Klaus (5 Jahre)"
+    },
+    "background": {
+      "origin": "Hannover, Arbeiterviertel",
+      "education": "Volksschule, Polizeiausbildung",
+      "politics": "Konservativ, NSDAP-Mitglied seit 1937 (Karrieregründe)",
+      "personality": "Pflichtbewusst, ordnungsliebend, konfliktscheu"
+    }
+  },
+  
+  "chapters": [
+    {
+      "id": "prolog",
+      "title": "Prolog: Der Marschbefehl",
+      "date": "März 1942",
+      "setting": "Polizeikaserne, Hannover",
+      "summary": "Fritz erhält den Befehl, sich einem 'Sondereinsatz im Osten' anzuschließen. Was genau dort geschehen soll, bleibt vage."
+    },
+    {
+      "id": "chapter1",
+      "title": "Kapitel 1: Ankunft",
+      "date": "April 1942",
+      "setting": "Besetzte polnische Gebiete",
+      "summary": "Die Einheit erreicht ihr Einsatzgebiet. Gerüchte über frühere 'Aktionen' machen die Runde. Fritz versucht, sich auf seine Pflichten zu konzentrieren.",
+      "keyDecision": {
+        "situation": "Ein älterer Kamerad erzählt beim Abendbrot, was bei den 'Aktionen' wirklich passiert.",
+        "options": [
+          {
+            "text": "Genauer nachfragen, was genau passiert",
+            "consequence": "Fritz erfährt die grausame Wahrheit früh"
+          },
+          {
+            "text": "Das Thema wechseln - 'Ich will nichts davon hören'",
+            "consequence": "Fritz schützt sich durch Unwissen"
+          },
+          {
+            "text": "Mitlachen und so tun, als wäre es normal",
+            "consequence": "Fritz passt sich der Gruppendynamik an"
+          }
+        ]
+      }
+    },
+    {
+      "id": "chapter2",
+      "title": "Kapitel 2: Der erste Befehl",
+      "date": "April 1942",
+      "setting": "Polnisches Dorf",
+      "summary": "Der Hauptmann versammelt die Einheit. Morgen soll eine 'Umsiedlungsaktion' stattfinden. Wer nicht teilnehmen kann, soll vortreten.",
+      "keyDecision": {
+        "situation": "Der Hauptmann bietet an: Wer sich nicht in der Lage fühlt, kann andere Aufgaben übernehmen. Die Kameraden schauen.",
+        "options": [
+          {
+            "text": "Vortreten und um andere Aufgabe bitten",
+            "consequence": "Verachtende Blicke, aber keine Strafe. Fritz wird zum Bewachen eingeteilt."
+          },
+          {
+            "text": "Stillschweigend in der Reihe bleiben",
+            "consequence": "Fritz nimmt teil. Die Kameraden nicken anerkennend."
+          },
+          {
+            "text": "Krankheit vortäuschen",
+            "consequence": "Funktioniert einmal. Fritz gewinnt Zeit zum Nachdenken."
+          }
+        ]
+      }
+    },
+    {
+      "id": "chapter3",
+      "title": "Kapitel 3: Die Aktion",
+      "date": "Morgendämmerung",
+      "setting": "Waldrand außerhalb des Dorfes",
+      "summary": "Der Tag der 'Aktion'. Was Fritz erlebt, wird ihn für immer verändern.",
+      "keyDecision": {
+        "situation": "Fritz steht mit erhobener Waffe. Vor ihm eine Familie - Eltern, zwei Kinder. Der Befehl wurde gegeben.",
+        "options": [
+          {
+            "text": "Gehorsam ausführen - 'Es muss sein'",
+            "consequence": "Fritz wird Teil des Verbrechens"
+          },
+          {
+            "text": "Absichtlich danebenschießen",
+            "consequence": "Riskant - wenn jemand es bemerkt..."
+          },
+          {
+            "text": "Die Waffe senken und weggehen",
+            "consequence": "Ein Kamerad übernimmt. Fritz fühlt Erleichterung und Scham zugleich."
+          },
+          {
+            "text": "Sich weigern - laut und deutlich",
+            "consequence": "Aufruhr. Der Hauptmann kommt. Fritz wird abgeführt."
+          }
+        ]
+      },
+      "note": "ACHTUNG: Diese Szene wird nicht grafisch dargestellt. Der Fokus liegt auf Fritz' innerer Zerrissenheit, nicht auf der Gewalt."
+    },
+    {
+      "id": "chapter4",
+      "title": "Kapitel 4: Die Nacht danach",
+      "date": "Nacht",
+      "setting": "Quartier der Einheit",
+      "summary": "Die Männer trinken. Manche weinen. Manche prahlen. Fritz liegt wach und fragt sich: Wer bin ich jetzt?",
+      "keyDecision": {
+        "situation": "Ein junger Polizist sitzt allein und zittert. Er war auch dabei.",
+        "options": [
+          {
+            "text": "Ihn ansprechen und Trost anbieten",
+            "consequence": "Menschlicher Moment. Aber was kann Fritz sagen?"
+          },
+          {
+            "text": "Sich zum Alkohol setzen und mittrinken",
+            "consequence": "Betäubung. Morgen ist auch noch ein Tag."
+          },
+          {
+            "text": "Einen Brief an Helga schreiben",
+            "consequence": "Was kann er schreiben? Die Zensur liest mit."
+          }
+        ]
+      }
+    },
+    {
+      "id": "epilog",
+      "title": "Epilog: Die Rückkehr",
+      "date": "1945 / 1963",
+      "setting": "Deutschland",
+      "summary": "Der Krieg ist vorbei. Jahrzehnte später steht Fritz vor Gericht. Was sagt er?",
+      "reflection": [
+        "Wie wurde aus dem Familienvater Fritz ein Mittäter?",
+        "Welche Entscheidungen waren Wendepunkte?",
+        "Hätte er 'Nein' sagen können?",
+        "Was bedeutet 'Befehl ist Befehl'?",
+        "Wer trägt die Verantwortung?"
+      ]
+    }
+  ],
+  
+  "educationalNotes": {
+    "beforePlaying": "Diese Simulation ist kein Spiel. Sie zeigt, wie gewöhnliche Menschen zu Tätern wurden. Das Ziel ist Verstehen - nicht Rechtfertigung.",
+    "afterPlaying": [
+      "Welche Gefühle hattest du während der Simulation?",
+      "An welchen Punkten hättest du anders entschieden?",
+      "Was hätte Fritz helfen können, sich zu widersetzen?",
+      "Erkennst du die Mechanismen (Gehorsam, Gruppendruck, Karriere) auch heute?",
+      "Warum ist es wichtig, auch die Täter-Perspektive zu verstehen?"
+    ]
+  }
+}
