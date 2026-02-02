@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entscheidungen 1935-1941: David — Eine interaktive Simulation</title>
+    <style>
+        :root {
+            --bg-dark: #1a1a1a;
+            --bg-card: #2a2a2a;
+            --text-main: #e0e0e0;
+            --text-muted: #888;
+            --accent: #6a9fb5;
+            --accent-hover: #7aafcc;
+            --danger: #8b0000;
+            --hope: #5a7a4a;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.8;
+            min-height: 100vh;
+        }
+        
+        .container { max-width: 800px; margin: 0 auto; padding: 2rem; }
+        
+        .title-screen {
+            text-align: center;
+            padding: 4rem 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .title-screen h1 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        .title-screen .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+        
+        .warning-box {
+            background: var(--danger);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem auto;
+            max-width: 600px;
+            text-align: left;
+        }
+        
+        .story-section { display: none; animation: fadeIn 0.5s ease; }
+        .story-section.active { display: block; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .chapter-header {
+            text-align: center;
+            padding: 2rem 0;
+            border-bottom: 1px solid #444;
+            margin-bottom: 2rem;
+        }
+        
+        .chapter-header h2 { color: var(--accent); font-size: 1.8rem; }
+        .chapter-header .date { color: var(--text-muted); font-style: italic; }
+        
+        .narrative { margin-bottom: 2rem; }
+        .narrative p { margin-bottom: 1.5rem; text-align: justify; }
+        .narrative p.emphasis { font-style: italic; color: var(--accent); }
+        .narrative p.thought {
+            font-style: italic;
+            padding-left: 2rem;
+            border-left: 3px solid var(--accent);
+        }
+        
+        .dialogue {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: var(--bg-card);
+            border-radius: 8px;
+        }
+        .dialogue .speaker { font-weight: bold; color: var(--accent); }
+        
+        .choices {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #444;
+        }
+        
+        .choices h3 {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        
+        .choice-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            background: var(--bg-card);
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 1rem;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .choice-btn:hover {
+            background: #3a3a3a;
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+        
+        .choice-btn .choice-key {
+            display: inline-block;
+            width: 2rem;
+            height: 2rem;
+            line-height: 2rem;
+            text-align: center;
+            background: var(--accent);
+            color: var(--bg-dark);
+            border-radius: 4px;
+            margin-right: 1rem;
+            font-weight: bold;
+        }
+        
+        .status-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            padding: 0.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            z-index: 100;
+            border-bottom: 1px solid #444;
+        }
+        
+        .status-bar .stat { color: var(--text-muted); }
+        .status-bar .stat span { color: var(--accent); }
+        
+        .consequence {
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .consequence.loss { border-left-color: var(--danger); }
+        .consequence.hope { border-left-color: var(--hope); }
+        
+        .consequence h4 {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        
+        .continue-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--accent);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 2rem;
+        }
+        
+        .continue-btn:hover { background: var(--accent-hover); }
+        
+        .scene-image {
+            width: 100%;
+            height: 250px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            margin: 2rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-style: italic;
+            text-align: center;
+            padding: 1rem;
+        }
+        
+        .memory-box {
+            background: #1a2a1a;
+            border: 1px solid var(--hope);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+        
+        .memory-box h4 {
+            color: var(--hope);
+            margin-bottom: 0.5rem;
+        }
+        
+        .document-box {
+            background: #2a2820;
+            border: 1px solid #665;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .document-box h4 {
+            font-family: Georgia, serif;
+            color: #aa9;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #665;
+            padding-bottom: 0.5rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid #444;
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="status-bar" class="status-bar" style="display: none;">
+        <div class="stat">Jahr: <span id="current-year">1935</span></div>
+        <div class="stat">David Rosenthal, <span id="david-age">16</span> Jahre</div>
+        <div class="stat">Kapitel <span id="current-chapter">1</span>/5</div>
+    </div>
+
+    <div class="container">
+        <!-- TITLE SCREEN -->
+        <section id="title" class="story-section active">
+            <div class="title-screen">
+                <p style="color: var(--text-muted); margin-bottom: 1rem;">ENTSCHEIDUNGEN</p>
+                <h1>DAVID</h1>
+                <p class="subtitle">1935 — 1941</p>
+                
+                <div class="warning-box">
+                    <h3>⚠️ Inhaltswarnung</h3>
+                    <p>Diese Simulation erzählt die Geschichte eines jüdischen Jugendlichen im nationalsozialistischen Deutschland. Sie enthält Darstellungen von Diskriminierung, Verfolgung und Verlust.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Zielgruppe: 18+</strong></p>
+                </div>
+                
+                <p style="margin: 2rem 0; color: var(--text-muted);">
+                    Du bist <strong>David Rosenthal</strong>, 16 Jahre alt.<br>
+                    Sohn eines Textilhändlers. Deutscher. Jude.<br>
+                    Bis gestern war das kein Widerspruch.
+                </p>
+                
+                <button class="continue-btn" onclick="startGame()">Beginnen</button>
+            </div>
+        </section>
+
+        <!-- CHAPTER 1: Der erste Tag -->
+        <section id="chapter1" class="story-section">
+            <div class="chapter-header">
+                <h2>Kapitel 1: Der erste Tag</h2>
+                <p class="date">16. September 1935</p>
+            </div>
+            
+            <div class="scene-image">
+                [Bild: Deutsches Wohnzimmer 1935, Familie am Radio, besorgte Gesichter]
+            </div>
+            
+            <div class="narrative">
+                <p>Das Radio knackt. Dein Vater hat seit Stunden nicht gesprochen. Er sitzt da, die Hand auf dem Radiogehäuse, als könne er die Worte zurückhalten, die bereits gesagt wurden.</p>
+                
+                <p class="emphasis">"...und so beschließt der Reichstag einstimmig das Gesetz zum Schutze des deutschen Blutes und der deutschen Ehre..."</p>
+                
+                <p>Deine Mutter steht in der Küchentür. Sie weint leise.</p>
+                
+                <p class="thought">Du verstehst nicht alles, was sie im Radio sagen. Aber du verstehst genug. "Reichsbürger" — das bist du nicht mehr. "Deutschblütig" — das warst du nie, sagen sie jetzt.</p>
+            </div>
+            
+            <div class="document-box">
+                <h4>📜 Reichsbürgergesetz, 15. September 1935</h4>
+                <p>§ 2 (1) Reichsbürger ist nur der Staatsangehörige deutschen oder artverwandten Blutes, der durch sein Verhalten beweist, dass er gewillt und geeignet ist, in Treue dem deutschen Volk und Reich zu dienen.</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Gestern warst du noch Klassenbester in Mathematik. Heute bist du — was genau?</p>
+                
+                <p>Morgen ist Montag. Schule. Karl, dein bester Freund seit der Grundschule, wollte mit dir für die Physikprüfung lernen.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Vater:</span> "David... ich weiß nicht, ob du morgen zur Schule gehen solltest. Vielleicht warten wir ab, wie—"</p>
+                <p><span class="speaker">Mutter:</span> "Jakob! Er soll doch nicht—"</p>
+                <p><span class="speaker">Vater:</span> "Ich weiß nicht, Hannah. Ich weiß es nicht."</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was tust du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('1a')">
+                    <span class="choice-key">A</span>
+                    Zur Schule gehen — du lässt dich nicht einschüchtern
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('1b')">
+                    <span class="choice-key">B</span>
+                    Zu Hause bleiben — abwarten, wie die anderen reagieren
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('1c')">
+                    <span class="choice-key">C</span>
+                    Karl anrufen und fragen, ob er noch mit dir lernen will
+                </button>
+            </div>
+        </section>
+
+        <!-- CHAPTER 1a: School -->
+        <section id="chapter1a" class="story-section">
+            <div class="chapter-header">
+                <h2>Die Schule</h2>
+                <p class="date">17. September 1935, 7:45 Uhr</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Der Schulhof ist wie immer. Und doch nicht.</p>
+                
+                <p>Du bemerkst die Blicke, bevor du die Stille bemerkst. Fritz Wehner, der dich letzte Woche noch um Hilfe bei den Hausaufgaben gebeten hat, dreht sich weg. Ein paar Mädchen aus der Parallelklasse tuscheln.</p>
+                
+                <p>Dann siehst du Karl. Er steht bei den anderen, die Hände in den Taschen.</p>
+                
+                <p class="thought">Karl. Wir kennen uns seit wir sechs sind. Er war bei meiner Bar Mizwa. Ich war bei seiner Konfirmation.</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Du gehst auf ihn zu. Er sieht dich kommen. Einen Moment lang glaubst du, ein Lächeln zu sehen.</p>
+                
+                <p>Dann wendet er sich ab und geht ins Schulgebäude. Ohne ein Wort.</p>
+            </div>
+            
+            <div class="consequence loss">
+                <h4>Verlust</h4>
+                <p>Manche Freundschaften überleben nicht, wenn Freundschaft gefährlich wird. Das ist keine Entschuldigung. Aber es ist eine Erklärung.</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Im Klassenzimmer ist ein Platz leer. Der neben Karl. Dein Platz.</p>
+                
+                <p>Herr Müller, der Mathematiklehrer, räuspert sich.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Herr Müller:</span> "Rosenthal. Ab heute sitzt du... hinten. Letzte Reihe."</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Dreißig Augenpaare. Niemand sagt etwas. Niemand protestiert.</p>
+                
+                <p class="thought">Die letzte Reihe. Von dort aus kann ich die Tafel kaum lesen. Aber das ist wohl nicht mehr wichtig.</p>
+            </div>
+            
+            <button class="continue-btn" onclick="goToChapter('chapter2')">Weiter</button>
+        </section>
+
+        <!-- CHAPTER 1b: Stay home -->
+        <section id="chapter1b" class="story-section">
+            <div class="chapter-header">
+                <h2>Zu Hause</h2>
+                <p class="date">17. September 1935</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Du bleibst zu Hause. Dein Vater geht ins Geschäft — "Es muss ja weitergehen" —, deine Mutter räumt die Wohnung auf, wieder und wieder, als könne Ordnung die Welt reparieren.</p>
+                
+                <p>Du sitzt am Fenster und siehst die anderen zur Schule gehen. Karl ist nicht dabei. Vielleicht nimmt er einen anderen Weg.</p>
+                
+                <p class="thought">Oder vielleicht will er nicht an meinem Haus vorbei.</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Am Nachmittag klingelt das Telefon. Deine Mutter nimmt ab, lauscht, legt auf.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Mutter:</span> "Das war Frau Wehner. Fritz darf nicht mehr mit dir spielen."</p>
+                <p style="margin-top: 0.5rem; font-style: italic;">(Pause)</p>
+                <p><span class="speaker">Mutter:</span> "Sie hat geweint, als sie es sagte."</p>
+            </div>
+            
+            <div class="consequence">
+                <h4>Isolation</h4>
+                <p>Die Mauern werden nicht aus Stein gebaut. Sie werden aus Schweigen und abgewandten Blicken errichtet.</p>
+            </div>
+            
+            <button class="continue-btn" onclick="goToChapter('chapter2')">Weiter</button>
+        </section>
+
+        <!-- CHAPTER 1c: Call Karl -->
+        <section id="chapter1c" class="story-section">
+            <div class="chapter-header">
+                <h2>Der Anruf</h2>
+                <p class="date">16. September 1935, Abend</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Du gehst zum Telefon. Die Nummer kennst du auswendig. Drei Klingeltöne, dann Karls Mutter.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Frau Brenner:</span> "Brenner."</p>
+                <p><span class="speaker">Du:</span> "Guten Abend, Frau Brenner. Hier ist David. Ist Karl—"</p>
+                <p><span class="speaker">Frau Brenner:</span> "David. Ich... Karl ist nicht da."</p>
+                <p><span class="speaker">Du:</span> "Können Sie ihm sagen, dass ich—"</p>
+                <p><span class="speaker">Frau Brenner:</span> "David. Es ist besser, wenn du nicht mehr anrufst. Du verstehst das doch, oder?"</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Klick.</p>
+                
+                <p>Du stehst da, den Hörer noch am Ohr. Das Freizeichen summt.</p>
+                
+                <p class="thought">Frau Brenner hat mir letztes Jahr zum Geburtstag einen Kuchen gebacken. Mit Schokoladenglasur. Karl sagte, sie mag mich.</p>
+            </div>
+            
+            <div class="memory-box">
+                <h4>💭 Erinnerung</h4>
+                <p>Sommer 1933. Du und Karl am See. Er hat dir das Schwimmen beigebracht, weil du dich nicht getraut hast. "Ich halt dich fest", hat er gesagt. "Ich lass dich nicht untergehen."</p>
+            </div>
+            
+            <button class="continue-btn" onclick="goToChapter('chapter2')">Weiter</button>
+        </section>
+
+        <!-- CHAPTER 2: Das Geschäft -->
+        <section id="chapter2" class="story-section">
+            <div class="chapter-header">
+                <h2>Kapitel 2: Das Geschäft</h2>
+                <p class="date">März 1938</p>
+            </div>
+            
+            <div class="scene-image">
+                [Bild: Kleines Textilgeschäft mit "Kauft nicht bei Juden"-Schild vor der Tür, fast leer]
+            </div>
+            
+            <div class="narrative">
+                <p>Zweieinhalb Jahre sind vergangen. Du bist jetzt 18. Du hättest Abitur machen sollen, aber jüdische Schüler wurden letztes Jahr von den öffentlichen Schulen verwiesen.</p>
+                
+                <p>Jetzt hilfst du im Geschäft. Was davon übrig ist.</p>
+                
+                <p>Das Schaufenster, das dein Großvater 1901 einbauen ließ, ist leer. Die wenigen Kunden, die noch kommen, tun es heimlich, durch den Hintereingang.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Vater:</span> "Die Steins sind letzte Woche nach Amerika gegangen. Die Goldbergs nach Palästina."</p>
+                <p style="margin-top: 0.5rem;">(Er faltet eine Zeitung zusammen, die er nicht gelesen hat.)</p>
+                <p><span class="speaker">Vater:</span> "Vielleicht sollten wir auch..."</p>
+                <p><span class="speaker">Mutter:</span> "Und wohin, Jakob? Mit welchem Geld? Die Reichsfluchtsteuer allein—"</p>
+                <p><span class="speaker">Vater:</span> "Ich weiß. Ich weiß."</p>
+            </div>
+            
+            <div class="narrative">
+                <p class="thought">Emigrieren. Das Wort hängt in der Luft wie ein Geruch, den niemand beim Namen nennen will.</p>
+                
+                <p>Du hast gehört, dass man für ein amerikanisches Visum Jahre warten muss. Dass England nur Kinder aufnimmt. Dass Shanghai keine Visa braucht — aber Shanghai ist so weit.</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was sagst du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('2a')">
+                    <span class="choice-key">A</span>
+                    "Vater, wir sollten gehen. Egal wohin. Hier wird es nicht besser."
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('2b')">
+                    <span class="choice-key">B</span>
+                    "Das ist unser Zuhause. Großvater hat das Geschäft aufgebaut. Wir können nicht einfach—"
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('2c')">
+                    <span class="choice-key">C</span>
+                    Schweigen. Du weißt auch nicht, was richtig ist.
+                </button>
+            </div>
+        </section>
+
+        <!-- CHAPTER 3: Die Nacht -->
+        <section id="chapter3" class="story-section">
+            <div class="chapter-header">
+                <h2>Kapitel 3: Die Nacht</h2>
+                <p class="date">9. November 1938, 23:30 Uhr</p>
+            </div>
+            
+            <div class="scene-image">
+                [Bild: Blick aus dunklem Fenster auf brennende Straße, Schatten von Menschen]
+            </div>
+            
+            <div class="narrative">
+                <p>Du wachst vom Lärm auf. Schreie. Glas.</p>
+                
+                <p>Du rennst ins Wohnzimmer. Deine Eltern stehen am Fenster, im Dunkeln. Unten auf der Straße — Fackeln. Männer mit Äxten.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Mutter:</span> "Jakob, nicht! Bleib hier!"</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Aber dein Vater geht schon zur Tür. "Das ist mein Geschäft. Mein Leben."</p>
+                
+                <p>Bevor du etwas sagen kannst, ist er draußen.</p>
+                
+                <p>Du hörst seine Stimme — "Bitte, meine Herren, das ist doch—" — und dann einen dumpfen Schlag. Und Gelächter.</p>
+            </div>
+            
+            <div class="consequence loss">
+                <h4>Die Grenze</h4>
+                <p>Es gibt Momente, die eine Linie ziehen. Vorher und Nachher. Dies ist so ein Moment.</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Deine Mutter schreit. Du stehst in der Wohnungstür und siehst deinen Vater auf den Knien, Blut im Gesicht.</p>
+                
+                <p>Ein SA-Mann dreht sich zu dir um.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">SA-Mann:</span> "Da ist noch einer. Komm runter, Judenbengel."</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was tust du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('3a')">
+                    <span class="choice-key">A</span>
+                    Runtergehen — du willst bei deinem Vater sein
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('3b')">
+                    <span class="choice-key">B</span>
+                    Die Tür schließen und verstecken
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('3c')">
+                    <span class="choice-key">C</span>
+                    Um Hilfe rufen — vielleicht hört jemand
+                </button>
+            </div>
+        </section>
+
+        <!-- EPILOG -->
+        <section id="epilog" class="story-section">
+            <div class="chapter-header">
+                <h2>Epilog</h2>
+                <p class="date" id="epilog-date"></p>
+            </div>
+            
+            <div class="narrative">
+                <p id="epilog-text"></p>
+            </div>
+            
+            <div class="consequence">
+                <h4>Historischer Kontext</h4>
+                <p>Von den etwa 500.000 deutschen Juden, die 1933 in Deutschland lebten, konnten etwa 280.000 emigrieren. Die übrigen 220.000 wurden Opfer des Holocaust.</p>
+                <p style="margin-top: 0.5rem;">Die Rosenthals sind eine fiktive Familie. Aber ihre Geschichte steht für hunderttausende reale Schicksale.</p>
+            </div>
+            
+            <div class="memory-box">
+                <h4>In Erinnerung</h4>
+                <p>Diese Simulation ist den Opfern gewidmet — und denen, die überlebt haben, um Zeugnis abzulegen.</p>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <button class="continue-btn" onclick="location.reload()">Neu beginnen</button>
+                <button class="continue-btn" style="background: #444; margin-left: 1rem;" onclick="window.location.href='index.html'">Andere Perspektive</button>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>Entscheidungen: David | Version 0.1</p>
+        <p>Teil des Projekts "Entscheidungen 1933-1945"</p>
+        <p style="margin-top: 0.5rem;">Für Bildungszwecke | Berufliche Schule Lörrach</p>
+    </footer>
+
+    <script>
+        let gameState = {
+            year: 1935,
+            age: 16,
+            chapter: 1,
+            decisions: [],
+            flags: {}
+        };
+        
+        const storyPaths = {
+            '1a': { next: 'chapter1a', desc: 'Zur Schule gegangen', flag: 'went_to_school' },
+            '1b': { next: 'chapter1b', desc: 'Zu Hause geblieben', flag: 'stayed_home' },
+            '1c': { next: 'chapter1c', desc: 'Karl angerufen', flag: 'called_karl' },
+            '2a': { next: 'chapter3', desc: 'Für Emigration argumentiert', flag: 'wanted_emigration', yearJump: 1938 },
+            '2b': { next: 'chapter3', desc: 'Bleiben wollen', flag: 'wanted_to_stay', yearJump: 1938 },
+            '2c': { next: 'chapter3', desc: 'Geschwiegen', flag: 'silent', yearJump: 1938 },
+            '3a': { next: 'epilog', desc: 'Zum Vater gegangen', flag: 'went_to_father' },
+            '3b': { next: 'epilog', desc: 'Versteckt', flag: 'hid' },
+            '3c': { next: 'epilog', desc: 'Um Hilfe gerufen', flag: 'called_for_help' }
+        };
+        
+        function startGame() {
+            document.getElementById('title').classList.remove('active');
+            document.getElementById('chapter1').classList.add('active');
+            document.getElementById('status-bar').style.display = 'flex';
+            updateStatus();
+        }
+        
+        function makeChoice(choiceId) {
+            const path = storyPaths[choiceId];
+            if (!path) return;
+            
+            gameState.decisions.push({ id: choiceId, description: path.desc });
+            gameState.flags[path.flag] = true;
+            
+            if (path.yearJump) {
+                gameState.year = path.yearJump;
+                gameState.age = 16 + (path.yearJump - 1935);
+            }
+            
+            document.querySelectorAll('.story-section').forEach(s => s.classList.remove('active'));
+            
+            const nextSection = document.getElementById(path.next);
+            if (nextSection) {
+                nextSection.classList.add('active');
+                window.scrollTo(0, 0);
+                
+                if (path.next === 'epilog') generateEpilog();
+            }
+            
+            updateStatus();
+        }
+        
+        function goToChapter(chapterId) {
+            document.querySelectorAll('.story-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(chapterId).classList.add('active');
+            
+            if (chapterId === 'chapter2') {
+                gameState.year = 1938;
+                gameState.age = 18;
+                gameState.chapter = 2;
+            }
+            if (chapterId === 'chapter3') {
+                gameState.chapter = 3;
+            }
+            
+            updateStatus();
+            window.scrollTo(0, 0);
+        }
+        
+        function updateStatus() {
+            document.getElementById('current-year').textContent = gameState.year;
+            document.getElementById('david-age').textContent = gameState.age;
+            document.getElementById('current-chapter').textContent = gameState.chapter;
+        }
+        
+        function generateEpilog() {
+            const epilogDate = document.getElementById('epilog-date');
+            const epilogText = document.getElementById('epilog-text');
+            
+            let text = '';
+            
+            if (gameState.flags.went_to_father) {
+                epilogDate.textContent = "Dezember 1938";
+                text = `<p>Du bist zu deinem Vater gegangen. Die SA-Männer haben euch beide mitgenommen.</p>
+                <p style="margin-top: 1.5rem;">Dein Vater starb im Februar 1939 im KZ Buchenwald. Erschöpfung, sagten sie. Du wurdest nach sechs Wochen entlassen — einer der "Glücklichen".</p>
+                <p style="margin-top: 1.5rem;">Deine Mutter und du habt versucht zu emigrieren. Die Visa kamen zu spät.</p>
+                <p style="margin-top: 1.5rem; color: var(--danger);">Im Oktober 1941 wurdet ihr nach Osten deportiert. Die Spur endet in Riga.</p>`;
+            } else if (gameState.flags.hid) {
+                epilogDate.textContent = "1941";
+                text = `<p>Du hast dich versteckt. Die SA fand dich nicht in dieser Nacht.</p>
+                <p style="margin-top: 1.5rem;">Dein Vater wurde ins KZ Buchenwald gebracht. Er kam nicht zurück.</p>
+                <p style="margin-top: 1.5rem;">Mit dem letzten Geld kaufte deine Mutter einen Platz auf einem Kindertransport nach England. Für dich. Sie blieb zurück.</p>
+                <p style="margin-top: 1.5rem; color: var(--hope);">Du hast überlebt. Du hast Zeugnis abgelegt. Du hast eine Familie gegründet, Kinder bekommen, die deinen Namen tragen.</p>
+                <p style="margin-top: 1rem;">Aber jede Nacht, seit über 70 Jahren, hörst du im Traum, wie sie deinen Vater schlagen. Und du bist nicht runtergegangen.</p>`;
+            } else if (gameState.flags.called_for_help) {
+                epilogDate.textContent = "November 1938";
+                text = `<p>Du hast um Hilfe gerufen. Niemand kam.</p>
+                <p style="margin-top: 1.5rem;">Die Nachbarn hörten. Herr Hoffmann gegenüber stand am Fenster. Er sah dich. Dann zog er den Vorhang zu.</p>
+                <p style="margin-top: 1.5rem;">Dein Vater wurde abgeführt. Du auch. Im Chaos der Nacht wurde deine Mutter allein gelassen.</p>
+                <p style="margin-top: 1.5rem;">Ihr habt euch nie wiedergesehen.</p>`;
+            }
+            
+            epilogText.innerHTML = text;
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const key = e.key.toLowerCase();
+            const buttons = document.querySelectorAll('.story-section.active .choice-btn');
+            if (key === 'a' && buttons[0]) buttons[0].click();
+            if (key === 'b' && buttons[1]) buttons[1].click();
+            if (key === 'c' && buttons[2]) buttons[2].click();
+        });
+    </script>
+</body>
+</html>
