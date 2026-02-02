@@ -3,6 +3,14 @@
 <!-- Tracks delivered headlines to avoid duplicates -->
 
 ## 2026-02-01
+- [b2c3d4e5] 🇩🇪 Franjo von Allem gewinnt letzte Abfahrt vor Olympia
+- [c3d4e5f6] 🇩🇪 Bayern 2:2 Hamburg, Augsburg 2:1 St. Pauli
+- [d4e5f6g7] 🇩🇪 Klaus Schöning (Hörspiel-Erneuerer) gestorben
+- [e5f6g7h8] 🇺🇸 Shutdown: House-Abstimmung frühestens Montag
+- [f6g7h8i9] 🇺🇸 Supreme Court: Können Staaten Betteln verbieten?
+- [g7h8i9j0] 🇨🇳 Nuklearaufrüstung: 100 Sprengköpfe/Jahr seit 2023
+- [h8i9j0k1] 🇨🇳 Handelsbilanz erwürgt globale Produktion
+- [i9j0k1l2] 🇨🇳 UK: China hebt Sanktionen gegen MPs auf
 - [a1b2c3d4] 🇩🇪 Nürnberg-Regensburg: Fünf Monate Bahn-Sperrung
 - [e5f6g7h8] 🇩🇪 DFB lehnt WM-Boykott trotz Trump-Kritik ab
 - [i9j0k1l2] 🇩🇪 Bundesregierung setzt EU-Asylsystem um
