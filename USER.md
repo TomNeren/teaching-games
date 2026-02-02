@@ -22,6 +22,11 @@ Entwicklungsschritte der Kinder sind wichtig — Tom möchte verstehen, was die 
 - Berufskolleg für Sozialpädagogen  
 - Berufliches Gymnasium
 
+**Fächer:**
+- Englisch
+- Politik/Geschichte
+- Lebensweltkunde
+
 → Unterrichtsplanung ist ein Bereich, wo ich unterstützen kann.
 → Klassenübersicht und Inhalte folgen noch.
 

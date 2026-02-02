@@ -2,35 +2,47 @@
 
 Skills define *how* tools work. This file is for *your* specifics — the stuff that's unique to your setup.
 
-## What Goes Here
+---
 
-Things like:
-- Camera names and locations
-- SSH hosts and aliases  
-- Preferred voices for TTS
-- Speaker/room names
-- Device nicknames
-- Anything environment-specific
+## Websuche
 
-## Examples
+| Tool | Befehl | Stärke |
+|------|--------|--------|
+| **Brave** | `web_search` (native) | Schnell, strukturiert |
+| **DuckDuckGo** | `/root/.openclaw/tools/ddg "query"` | Kostenlos, unbegrenzt |
+| **Tavily** | `mcporter call tavily.tavily_search query="..."` | Deep Research, Crawling |
+| **Serper** | `mcporter call serper.google_search q="..." gl=de hl=de` | Google-Ergebnisse |
 
-```markdown
-### Cameras
-- living-room → Main area, 180° wide angle
-- front-door → Entrance, motion-triggered
+## Akademische Recherche
 
-### SSH
-- home-server → 192.168.1.100, user: admin
+```bash
+# Alle Quellen durchsuchen
+/root/.openclaw/tools/research "pedagogy bilingual" -n 5
 
-### TTS
-- Preferred voice: "Nova" (warm, slightly British)
-- Default speaker: Kitchen HomePod
+# Nur OpenAlex (260M+ Papers)
+/root/.openclaw/tools/research "query" -s openalex --education
+
+# Nur ERIC (US Education)
+/root/.openclaw/tools/research "query" -s eric
+
+# Fachportal Pädagogik
+/root/.openclaw/tools/research "query" -s fachportal
 ```
 
-## Why Separate?
-
-Skills are shared. Your setup is yours. Keeping them apart means you can update skills without losing your notes, and share skills without leaking your infrastructure.
+**Quellen:**
+- **OpenAlex** — 260M+ akademische Werke, Open Access, kostenlos
+- **ERIC** — US Department of Education, Bildungsforschung
+- **Fachportal Pädagogik** — Deutsche Bildungsforschung (DIPF)
 
 ---
 
-Add whatever helps you do your job. This is your cheat sheet.
+## Email
+
+- `gog` CLI installiert (v0.9.0)
+- GCP-Projekt noch nicht eingerichtet
+
+---
+
+## Sonstiges
+
+*Hier kommen lokale Notizen hin: Kamera-Namen, SSH-Hosts, TTS-Stimmen...*
