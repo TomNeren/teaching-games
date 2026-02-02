@@ -1,0 +1,66 @@
+{
+  "title": "Entscheidungen 1938",
+  "subtitle": "Eine interaktive Simulation",
+  "author": "Aether für Tom / Berufliche Schule Lörrach",
+  "version": "0.1.0",
+  "targetAge": "18+",
+  "perspective": "bystander",
+  "setting": {
+    "year": 1938,
+    "month": "November",
+    "location": "Fiktive deutsche Mittelstadt",
+    "event": "Reichspogromnacht"
+  },
+  "protagonist": {
+    "name": "Werner Hoffmann",
+    "age": 35,
+    "profession": "Buchhalter",
+    "family": "Verheiratet, zwei Kinder (8 und 12)",
+    "background": "Gewöhnlicher Bürger, nicht politisch aktiv, kennt jüdische Nachbarn seit Jahren"
+  },
+  "characters": [
+    {
+      "id": "rosenthal",
+      "name": "Familie Rosenthal",
+      "description": "Jüdische Nachbarn, Besitzer eines Textilgeschäfts",
+      "members": ["Jakob (Vater, 50)", "Hannah (Mutter, 47)", "David (Sohn, 16)"]
+    },
+    {
+      "id": "schulze",
+      "name": "Herr Schulze",
+      "description": "Nachbar, überzeugter Nationalsozialist, Blockwart"
+    },
+    {
+      "id": "martha",
+      "name": "Martha Hoffmann",
+      "description": "Werners Ehefrau, besorgt um die Familie"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "prolog",
+      "title": "Prolog: Ein gewöhnlicher Abend",
+      "date": "9. November 1938, 21:00 Uhr"
+    },
+    {
+      "id": "nacht",
+      "title": "Die Nacht",
+      "date": "9. November 1938, 23:00 Uhr"
+    },
+    {
+      "id": "morgen",
+      "title": "Der Morgen danach",
+      "date": "10. November 1938, 07:00 Uhr"
+    },
+    {
+      "id": "entscheidung",
+      "title": "Die Entscheidung",
+      "date": "10. November 1938, 12:00 Uhr"
+    },
+    {
+      "id": "epilog",
+      "title": "Epilog",
+      "date": "1945 / Heute"
+    }
+  ]
+}
