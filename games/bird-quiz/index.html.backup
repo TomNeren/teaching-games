@@ -341,7 +341,7 @@
                     id: "amsel",
                     name: "Amsel",
                     scientificName: "Turdus merula",
-                    audioUrl: "https://xeno-canto.org/716374/download",
+                    audioUrl: "https://xeno-canto.org/sounds/uploaded/VOLIQOYWKG/XC716374-Blackbird%20song%202022-03-31%20Karlsruhe%20-01.mp3",
                     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Common_Blackbird.jpg/400px-Common_Blackbird.jpg",
                     description: "Die Amsel ist einer der bekanntesten Singvögel. Das Männchen ist schwarz mit orangegelbem Schnabel, das Weibchen braun. Ihr melodischer Gesang ertönt besonders in der Morgen- und Abenddämmerung."
                 },
@@ -349,7 +349,7 @@
                     id: "kohlmeise",
                     name: "Kohlmeise",
                     scientificName: "Parus major",
-                    audioUrl: "https://xeno-canto.org/663098/download",
+                    audioUrl: "https://xeno-canto.org/sounds/uploaded/VOLIQOYWKG/XC663098-Great%20tit%20Song%202021-04-21%20Karlsruhe%20-01.mp3",
                     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Great_tit_side-on.jpg/400px-Great_tit_side-on.jpg",
                     description: "Die Kohlmeise ist die größte einheimische Meise. Auffällig sind der schwarze Kopf mit weißen Wangen und der gelbe Bauch mit schwarzem Längsstreifen. Ihr Ruf klingt wie 'zi-zi-bäh'."
                 },
@@ -357,7 +357,7 @@
                     id: "blaumeise",
                     name: "Blaumeise",
                     scientificName: "Cyanistes caeruleus",
-                    audioUrl: "https://xeno-canto.org/663102/download",
+                    audioUrl: "https://xeno-canto.org/sounds/uploaded/VOLIQOYWKG/XC663102-Blue%20tit%20Song%202021-04-21%20Karlsruhe%20-01.mp3",
                     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Cyanistes_caeruleus_3_Luc_Viatour.jpg/400px-Cyanistes_caeruleus_3_Luc_Viatour.jpg",
                     description: "Die Blaumeise ist kleiner als die Kohlmeise und hat eine charakteristische blaue Kappe. Sie ist sehr agil und hängt oft kopfüber an Ästen. Ihr Gesang ist ein schnelles, hohes Trillern."
                 },
@@ -365,7 +365,7 @@
                     id: "rotkehlchen",
                     name: "Rotkehlchen",
                     scientificName: "Erithacus rubecula",
-                    audioUrl: "https://xeno-canto.org/716377/download",
+                    audioUrl: "https://xeno-canto.org/sounds/uploaded/VOLIQOYWKG/XC716377-Robin%20song%202022-03-31%20Karlsruhe%20-01.mp3",
                     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Erithacus_rubecula_with_cocked_head.jpg/400px-Erithacus_rubecula_with_cocked_head.jpg",
                     description: "Das Rotkehlchen ist leicht an seiner orange-roten Brust zu erkennen. Es singt auch im Winter und oft sogar nachts unter Straßenlaternen. Sein Gesang ist melodisch und etwas wehmütig."
                 },
@@ -373,7 +373,7 @@
                     id: "buchfink",
                     name: "Buchfink",
                     scientificName: "Fringilla coelebs",
-                    audioUrl: "https://xeno-canto.org/663084/download",
+                    audioUrl: "https://xeno-canto.org/sounds/uploaded/VOLIQOYWKG/XC663084-Chaffinch%20Song%202021-04-21%20Karlsruhe%20-01.mp3",
                     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Fringilla_coelebs_chaffinch_male_edit2.jpg/400px-Fringilla_coelebs_chaffinch_male_edit2.jpg",
                     description: "Der Buchfink ist einer der häufigsten Singvögel Europas. Das Männchen hat eine rotbraune Brust und einen blaugrauen Kopf. Sein Gesang ist ein kraftvoller 'Finkenschlag'."
                 },
@@ -381,7 +381,7 @@
                     id: "zaunkoenig",
                     name: "Zaunkönig",
                     scientificName: "Troglodytes troglodytes",
-                    audioUrl: "https://xeno-canto.org/716382/download",
+                    audioUrl: "https://xeno-canto.org/sounds/uploaded/VOLIQOYWKG/XC716382-Wren%20song%202022-03-31%20Karlsruhe%20-01.mp3",
                     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Troglodytes_troglodytes_-British_Wildlife_Centre%2C_Surrey%2C_England-8.jpg/400px-Troglodytes_troglodytes_-British_Wildlife_Centre%2C_Surrey%2C_England-8.jpg",
                     description: "Der Zaunkönig ist einer der kleinsten europäischen Vögel. Trotz seiner geringen Größe hat er einen erstaunlich lauten, schmetternden Gesang. Er hält den Schwanz oft steil aufgerichtet."
                 },
@@ -389,7 +389,7 @@
                     id: "singdrossel",
                     name: "Singdrossel",
                     scientificName: "Turdus philomelos",
-                    audioUrl: "https://xeno-canto.org/716379/download",
+                    audioUrl: "https://xeno-canto.org/sounds/uploaded/VOLIQOYWKG/XC716379-Song%20Thrush%202022-03-31%20Karlsruhe%20-01.mp3",
                     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Song_Thrush_%28Turdus_philomelos%29_singing_in_tree.jpg/400px-Song_Thrush_%28Turdus_philomelos%29_singing_in_tree.jpg",
                     description: "Die Singdrossel ist bekannt für ihren virtuosen Gesang, bei dem Motive oft 2-4 mal wiederholt werden. Sie hat eine braune Oberseite und eine gefleckte Brust."
                 },
@@ -397,7 +397,7 @@
                     id: "star",
                     name: "Star",
                     scientificName: "Sturnus vulgaris",
-                    audioUrl: "https://xeno-canto.org/491652/download",
+                    audioUrl: "https://xeno-canto.org/sounds/uploaded/RJHBGXQHHU/XC491652-Starling%20D%20Kehl%2020190502.mp3",
                     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Toulouse_-_Sturnus_vulgaris_-_2012-02-26_-_3.jpg/400px-Toulouse_-_Sturnus_vulgaris_-_2012-02-26_-_3.jpg",
                     description: "Der Star ist ein brillanter Stimmenimitator und kann andere Vögel und sogar Handyklingeltöne nachahmen. Im Prachtkleid schillert sein Gefieder metallisch grün-violett."
                 },
@@ -405,7 +405,7 @@
                     id: "haussperling",
                     name: "Haussperling",
                     scientificName: "Passer domesticus",
-                    audioUrl: "https://xeno-canto.org/663107/download",
+                    audioUrl: "https://xeno-canto.org/sounds/uploaded/VOLIQOYWKG/XC663107-House%20Sparrow%20Song%202021-04-21%20Karlsruhe%20-01.mp3",
                     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Passer_domesticus_male_%2815%29.jpg/400px-Passer_domesticus_male_%2815%29.jpg",
                     description: "Der Haussperling (Spatz) lebt seit Jahrtausenden in der Nähe des Menschen. Das Männchen hat einen grauen Scheitel und schwarzen Kehlfleck. Sein Ruf ist ein lebhaftes 'Tschilpen'."
                 },
@@ -413,7 +413,7 @@
                     id: "gruenfink",
                     name: "Grünfink",
                     scientificName: "Chloris chloris",
-                    audioUrl: "https://xeno-canto.org/663087/download",
+                    audioUrl: "https://xeno-canto.org/sounds/uploaded/VOLIQOYWKG/XC663087-Greenfinch%20Song%202021-04-21%20Karlsruhe%20-01.mp3",
                     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Carduelis_chloris_1_%28Marek_Szczepanek%29.jpg/400px-Carduelis_chloris_1_%28Marek_Szczepanek%29.jpg",
                     description: "Der Grünfink ist olivgrün bis gelbgrün gefärbt mit leuchtend gelben Flügelmarkierungen. Sein Gesang enthält charakteristische 'djüüüh'-Rufe, die an ein Quietschen erinnern."
                 }
@@ -473,8 +473,7 @@
                 div.dataset.id = bird.id;
                 div.onclick = () => selectChoice(bird.id);
                 div.innerHTML = `
-                    <img src="${bird.imageUrl}" alt="${bird.name}" loading="lazy" 
-                         onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23e8e4d9%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2250%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%2240%22>🐦</text></svg>';">
+                    <img src="${bird.imageUrl}" alt="${bird.name}" loading="lazy">
                     <div class="choice-label">${bird.name}</div>
                 `;
                 choicesContainer.appendChild(div);
@@ -492,14 +491,9 @@
                 audio.play().catch(e => {
                     console.log('Audio play failed, trying proxy...', e);
                     // Try with CORS proxy
-                    const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(currentBird.audioUrl);
-                    audio.src = proxyUrl;
-                    audio.load();
+                    audio.src = 'https://corsproxy.io/?' + encodeURIComponent(currentBird.audioUrl);
                     audio.play().catch(e2 => {
-                        console.log('Proxy also failed', e2);
-                        // Show hint instead of alert
-                        document.getElementById('play-btn').textContent = '❌';
-                        document.getElementById('play-btn').title = 'Audio nicht verfügbar';
+                        alert('Audio konnte nicht geladen werden. Bitte versuche es nochmal.');
                     });
                 });
                 playBtn.textContent = '⏸';
