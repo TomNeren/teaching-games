@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pflicht und Gewissen — Die Geschichte eines Ordnungspolizisten</title>
+    <style>
+        :root {
+            --bg-dark: #1a1a1a;
+            --bg-card: #2a2a2a;
+            --text-main: #e0e0e0;
+            --text-muted: #888;
+            --accent-perpetrator: #8b4a4a;
+            --accent-hover: #9b5a5a;
+            --danger: #8b0000;
+            --warning: #8b6914;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.8;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Title Screen */
+        .title-screen {
+            text-align: center;
+            padding: 4rem 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .title-screen h1 {
+            font-size: 2.5rem;
+            color: var(--accent-perpetrator);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+        
+        .title-screen .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+        }
+        
+        .title-screen .date {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+        
+        .warning-box {
+            background: var(--danger);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem auto;
+            max-width: 600px;
+            text-align: left;
+        }
+        
+        .warning-box h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .educational-note {
+            background: var(--warning);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem auto;
+            max-width: 600px;
+            text-align: left;
+        }
+        
+        .educational-note h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .educational-note p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        /* Story Content */
+        .story-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .story-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .chapter-header {
+            text-align: center;
+            padding: 2rem 0;
+            border-bottom: 1px solid #444;
+            margin-bottom: 2rem;
+        }
+        
+        .chapter-header h2 {
+            color: var(--accent-perpetrator);
+            font-size: 1.8rem;
+        }
+        
+        .chapter-header .date {
+            color: var(--text-muted);
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+        
+        .narrative {
+            margin-bottom: 2rem;
+        }
+        
+        .narrative p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+        
+        .narrative p.emphasis {
+            font-style: italic;
+            color: var(--accent-perpetrator);
+        }
+        
+        .narrative p.thought {
+            font-style: italic;
+            padding-left: 2rem;
+            border-left: 3px solid var(--accent-perpetrator);
+            color: #bbb;
+        }
+        
+        .dialogue {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: var(--bg-card);
+            border-radius: 8px;
+        }
+        
+        .dialogue .speaker {
+            font-weight: bold;
+            color: var(--accent-perpetrator);
+        }
+        
+        /* Choices */
+        .choices {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #444;
+        }
+        
+        .choices h3 {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .choice-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            background: var(--bg-card);
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 1rem;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .choice-btn:hover {
+            background: #3a3a3a;
+            border-color: var(--accent-perpetrator);
+            transform: translateX(5px);
+        }
+        
+        .choice-btn .choice-key {
+            display: inline-block;
+            width: 2rem;
+            height: 2rem;
+            line-height: 2rem;
+            text-align: center;
+            background: var(--accent-perpetrator);
+            color: #fff;
+            border-radius: 4px;
+            margin-right: 1rem;
+            font-weight: bold;
+        }
+        
+        /* Status Bar */
+        .status-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            padding: 0.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            z-index: 100;
+            border-bottom: 1px solid #444;
+        }
+        
+        .status-bar .stat {
+            color: var(--text-muted);
+        }
+        
+        .status-bar .stat span {
+            color: var(--accent-perpetrator);
+        }
+        
+        /* Consequence Box */
+        .consequence {
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            border-left: 4px solid var(--accent-perpetrator);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .consequence.danger {
+            border-left-color: var(--danger);
+        }
+        
+        .consequence.moral {
+            border-left-color: var(--warning);
+        }
+        
+        .consequence h4 {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Continue Button */
+        .continue-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--accent-perpetrator);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: background 0.2s;
+        }
+        
+        .continue-btn:hover {
+            background: var(--accent-hover);
+        }
+        
+        .continue-btn.secondary {
+            background: #444;
+            margin-left: 1rem;
+        }
+        
+        /* Scene Image */
+        .scene-image {
+            width: 100%;
+            max-height: 350px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            margin: 2rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-style: italic;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .scene-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .scene-image .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+        
+        /* Reflection */
+        .reflection-box {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+        
+        .reflection-box h3 {
+            color: var(--accent-perpetrator);
+            margin-bottom: 1rem;
+        }
+        
+        .reflection-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .reflection-box li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #444;
+            line-height: 1.6;
+        }
+        
+        .reflection-box li:last-child {
+            border-bottom: none;
+        }
+        
+        .reflection-box li::before {
+            content: '→ ';
+            color: var(--accent-perpetrator);
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid #444;
+            margin-top: 4rem;
+        }
+        
+        footer a {
+            color: var(--accent-perpetrator);
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .title-screen h1 {
+                font-size: 1.8rem;
+            }
+            
+            .status-bar {
+                font-size: 0.75rem;
+                padding: 0.5rem 1rem;
+            }
+            
+            .choice-btn {
+                padding: 0.75rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="status-bar" class="status-bar" style="display: none;">
+        <div class="stat">Jahr: <span id="current-year">1942</span></div>
+        <div class="stat">Fritz Müller, <span id="fritz-age">32</span> Jahre</div>
+        <div class="stat">Kapitel <span id="current-chapter">1</span>/5</div>
+    </div>
+
+    <div class="container">
+        <!-- TITLE SCREEN -->
+        <section id="title" class="story-section active">
+            <div class="title-screen">
+                <p style="color: var(--text-muted); margin-bottom: 1rem;">ENTSCHEIDUNGEN</p>
+                <h1>PFLICHT UND GEWISSEN</h1>
+                <p class="subtitle">Die Geschichte eines Ordnungspolizisten</p>
+                <p class="date">1942</p>
+                
+                <div class="warning-box">
+                    <h3>⚠️ Inhaltswarnung</h3>
+                    <p>Diese Simulation zeigt die Perspektive eines Täters im nationalsozialistischen Deutschland. Sie enthält Darstellungen von Gewalt, moralischen Dilemmata und schwierigen Entscheidungssituationen.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Zielgruppe: 18+</strong></p>
+                </div>
+                
+                <div class="educational-note">
+                    <h3>Pädagogischer Hinweis</h3>
+                    <p>Diese Simulation soll nicht rechtfertigen, sondern verstehen helfen, wie gewöhnliche Menschen zu Mittätern wurden.</p>
+                    <p style="margin-top: 0.5rem;">Sie basiert auf der historischen Forschung von Christopher Browning ("Ordinary Men") und zeigt Mechanismen wie Gehorsam, Gruppendruck und schrittweise Desensibilisierung.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Verstehen ≠ Verzeihen</strong></p>
+                </div>
+                
+                <p style="margin: 2rem 0; color: var(--text-muted);">
+                    Du bist <strong>Friedrich "Fritz" Müller</strong>, 32 Jahre alt.<br>
+                    Ordnungspolizist aus Hannover. Verheiratet, ein Sohn.<br>
+                    Konservativ, pflichtbewusst, kein überzeugter Nazi.<br>
+                    Nur ein Mann, der seinen Dienst tut.
+                </p>
+                
+                <button class="continue-btn" onclick="startGame()">Beginnen</button>
+                
+                <p style="margin-top: 2rem; font-size: 0.85rem; color: var(--text-muted);">
+                    <a href="menu.html" style="color: var(--text-muted);">← Zurück zum Hauptmenü</a>
+                </p>
+            </div>
+        </section>
+
+        <!-- PROLOG: Der Marschbefehl -->
+        <section id="prolog" class="story-section">
+            <div class="chapter-header">
+                <h2>Prolog: Der Marschbefehl</h2>
+                <p class="date">März 1942, Polizeikaserne Hannover</p>
+            </div>
+            
+            <div class="scene-image">
+                [Bild: Polizeikaserne, Männer in Uniform]
+                <div class="caption">Ordnungspolizei-Kaserne, Hannover 1942</div>
+            </div>
+            
+            <div class="narrative">
+                <p>Der Umschlag liegt seit heute Morgen auf deinem Schreibtisch. Stempelabdruck des Reichssicherheitshauptamts. "Marschbefehl — Sondereinsatz Ost".</p>
+                
+                <p>Du liest ihn zum dritten Mal. Die Worte sind dieselben: Reserve-Polizeibataillon 101, Dienstgrad Wachtmeister, Einsatzgebiet besetzte polnische Gebiete, Aufgaben "nach Ankunft bekanntzugeben".</p>
+                
+                <p class="thought">Besetzte Gebiete. Sondereinsatz. Was genau bedeutet das?</p>
+                
+                <p>Zu Hause wartet Helga mit dem Abendessen. Klaus wird fragen, ob Papa ihm eine Geschichte vorliest. Fünf Jahre alt, gesund, neugierig. Ein Sohn, auf den man stolz sein kann.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Kollege Schmidt:</span> "Müller! Hast du auch den Marschbefehl bekommen?"</p>
+                <p><span class="speaker">Du:</span> "Ja. Was weißt du darüber?"</p>
+                <p><span class="speaker">Schmidt:</span> (senkt die Stimme) "Mein Schwager war letztes Jahr im Osten. Partisanenbekämpfung, Umsiedlungsaktionen... er redet nicht gern drüber."</p>
+            </div>
+            
+            <div class="narrative">
+                <p>"Umsiedlungsaktionen." Das Wort klingt verwaltungstechnisch, harmlos.</p>
+                
+                <p class="thought">Aber warum redet sein Schwager nicht gern darüber?</p>
+            </div>
+            
+            <div class="consequence">
+                <h4>Mechanismus: Verschleierung</h4>
+                <p>Euphemismen verschleiern die Realität. "Sondereinsatz", "Umsiedlung", "Partisanenbekämpfung" — Worte, die nicht sagen, was sie meinen. Das erleichtert das Mitmachen.</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Helga wird weinen, wenn du ihr sagst, dass du weg musst. Aber Befehl ist Befehl. Das hast du gelernt.</p>
+            </div>
+            
+            <button class="continue-btn" onclick="goToChapter('chapter1')">Weiter</button>
+        </section>
+
+        <!-- CHAPTER 1: Ankunft -->
+        <section id="chapter1" class="story-section">
+            <div class="chapter-header">
+                <h2>Kapitel 1: Ankunft</h2>
+                <p class="date">April 1942, Besetzte polnische Gebiete</p>
+            </div>
+            
+            <div class="scene-image">
+                [Bild: Polnisches Dorf, Besatzungszeit]
+                <div class="caption">Besetztes Territorium, Generalgouvernement Polen</div>
+            </div>
+            
+            <div class="narrative">
+                <p>Die Reise dauerte drei Tage. Vierzig Männer in einem Viehwaggon, der nach Schweiß und Bier stinkt. Die meisten sind älter als du — Familienväter, Handwerker, Polizisten aus Hamburg, Bremen, Hannover.</p>
+                
+                <p>Keine SS-Elite. Nur normale Männer.</p>
+                
+                <p>Das Quartier ist ein beschlagnahmtes Gutshaus. Früher lebte hier wohl eine polnische Familie. Jetzt stehen Feldbetten in den Zimmern, an den Wänden hängen Landkarten mit roten Markierungen.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Hauptmann Hoffmann:</span> "Männer! Ich weiß, die Reise war lang. Morgen gibt es eine Lagebesprechung. Vorher: Ruhe, anständiges Verhalten gegenüber der einheimischen Bevölkerung soweit notwendig, und—" (er grinst) "—vergesst nicht, warum wir hier sind. Ordnung schaffen."</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Beim Abendbrot — Kartoffeln, Speck, Brot, reichlicher als zu Hause — setzt sich der ältere Wachtmeister Hartmann zu dir.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Hartmann:</span> "Erstes Mal im Osten?"</p>
+                <p><span class="speaker">Du:</span> "Ja."</p>
+                <p><span class="speaker">Hartmann:</span> (kaut nachdenklich) "War letztes Jahr schon mal hier. Bei einer... Aktion."</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Er schaut dich an. In seinen Augen liegt etwas, das du nicht deuten kannst.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Hartmann:</span> "Willst du wissen, was wir hier wirklich machen?"</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was sagst du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('1a')">
+                    <span class="choice-key">A</span>
+                    "Ja. Ich will wissen, worauf ich mich einstelle."
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('1b')">
+                    <span class="choice-key">B</span>
+                    "Ich will nichts davon hören. Das erfahre ich morgen früh."
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('1c')">
+                    <span class="choice-key">C</span>
+                    "Wenn es befohlen wird, dann wird es schon richtig sein."
+                </button>
+            </div>
+        </section>
+
+        <!-- CHAPTER 1a: Die Wahrheit -->
+        <section id="chapter1a" class="story-section">
+            <div class="chapter-header">
+                <h2>Die Wahrheit</h2>
+                <p class="date">April 1942, Abend</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Hartmann nickt langsam. Er schiebt seinen Teller zur Seite, obwohl er nicht leer ist.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Hartmann:</span> "Die 'Aktionen', von denen sie reden... das sind Erschießungen. Juden, Polen, Partisanen — wer auch immer auf der Liste steht. Ganze Dörfer manchmal."</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Du hörst, wie dein Herzschlag lauter wird. Um euch herum isst die Kompanie weiter, lacht, spielt Karten.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Hartmann:</span> "Letztes Jahr, bei Józefów. Es waren Frauen dabei. Kinder. Der Hauptmann sagte, wer nicht könne, dürfe sich melden. Ein paar taten es. Die meisten nicht."</p>
+                <p style="margin-top: 0.5rem;">(Pause)</p>
+                <p><span class="speaker">Hartmann:</span> "Ich auch nicht."</p>
+            </div>
+            
+            <div class="narrative">
+                <p class="thought">Frauen. Kinder. Das kann nicht... das ist doch...</p>
+                
+                <p>Aber Hartmann lügt nicht. Du siehst es in seinen Augen.</p>
+            </div>
+            
+            <div class="consequence danger">
+                <h4>Frühes Wissen — schwere Last</h4>
+                <p>Du weißt jetzt, was kommen wird. Das ist eine Bürde — aber auch eine Chance. Du hast Zeit, nachzudenken. Zu planen. Dich vorzubereiten.</p>
+            </div>
+            
+            <button class="continue-btn" onclick="goToChapter('chapter2')">Weiter</button>
+        </section>
+
+        <!-- CHAPTER 1b: Unwissenheit -->
+        <section id="chapter1b" class="story-section">
+            <div class="chapter-header">
+                <h2>Unwissenheit als Schutz</h2>
+                <p class="date">April 1942, Abend</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Hartmann sieht dich an, dann nickt er.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Hartmann:</span> "Vielleicht besser so."</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Er steht auf und geht. Du bleibst zurück mit deinem Teller, dem Lärm der Kompanie, und einer wachsenden Unruhe, die du nicht benennen kannst.</p>
+                
+                <p class="thought">Warum wollte er mich warnen? Was ist so schlimm, dass er...</p>
+                
+                <p>Du schiebst den Gedanken weg. Morgen wirst du es ohnehin erfahren.</p>
+            </div>
+            
+            <div class="consequence moral">
+                <h4>Mechanismus: Vermeidung</h4>
+                <p>Manchmal ist Nicht-Wissen bequemer. Es schützt vor schwierigen Fragen. Aber es schützt nicht vor Schuld.</p>
+            </div>
+            
+            <button class="continue-btn" onclick="goToChapter('chapter2')">Weiter</button>
+        </section>
+
+        <!-- CHAPTER 1c: Gehorsam -->
+        <section id="chapter1c" class="story-section">
+            <div class="chapter-header">
+                <h2>Befehl ist Befehl</h2>
+                <p class="date">April 1942, Abend</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Hartmann schaut dich lange an. Dann nickt er und steht auf.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Hartmann:</span> "Dann wird alles gut. Gute Nacht, Müller."</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Aber es klingt nicht wie ein Wunsch. Es klingt wie ein Epitaph.</p>
+                
+                <p class="thought">Befehl ist Befehl. So habe ich es gelernt. Bei der Polizei, beim Militär, überall. Wer gehorcht, macht nichts falsch.</p>
+                
+                <p>Aber warum fühlt sich dieser Gedanke so hohl an?</p>
+            </div>
+            
+            <div class="consequence">
+                <h4>Mechanismus: Autoritätshörigkeit</h4>
+                <p>"Befehl ist Befehl" — eine bequeme Entlastung. Aber Gehorsam ist keine moralische Kategorie. Er kann gut sein oder böse, je nachdem, wem man gehorcht.</p>
+            </div>
+            
+            <button class="continue-btn" onclick="goToChapter('chapter2')">Weiter</button>
+        </section>
+
+        <!-- CHAPTER 2: Der erste Befehl -->
+        <section id="chapter2" class="story-section">
+            <div class="chapter-header">
+                <h2>Kapitel 2: Der erste Befehl</h2>
+                <p class="date">April 1942, Morgendämmerung</p>
+            </div>
+            
+            <div class="scene-image">
+                [Bild: Versammlung von Polizisten]
+                <div class="caption">Reserve-Polizeibataillon, Lagebesprechung</div>
+            </div>
+            
+            <div class="narrative">
+                <p>Die Kompanie steht im Hof. Vierzig Männer in grauen Uniformen, Gewehre geschultert. Die Morgensonne ist kalt.</p>
+                
+                <p>Hauptmann Hoffmann tritt vor.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Hauptmann Hoffmann:</span> "Männer. Heute beginnt unsere Arbeit. Im nahegelegenen Dorf gibt es eine jüdische Gemeinschaft — etwa hundert Personen. Sie sollen zur Umsiedlung erfasst werden."</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Umsiedlung. Das Wort klingt harmlos.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Hauptmann Hoffmann:</span> "Ich weiß, dass dies für einige von euch... ungewohnt sein mag. Daher biete ich Folgendes an: Wer sich dieser Aufgabe nicht gewachsen fühlt, kann vortreten. Er wird anderen Aufgaben zugeteilt. Keine Strafe, keine Konsequenzen."</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Stille. Vierzig Männer, regungslos.</p>
+                
+                <p class="thought">Er bietet einen Ausweg an. Ich könnte vortreten. Jetzt. Einfach einen Schritt nach vorne.</p>
+                
+                <p>Aber um dich herum bewegt sich niemand. Du spürst die Blicke der Kameraden. Was werden sie denken, wenn du vortrittst?</p>
+                
+                <p class="emphasis">Feigling. Drückeberger. Weichei.</p>
+            </div>
+            
+            <div class="consequence">
+                <h4>Historische Tatsache</h4>
+                <p>Bei Polizeibataillon 101 gab es dieses Angebot wirklich. Etwa 10-12 von 500 Männern traten vor. Sie wurden nicht bestraft. Die meisten machten mit — aus Gruppendruck, nicht aus Zwang.</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was tust du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('2a')">
+                    <span class="choice-key">A</span>
+                    Vortreten und um andere Aufgaben bitten
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('2b')">
+                    <span class="choice-key">B</span>
+                    In der Reihe bleiben
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('2c')">
+                    <span class="choice-key">C</span>
+                    Plötzliches Unwohlsein vortäuschen
+                </button>
+            </div>
+        </section>
+
+        <!-- CHAPTER 2a: Vortreten -->
+        <section id="chapter2a" class="story-section">
+            <div class="chapter-header">
+                <h2>Der Schritt nach vorne</h2>
+                <p class="date">April 1942</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Du trittst vor. Ein Schritt. Dann noch einer.</p>
+                
+                <p>Hinter dir hörst du ein Raunen. Jemand lacht leise.</p>
+                
+                <p>Hauptmann Hoffmann nickt. Seine Miene ist neutral.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Hoffmann:</span> "Müller. Du wirst die Bewachung des Sammelplatzes übernehmen. Verstanden?"</p>
+                <p><span class="speaker">Du:</span> "Jawohl, Herr Hauptmann."</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Als du zurück in die Reihe gehst, spürst du die Blicke. Schmidt dreht sich weg. Hartmann nickt dir fast unmerklich zu.</p>
+                
+                <p class="thought">Ich habe mich gedrückt. Oder? Oder habe ich das Richtige getan?</p>
+            </div>
+            
+            <div class="consequence">
+                <h4>Konsequenz: Verachtung — und Entlastung</h4>
+                <p>Einige Kameraden werden dich für schwach halten. Aber du wirst heute niemanden töten müssen. Ist das feige? Oder mutig?</p>
+            </div>
+            
+            <button class="continue-btn" onclick="goToChapter('chapter3')">Weiter</button>
+        </section>
+
+        <!-- CHAPTER 2b: Bleiben -->
+        <section id="chapter2b" class="story-section">
+            <div class="chapter-header">
+                <h2>In der Reihe</h2>
+                <p class="date">April 1942</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Du bleibst stehen. Um dich herum Gleiches: Niemand bewegt sich.</p>
+                
+                <p>Nach einer langen Minute nickt Hoffmann.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Hoffmann:</span> "Gut. Dann wissen wir Bescheid. Abmarsch in zehn Minuten."</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Schmidt klopft dir auf die Schulter.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Schmidt:</span> "Richtig so, Müller. Wir sind alle im selben Boot."</p>
+            </div>
+            
+            <div class="narrative">
+                <p class="thought">Im selben Boot. Ja. Aber wohin fährt dieses Boot?</p>
+            </div>
+            
+            <div class="consequence moral">
+                <h4>Mechanismus: Gruppendruck</h4>
+                <p>Du hast mitgemacht, weil alle mitgemacht haben. Das ist menschlich — aber keine Entschuldigung. Auch Gruppen können sich irren. Auch viele können schuldig sein.</p>
+            </div>
+            
+            <button class="continue-btn" onclick="goToChapter('chapter3')">Weiter</button>
+        </section>
+
+        <!-- CHAPTER 2c: Krankheit vortäuschen -->
+        <section id="chapter2c" class="story-section">
+            <div class="chapter-header">
+                <h2>Unwohlsein</h2>
+                <p class="date">April 1942</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Du schwankst leicht. Legst die Hand an die Stirn.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Du:</span> "Herr Hauptmann... mir ist plötzlich—"</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Hoffmann sieht dich an. Lange. Du weißt nicht, ob er es glaubt.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Hoffmann:</span> "Müller. Sanitäter. Untersuchen lassen. Wenn es ernst ist, Bettruhe. Wenn nicht — nachkommen."</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Der Sanitäter führt dich ab. Schmidt schüttelt den Kopf.</p>
+                
+                <p class="thought">Er glaubt es nicht. Keiner glaubt es. Aber es funktioniert. Heute. Was ist mit morgen?</p>
+            </div>
+            
+            <div class="consequence">
+                <h4>Aufschub — keine Lösung</h4>
+                <p>Du hast Zeit gewonnen. Einen Tag. Vielleicht zwei. Aber der Befehl wird wiederkommen. Und dann?</p>
+            </div>
+            
+            <button class="continue-btn" onclick="goToChapter('chapter3')">Weiter</button>
+        </section>
+
+        <!-- CHAPTER 3: Die Aktion (verschleiert dargestellt) -->
+        <section id="chapter3" class="story-section">
+            <div class="chapter-header">
+                <h2>Kapitel 3: Die Aktion</h2>
+                <p class="date">April 1942, Vormittag</p>
+            </div>
+            
+            <div class="scene-image">
+                [Bild: Dunkler Waldrand, unscharf]
+                <div class="caption">Waldrand, außerhalb des Dorfes</div>
+            </div>
+            
+            <div class="educational-note">
+                <h3>Hinweis zur Darstellung</h3>
+                <p>Die folgende Szene beschreibt keine grafischen Details. Der Fokus liegt auf Fritz' innerer Zerrissenheit, nicht auf der Gewalt selbst. Das Grauen liegt im Implizierten.</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Der Wald ist still. Zu still.</p>
+                
+                <p>Die Menschen aus dem Dorf stehen in einer Reihe. Alte Männer, Frauen, Kinder. Sie wissen, was kommt. Du siehst es in ihren Augen.</p>
+                
+                <p>Hoffmann teilt die Kompanie ein. Zehn Mann Schützen, zehn Mann Ablösung. Du bist in der ersten Gruppe.</p>
+                
+                <p class="thought">Das ist nicht real. Das kann nicht real sein. Das ist ein Albtraum.</p>
+                
+                <p>Aber die Waffe in deiner Hand ist real. Das Gewicht des Stahls, die Kälte des Metalls.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Hoffmann:</span> "Müller. Du übernimmst Position drei."</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Vor dir steht eine Familie. Ein Mann, etwa in deinem Alter. Eine Frau. Zwei Kinder, eins davon nicht älter als Klaus.</p>
+                
+                <p class="emphasis">Nicht älter als Klaus.</p>
+                
+                <p>Der Mann sieht dich an. Er sagt nichts. Was sollte er auch sagen?</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was tust du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('3a')">
+                    <span class="choice-key">A</span>
+                    Gehorsam ausführen — "Es muss sein"
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('3b')">
+                    <span class="choice-key">B</span>
+                    Absichtlich danebenschießen
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('3c')">
+                    <span class="choice-key">C</span>
+                    Die Waffe senken und weggehen
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('3d')">
+                    <span class="choice-key">D</span>
+                    Laut verweigern — "Ich mache das nicht"
+                </button>
+            </div>
+        </section>
+
+        <!-- EPILOG (dynamisch) -->
+        <section id="epilog" class="story-section">
+            <div class="chapter-header">
+                <h2>Epilog</h2>
+                <p class="date" id="epilog-date"></p>
+            </div>
+            
+            <div class="narrative">
+                <p id="epilog-text"></p>
+            </div>
+            
+            <div class="consequence">
+                <h4>Historischer Kontext</h4>
+                <p>Reserve-Polizeibataillon 101 ermordete zwischen 1942 und 1943 mindestens 38.000 Menschen und deportierte 45.000 weitere in Vernichtungslager.</p>
+                <p style="margin-top: 0.5rem;">Die meisten Täter waren keine fanatischen Nazis, sondern "ordinary men" — gewöhnliche Männer wie Fritz.</p>
+                <p style="margin-top: 0.5rem;">Nach dem Krieg wurden nur wenige vor Gericht gestellt. Die meisten lebten unauffällig weiter.</p>
+            </div>
+            
+            <div class="reflection-box">
+                <h3>Reflexionsfragen</h3>
+                <ul id="reflection-questions">
+                    <li>Wie wurde aus Fritz ein Täter?</li>
+                    <li>Welche Mechanismen haben seine Entscheidungen beeinflusst?</li>
+                    <li>Hätte er "Nein" sagen können?</li>
+                    <li>Was bedeutet "Befehl ist Befehl" moralisch?</li>
+                    <li>Erkennst du ähnliche Mechanismen (Gehorsam, Gruppendruck) in heutigen Kontexten?</li>
+                    <li>Warum ist es wichtig, auch die Täter-Perspektive zu verstehen?</li>
+                </ul>
+            </div>
+            
+            <div class="reflection-box">
+                <h3>Deine Entscheidungen</h3>
+                <p style="margin-bottom: 1rem;">Du hast <span id="total-decisions">0</span> Entscheidungen getroffen:</p>
+                <ul id="decision-summary">
+                    <!-- Wird dynamisch befüllt -->
+                </ul>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <button class="continue-btn" onclick="location.reload()">Neu beginnen</button>
+                <button class="continue-btn secondary" onclick="window.location.href='menu.html'">Zurück zum Menü</button>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>Pflicht und Gewissen | Version 0.1</p>
+        <p>Teil des Projekts "Entscheidungen 1933-1945"</p>
+        <p style="margin-top: 0.5rem;">Basierend auf Christopher Browning: "Ordinary Men" (1992)</p>
+        <p style="margin-top: 0.5rem;">Für Bildungszwecke | Berufliche Schule Lörrach | <a href="menu.html">Hauptmenü</a></p>
+    </footer>
+
+    <!-- Audio Player -->
+    <div id="audio-controls" style="position: fixed; top: 1rem; right: 1rem; z-index: 1000; background: rgba(26, 26, 26, 0.95); padding: 0.5rem 1rem; border-radius: 8px; display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; border: 1px solid #444;">
+        <span style="color: #888;">🎵</span>
+        <button id="muteToggle" onclick="toggleMute()" style="background: transparent; border: 1px solid #666; color: #8b4a4a; padding: 0.25rem 0.75rem; border-radius: 4px; cursor: pointer; font-family: inherit; font-size: 0.8rem; transition: all 0.2s;">
+            🔊 Musik
+        </button>
+        <input type="range" id="volumeSlider" min="0" max="100" value="25" oninput="setVolume(this.value)" style="width: 80px; accent-color: #8b4a4a;">
+    </div>
+    <audio id="bgMusic1" loop preload="auto"></audio>
+    <audio id="bgMusic2" loop preload="auto"></audio>
+
+    <script>
+        // Audio Manager
+        const audioManager = {
+            player1: null,
+            player2: null,
+            currentPlayer: 1,
+            isMuted: false,
+            baseVolume: 0.25,
+            
+            tracks: {
+                peaceful: 'audio/1.%20Sepia%20Afternoon.mp3',
+                hope: 'audio/2.%20Trembling%20Into%20Light.mp3',
+                tension: 'audio/3.%20Hanging%20Shadow.mp3',
+                danger: 'audio/4.%20Red%20Line%20Sirens.mp3',
+                grief: 'audio/5.%20Midnight%20Room%20of%20Empty%20Chairs.mp3',
+                farewell: 'audio/6.%20Last%20Light%20in%20the%20Room.mp3',
+                chaos: 'audio/7.%20Waltz%20of%20the%20Falling%20Order.mp3',
+                courage: 'audio/8.%20Stand%20in%20the%20Fire.mp3',
+                remember: 'audio/9.%20Remember.mp3'
+            },
+            
+            sceneMapping: {
+                'title': 'tension',
+                'prolog': 'tension',         // Marschbefehl
+                'chapter1': 'tension',       // Ankunft im Osten
+                'chapter1a': 'grief',        // Die Wahrheit erfahren
+                'chapter1b': 'tension',      // Unwissenheit
+                'chapter1c': 'peaceful',     // Gehorsam als Beruhigung (ironisch)
+                'chapter2': 'danger',        // Der erste Befehl
+                'chapter2a': 'courage',      // Vorgetreten (Widerstand)
+                'chapter2b': 'grief',        // In der Reihe geblieben
+                'chapter2c': 'tension',      // Krankheit vorgetäuscht
+                'chapter3': 'farewell',      // Die Aktion (leise, düster)
+                'epilog': 'remember'         // Reflexion
+            },
+            
+            init() {
+                this.player1 = document.getElementById('bgMusic1');
+                this.player2 = document.getElementById('bgMusic2');
+                this.player1.volume = this.baseVolume;
+                this.player2.volume = 0;
+            },
+            
+            playForScene(sceneId) {
+                const mood = this.sceneMapping[sceneId] || 'tension';
+                this.crossfadeTo(this.tracks[mood]);
+            },
+            
+            crossfadeTo(trackUrl, duration = 2000) {
+                if (this.isMuted) return;
+                
+                const currentAudio = this.currentPlayer === 1 ? this.player1 : this.player2;
+                const nextAudio = this.currentPlayer === 1 ? this.player2 : this.player1;
+                
+                // Check if already playing this track
+                if (currentAudio.src.includes(trackUrl.split('/').pop())) return;
+                
+                nextAudio.src = trackUrl;
+                nextAudio.volume = 0;
+                nextAudio.play().catch(e => console.log('Audio play blocked:', e));
+                
+                const steps = 50;
+                const interval = duration / steps;
+                let step = 0;
+                
+                const fadeInterval = setInterval(() => {
+                    step++;
+                    const progress = step / steps;
+                    
+                    currentAudio.volume = this.baseVolume * (1 - progress);
+                    nextAudio.volume = this.baseVolume * progress;
+                    
+                    if (step >= steps) {
+                        clearInterval(fadeInterval);
+                        currentAudio.pause();
+                        currentAudio.volume = 0;
+                        this.currentPlayer = this.currentPlayer === 1 ? 2 : 1;
+                    }
+                }, interval);
+            },
+            
+            mute() {
+                this.isMuted = true;
+                this.player1.volume = 0;
+                this.player2.volume = 0;
+                document.getElementById('muteToggle').innerHTML = '🔇 Musik';
+                document.getElementById('muteToggle').style.color = '#666';
+            },
+            
+            unmute() {
+                this.isMuted = false;
+                const currentAudio = this.currentPlayer === 1 ? this.player1 : this.player2;
+                currentAudio.volume = this.baseVolume;
+                document.getElementById('muteToggle').innerHTML = '🔊 Musik';
+                document.getElementById('muteToggle').style.color = '#8b4a4a';
+            },
+            
+            setVolume(value) {
+                this.baseVolume = value / 100;
+                if (!this.isMuted) {
+                    const currentAudio = this.currentPlayer === 1 ? this.player1 : this.player2;
+                    currentAudio.volume = this.baseVolume;
+                }
+            }
+        };
+        
+        function toggleMute() {
+            if (audioManager.isMuted) {
+                audioManager.unmute();
+            } else {
+                audioManager.mute();
+            }
+        }
+        
+        function setVolume(value) {
+            audioManager.setVolume(value);
+        }
+        
+        // Initialize audio on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            audioManager.init();
+            audioManager.playForScene('title');
+        });
+        
+        let gameState = {
+            year: 1942,
+            age: 32,
+            chapter: 0,
+            decisions: [],
+            flags: {}
+        };
+        
+        const storyPaths = {
+            // Chapter 1 choices
+            '1a': { next: 'chapter1a', desc: 'Die Wahrheit erfahren wollen', flag: 'knows_truth' },
+            '1b': { next: 'chapter1b', desc: 'Nichts wissen wollen', flag: 'avoided_knowledge' },
+            '1c': { next: 'chapter1c', desc: '"Befehl ist Befehl" gesagt', flag: 'obedient' },
+            
+            // Chapter 2 choices
+            '2a': { next: 'chapter2a', desc: 'Vorgetreten', flag: 'stepped_forward' },
+            '2b': { next: 'chapter2b', desc: 'In der Reihe geblieben', flag: 'stayed_in_line' },
+            '2c': { next: 'chapter2c', desc: 'Krankheit vorgetäuscht', flag: 'feigned_illness' },
+            
+            // Chapter 3 choices
+            '3a': { next: 'epilog', desc: 'Gehorsam ausgeführt', flag: 'participated' },
+            '3b': { next: 'epilog', desc: 'Daneben geschossen', flag: 'missed_deliberately' },
+            '3c': { next: 'epilog', desc: 'Waffe gesenkt und weggegangen', flag: 'walked_away' },
+            '3d': { next: 'epilog', desc: 'Laut verweigert', flag: 'refused_openly' }
+        };
+        
+        function startGame() {
+            document.getElementById('title').classList.remove('active');
+            document.getElementById('prolog').classList.add('active');
+            document.getElementById('status-bar').style.display = 'flex';
+            gameState.chapter = 0;
+            updateStatus();
+            audioManager.playForScene('prolog');
+        }
+        
+        function makeChoice(choiceId) {
+            const path = storyPaths[choiceId];
+            if (!path) return;
+            
+            gameState.decisions.push({
+                id: choiceId,
+                description: path.desc
+            });
+            gameState.flags[path.flag] = true;
+            
+            document.querySelectorAll('.story-section').forEach(s => s.classList.remove('active'));
+            
+            const nextSection = document.getElementById(path.next);
+            if (nextSection) {
+                nextSection.classList.add('active');
+                window.scrollTo(0, 0);
+                
+                if (path.next === 'epilog') {
+                    generateEpilog();
+                }
+                
+                // Play appropriate music for scene
+                audioManager.playForScene(path.next);
+            }
+            
+            updateStatus();
+        }
+        
+        function goToChapter(chapterId) {
+            document.querySelectorAll('.story-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(chapterId).classList.add('active');
+            
+            if (chapterId === 'chapter1') gameState.chapter = 1;
+            if (chapterId === 'chapter2') gameState.chapter = 2;
+            if (chapterId === 'chapter3') gameState.chapter = 3;
+            
+            updateStatus();
+            window.scrollTo(0, 0);
+            audioManager.playForScene(chapterId);
+        }
+        
+        function updateStatus() {
+            document.getElementById('current-year').textContent = gameState.year;
+            document.getElementById('fritz-age').textContent = gameState.age;
+            document.getElementById('current-chapter').textContent = gameState.chapter;
+        }
+        
+        function generateEpilog() {
+            const epilogDate = document.getElementById('epilog-date');
+            const epilogText = document.getElementById('epilog-text');
+            const decisionSummary = document.getElementById('decision-summary');
+            
+            let text = '';
+            let date = '';
+            
+            // Generiere Epilog basierend auf Flags
+            if (gameState.flags.refused_openly) {
+                date = "Mai 1942 / 1963";
+                text = `<p>Du hast laut verweigert. Vor allen.</p>
+                <p style="margin-top: 1.5rem;">Hauptmann Hoffmann ließ dich abführen. Es gab eine Untersuchung, Verhöre. Aber keine Erschießung, keine KZ-Haft. Stattdessen: Versetzung zur Fronteinheit an der Ostfront.</p>
+                <p style="margin-top: 1.5rem;">Du hast den Krieg überlebt. 1963 sagtest du bei den Prozessen gegen Polizeibataillon 101 als Zeuge aus.</p>
+                <p style="margin-top: 1.5rem; color: var(--accent-perpetrator);">Die Richter fragten: "Warum haben Sie verweigert?" Du sagtest: "Weil ich nicht zum Mörder werden wollte."</p>
+                <p style="margin-top: 1rem;">Die meisten deiner Kameraden wurden freigesprochen. Mangel an Beweisen.</p>`;
+            } else if (gameState.flags.walked_away) {
+                date = "1945 / 1967";
+                text = `<p>Du hast die Waffe gesenkt und bist weggegangen.</p>
+                <p style="margin-top: 1.5rem;">Ein Kamerad übernahm deinen Platz. Die Aktion ging weiter. Du wurdest zur Nachhut versetzt — "unzuverlässig", sagten sie.</p>
+                <p style="margin-top: 1.5rem;">Nach dem Krieg kehrtest du nach Hannover zurück. Helga fragte nie, was du im Osten getan hattest. Klaus wurde Lehrer.</p>
+                <p style="margin-top: 1.5rem;">1967 erhieltest du eine Vorladung. Die Staatsanwaltschaft ermittelte gegen Mitglieder von Polizeibataillon 101. Dein Name stand auf einer Liste — aber als Zeuge, nicht als Angeklagter.</p>
+                <p style="margin-top: 1rem; color: var(--accent-perpetrator);">Du sagtest: "Ich war dabei. Aber ich habe es nicht getan." Ist das genug?</p>`;
+            } else if (gameState.flags.missed_deliberately) {
+                date = "1945";
+                text = `<p>Du hast absichtlich daneben geschossen.</p>
+                <p style="margin-top: 1.5rem;">Niemand hat es bemerkt. Im Chaos der "Aktion", im Lärm, im Rauch — ein Schuss mehr oder weniger.</p>
+                <p style="margin-top: 1.5rem;">Aber du warst dabei. Du hast eine Waffe gehalten, den Befehl ausgeführt — fast. Reicht "fast" als Entschuldigung?</p>
+                <p style="margin-top: 1.5rem;">Nach dem Krieg lebtest du unauffällig. Helga wusste nichts. Klaus wurde Arzt. In den 60er Jahren begannen die Prozesse, aber dein Name stand nie auf einer Anklage.</p>
+                <p style="margin-top: 1rem; color: var(--text-muted);">Jede Nacht, bis heute, siehst du das Gesicht des Mannes vor dir. Der Mann, der etwa so alt war wie du. Der dich ansah, bevor—</p>`;
+            } else if (gameState.flags.participated) {
+                date = "1945 / 1967";
+                text = `<p>Du hast es getan. Du hast den Befehl ausgeführt.</p>
+                <p style="margin-top: 1.5rem;">Danach gab es Schnaps. Die Kameraden tranken. Du auch. Es half nicht.</p>
+                <p style="margin-top: 1.5rem;">Die "Aktionen" wiederholten sich. Dutzende Male. Mit der Zeit wurde es einfacher — oder du hast dir das eingeredet.</p>
+                <p style="margin-top: 1.5rem;">1945 kehrtest du nach Hannover zurück. Helga freute sich. Klaus erkannte dich kaum wieder. "Papa ist anders geworden", sagte er später zu seiner Mutter.</p>
+                <p style="margin-top: 1.5rem;">1967 kamen die Ermittler. Sie hatten Listen, Zeugenaussagen, Dokumente. Du sagtest: "Ich habe nur Befehle befolgt. Ich musste."</p>
+                <p style="margin-top: 1rem; color: var(--danger);">Das Gericht glaubte dir. Du wurdest nicht verurteilt. Aber hattest du Recht?</p>`;
+            } else if (gameState.flags.stepped_forward) {
+                date = "1945";
+                text = `<p>Du bist vorgetreten. Du hast um andere Aufgaben gebeten.</p>
+                <p style="margin-top: 1.5rem;">Die Kameraden nannten dich "den Weichen". Manche mieden dich, manche respektierten dich insgeheim. Du wurdest zur Bewachung eingeteilt, zur Verwaltung, zum Schreibdienst.</p>
+                <p style="margin-top: 1.5rem;">Du hast niemanden erschossen. Aber du warst Teil der Maschinerie. Du hast Listen geführt, Transporte organisiert, Wache gestanden.</p>
+                <p style="margin-top: 1.5rem; color: var(--accent-perpetrator);">Bist du unschuldig? Oder nur weniger schuldig?</p>
+                <p style="margin-top: 1rem;">Nach dem Krieg lebtest du mit dieser Frage. Eine Antwort hast du nie gefunden.</p>`;
+            } else {
+                // Fallback
+                date = "1945";
+                text = `<p>Die Geschichte endet hier. Aber die Fragen bleiben.</p>`;
+            }
+            
+            epilogDate.textContent = date;
+            epilogText.innerHTML = text;
+            
+            // Entscheidungsliste
+            let summaryHTML = '';
+            gameState.decisions.forEach((d, i) => {
+                summaryHTML += `<li>${d.description}</li>`;
+            });
+            decisionSummary.innerHTML = summaryHTML;
+            
+            document.getElementById('total-decisions').textContent = gameState.decisions.length;
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const key = e.key.toLowerCase();
+            
+            // M key for mute/unmute
+            if (key === 'm' && !e.ctrlKey && !e.altKey) {
+                toggleMute();
+                return;
+            }
+            
+            // Letter keys for choices
+            const buttons = document.querySelectorAll('.story-section.active .choice-btn');
+            if (key === 'a' && buttons[0]) buttons[0].click();
+            if (key === 'b' && buttons[1]) buttons[1].click();
+            if (key === 'c' && buttons[2]) buttons[2].click();
+            if (key === 'd' && buttons[3]) buttons[3].click();
+        });
+    </script>
+</body>
+</html>

@@ -691,7 +691,143 @@
         <p>Erstellt für Bildungszwecke | <a href="#">Lehrerhandreichung</a></p>
     </footer>
 
+    <!-- Audio Player -->
+    <div id="audio-controls" style="position: fixed; top: 1rem; right: 1rem; z-index: 1000; background: rgba(26, 26, 26, 0.95); padding: 0.5rem 1rem; border-radius: 8px; display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; border: 1px solid #444;">
+        <span style="color: #888;">🎵</span>
+        <button id="muteToggle" onclick="toggleMute()" style="background: transparent; border: 1px solid #666; color: #c49a6c; padding: 0.25rem 0.75rem; border-radius: 4px; cursor: pointer; font-family: inherit; font-size: 0.8rem; transition: all 0.2s;">
+            🔊 Musik
+        </button>
+        <input type="range" id="volumeSlider" min="0" max="100" value="25" oninput="setVolume(this.value)" style="width: 80px; accent-color: #c49a6c;">
+    </div>
+    <audio id="bgMusic1" loop preload="auto"></audio>
+    <audio id="bgMusic2" loop preload="auto"></audio>
+
     <script>
+        // Audio Manager
+        const audioManager = {
+            player1: null,
+            player2: null,
+            currentPlayer: 1,
+            isMuted: false,
+            baseVolume: 0.25,
+            
+            tracks: {
+                peaceful: 'audio/1.%20Sepia%20Afternoon.mp3',
+                hope: 'audio/2.%20Trembling%20Into%20Light.mp3',
+                tension: 'audio/3.%20Hanging%20Shadow.mp3',
+                danger: 'audio/4.%20Red%20Line%20Sirens.mp3',
+                grief: 'audio/5.%20Midnight%20Room%20of%20Empty%20Chairs.mp3',
+                farewell: 'audio/6.%20Last%20Light%20in%20the%20Room.mp3',
+                chaos: 'audio/7.%20Waltz%20of%20the%20Falling%20Order.mp3',
+                courage: 'audio/8.%20Stand%20in%20the%20Fire.mp3',
+                remember: 'audio/9.%20Remember.mp3'
+            },
+            
+            sceneMapping: {
+                'title': 'peaceful',
+                'chapter1': 'peaceful',
+                'chapter2a': 'tension',
+                'chapter2a2': 'danger',
+                'morning': 'grief',
+                'epilog': 'remember',
+                'credits': 'remember'
+            },
+            
+            init() {
+                this.player1 = document.getElementById('bgMusic1');
+                this.player2 = document.getElementById('bgMusic2');
+                this.player1.volume = this.baseVolume;
+                this.player2.volume = 0;
+            },
+            
+            playForScene(sceneId) {
+                const mood = this.sceneMapping[sceneId] || 'peaceful';
+                this.crossfadeTo(this.tracks[mood]);
+            },
+            
+            crossfadeTo(trackUrl, duration = 2000) {
+                if (this.isMuted) return;
+                
+                const currentAudio = this.currentPlayer === 1 ? this.player1 : this.player2;
+                const nextAudio = this.currentPlayer === 1 ? this.player2 : this.player1;
+                
+                // Check if already playing this track
+                if (currentAudio.src.includes(trackUrl.split('/').pop())) return;
+                
+                nextAudio.src = trackUrl;
+                nextAudio.volume = 0;
+                nextAudio.play().catch(e => console.log('Audio play blocked:', e));
+                
+                const steps = 50;
+                const interval = duration / steps;
+                let step = 0;
+                
+                const fadeInterval = setInterval(() => {
+                    step++;
+                    const progress = step / steps;
+                    
+                    currentAudio.volume = this.baseVolume * (1 - progress);
+                    nextAudio.volume = this.baseVolume * progress;
+                    
+                    if (step >= steps) {
+                        clearInterval(fadeInterval);
+                        currentAudio.pause();
+                        currentAudio.volume = 0;
+                        this.currentPlayer = this.currentPlayer === 1 ? 2 : 1;
+                    }
+                }, interval);
+            },
+            
+            mute() {
+                this.isMuted = true;
+                this.player1.volume = 0;
+                this.player2.volume = 0;
+                document.getElementById('muteToggle').innerHTML = '🔇 Musik';
+                document.getElementById('muteToggle').style.color = '#666';
+            },
+            
+            unmute() {
+                this.isMuted = false;
+                const currentAudio = this.currentPlayer === 1 ? this.player1 : this.player2;
+                currentAudio.volume = this.baseVolume;
+                document.getElementById('muteToggle').innerHTML = '🔊 Musik';
+                document.getElementById('muteToggle').style.color = '#c49a6c';
+            },
+            
+            setVolume(value) {
+                this.baseVolume = value / 100;
+                if (!this.isMuted) {
+                    const currentAudio = this.currentPlayer === 1 ? this.player1 : this.player2;
+                    currentAudio.volume = this.baseVolume;
+                }
+            }
+        };
+        
+        function toggleMute() {
+            if (audioManager.isMuted) {
+                audioManager.unmute();
+            } else {
+                audioManager.mute();
+            }
+        }
+        
+        function setVolume(value) {
+            audioManager.setVolume(value);
+        }
+        
+        // Keyboard shortcut M for mute
+        document.addEventListener('keydown', (e) => {
+            if (e.key.toLowerCase() === 'm' && !e.ctrlKey && !e.altKey) {
+                toggleMute();
+            }
+        });
+        
+        // Initialize audio on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            audioManager.init();
+            audioManager.playForScene('title');
+        });
+        
         // Game State
         let gameState = {
             chapter: 0,
@@ -727,6 +863,7 @@
             document.getElementById('status-bar').style.display = 'flex';
             gameState.chapter = 1;
             updateStatus();
+            audioManager.playForScene('chapter1');
         }
         
         function makeChoice(choiceId) {
@@ -759,6 +896,9 @@
                     gameState.chapter = 5;
                     generateEpilog();
                 }
+                
+                // Play appropriate music for scene
+                audioManager.playForScene(path.next);
             }
             
             updateStatus();
@@ -827,15 +967,25 @@
             document.getElementById('credits').classList.add('active');
             document.getElementById('status-bar').style.display = 'none';
             window.scrollTo(0, 0);
+            audioManager.playForScene('credits');
         }
         
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
+            // M key for mute/unmute
+            if (e.key.toLowerCase() === 'm' && !e.ctrlKey && !e.altKey) {
+                toggleMute();
+                return;
+            }
+            
+            // Number keys 1-4
             if (e.key >= '1' && e.key <= '4') {
                 const buttons = document.querySelectorAll('.story-section.active .choice-btn');
                 const index = parseInt(e.key) - 1;
                 if (buttons[index]) buttons[index].click();
             }
+            
+            // Letter keys A-D
             if (e.key.toLowerCase() === 'a') {
                 const btn = document.querySelector('.story-section.active .choice-btn:nth-child(1)');
                 if (btn) btn.click();
