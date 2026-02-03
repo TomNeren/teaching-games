@@ -169,6 +169,7 @@
             text-align: left;
             cursor: pointer;
             transition: all 0.2s ease;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
         }
         
         .choice-btn:hover {
@@ -264,6 +265,31 @@
             justify-content: center;
             color: var(--text-muted);
             font-style: italic;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .scene-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+            z-index: 1;
+        }
+        
+        .scene-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .scene-image > * {
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
         }
         
         /* Reflection */
