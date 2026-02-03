@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entscheidungen 1933-1945 — Hauptmenü</title>
+    <style>
+        :root {
+            --bg-dark: #0d0d0d;
+            --bg-card: #1a1a1a;
+            --text-main: #e0e0e0;
+            --text-muted: #666;
+            --accent-bystander: #c49a6c;
+            --accent-victim: #6a9fb5;
+            --accent-perpetrator: #8b4a4a;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 900px;
+            width: 100%;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--accent-bystander), var(--accent-victim));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+        
+        .perspectives {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .perspective-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 2rem;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .perspective-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+        
+        .perspective-card.bystander::before { background: var(--accent-bystander); }
+        .perspective-card.victim::before { background: var(--accent-victim); }
+        .perspective-card.perpetrator::before { background: var(--accent-perpetrator); }
+        
+        .perspective-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        
+        .perspective-card.bystander:hover { border-color: var(--accent-bystander); }
+        .perspective-card.victim:hover { border-color: var(--accent-victim); }
+        .perspective-card.perpetrator:hover { border-color: var(--accent-perpetrator); }
+        
+        .perspective-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .perspective-card.bystander h2 { color: var(--accent-bystander); }
+        .perspective-card.victim h2 { color: var(--accent-victim); }
+        .perspective-card.perpetrator h2 { color: var(--accent-perpetrator); }
+        
+        .perspective-card .role {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .perspective-card .description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .perspective-card .question {
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .perspective-card .status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-top: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .perspective-card .status.ready {
+            background: rgba(100, 200, 100, 0.2);
+            color: #8c8;
+        }
+        
+        .perspective-card .status.coming {
+            background: rgba(200, 200, 100, 0.2);
+            color: #cc8;
+        }
+        
+        .perspective-card.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        
+        .info-section {
+            margin-top: 4rem;
+            text-align: center;
+        }
+        
+        .info-section h3 {
+            color: var(--text-muted);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+        
+        .info-section p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .warning {
+            background: rgba(139, 0, 0, 0.3);
+            border: 1px solid #600;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 2rem auto;
+            max-width: 600px;
+            text-align: center;
+        }
+        
+        .warning p {
+            color: #c99;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            margin-top: 4rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        
+        footer a {
+            color: var(--accent-bystander);
+        }
+        
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .perspectives { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ENTSCHEIDUNGEN</h1>
+            <p class="subtitle">Deutschland 1933 — 1945</p>
+        </header>
+        
+        <div class="warning">
+            <p>⚠️ Diese Simulation behandelt die NS-Zeit und den Holocaust. Sie enthält belastende Inhalte und ist für Personen ab 18 Jahren konzipiert.</p>
+        </div>
+        
+        <div class="perspectives">
+            <a href="index.html" class="perspective-card bystander">
+                <h2>Werner</h2>
+                <p class="role">Der Zuschauer</p>
+                <p class="description">
+                    35 Jahre, Buchhalter. Verheiratet, zwei Kinder. Ein gewöhnlicher Mann, der Entscheidungen treffen muss, wenn das Ungewöhnliche zur Normalität wird.
+                </p>
+                <p class="question">"Was bedeutet es, nichts zu tun?"</p>
+                <span class="status ready">✓ Spielbar</span>
+            </a>
+            
+            <a href="david-perspective.html" class="perspective-card victim">
+                <h2>David</h2>
+                <p class="role">Das Opfer</p>
+                <p class="description">
+                    16 Jahre (1935), Schüler. Sohn eines jüdischen Textilhändlers. Deutscher — bis die Gesetze ihm sagen, dass er es nicht ist.
+                </p>
+                <p class="question">"Wie lebt man, wenn einem alles genommen wird?"</p>
+                <span class="status ready">✓ Spielbar</span>
+            </a>
+            
+            <div class="perspective-card perpetrator disabled">
+                <h2>Heinrich</h2>
+                <p class="role">Der Täter</p>
+                <p class="description">
+                    28 Jahre (1933), Lehrer. Arbeitslos nach der Wirtschaftskrise. Er sucht nach Erklärungen — und findet die falsche Antwort.
+                </p>
+                <p class="question">"Wie wird ein gewöhnlicher Mensch zum Täter?"</p>
+                <span class="status coming">In Entwicklung</span>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <h3>Über dieses Projekt</h3>
+            <p>
+                Diese interaktive Simulation wurde für den Geschichtsunterricht an beruflichen Schulen entwickelt. Sie soll keine historische "Erfahrung" simulieren — das wäre unmöglich und respektlos. Stattdessen lädt sie zur Reflexion ein: über Entscheidungen, Verantwortung und die Frage, wie gewöhnliche Menschen zu Tätern, Opfern und Zuschauern wurden.
+            </p>
+            <p style="margin-top: 1rem;">
+                Es gibt keine "richtigen" Entscheidungen. Nur Konsequenzen.
+            </p>
+        </div>
+        
+        <footer>
+            <p>Version 0.2 (Prototyp) | Februar 2026</p>
+            <p>Erstellt für Bildungszwecke | Berufliche Schule Lörrach</p>
+            <p style="margin-top: 0.5rem;"><a href="#">Lehrerhandreichung</a> | <a href="#">Quellenverzeichnis</a></p>
+        </footer>
+    </div>
+</body>
+</html>

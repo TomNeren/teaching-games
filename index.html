@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teaching Games</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh; color: #e0e0e0;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .container { max-width: 600px; padding: 2rem; text-align: center; }
+        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; color: #e94560; }
+        .subtitle { color: #888; margin-bottom: 3rem; }
+        .game-card {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px; padding: 2rem; margin: 1rem 0;
+            transition: all 0.3s; text-decoration: none; display: block; color: inherit;
+        }
+        .game-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-3px); }
+        .game-card h2 { color: #e94560; margin-bottom: 0.5rem; }
+        .game-card p { color: #aaa; font-size: 0.9rem; }
+        .emoji { font-size: 2rem; margin-bottom: 0.5rem; }
+        footer { margin-top: 3rem; color: #555; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 Teaching Games</h1>
+        <p class="subtitle">Interaktive Lernspiele für den Unterricht</p>
+
+        <a href="bird-quiz/" class="game-card">
+            <div class="emoji">🐦</div>
+            <h2>Vogelstimmen-Quiz</h2>
+            <p>Erkenne die Singvögel aus dem Raum Lörrach an ihrem Gesang</p>
+        </a>
+
+        <a href="mammutprojekt/" class="game-card">
+            <div class="emoji">📜</div>
+            <h2>Entscheidungen 1938</h2>
+            <p>Interaktive NS-Simulation — Drei Perspektiven (18+)</p>
+        </a>
+
+        <footer>
+            Berufliche Schule Lörrach · Erstellt mit ✨ von Aether
+        </footer>
+    </div>
+</body>
+</html>

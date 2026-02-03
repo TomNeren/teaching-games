@@ -1,0 +1,96 @@
+{
+  "title": "Vogelstimmen-Quiz Lörrach",
+  "description": "Erkenne die Singvögel aus dem Raum Lörrach an ihrem Gesang!",
+  "birds": [
+    {
+      "id": "amsel",
+      "name": "Amsel",
+      "scientificName": "Turdus merula",
+      "audioUrl": "https://xeno-canto.org/sounds/uploaded/VOLIQOYWKG/XC716374-Blackbird%20song%202022-03-31%20Karlsruhe%20-01.mp3",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Common_Blackbird.jpg/800px-Common_Blackbird.jpg",
+      "description": "Die Amsel ist einer der bekanntesten Singvögel. Das Männchen ist schwarz mit orangegelbem Schnabel, das Weibchen braun. Ihr melodischer Gesang ertönt besonders in der Morgen- und Abenddämmerung von erhöhten Singwarten.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "kohlmeise",
+      "name": "Kohlmeise",
+      "scientificName": "Parus major",
+      "audioUrl": "https://xeno-canto.org/sounds/uploaded/VOLIQOYWKG/XC663098-Great%20tit%20Song%202021-04-21%20Karlsruhe%20-02.mp3",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Great_tit_side-on.jpg/800px-Great_tit_side-on.jpg",
+      "description": "Die Kohlmeise ist die größte einheimische Meise. Auffällig sind der schwarze Kopf mit weißen Wangen und der gelbe Bauch mit schwarzem Längsstreifen. Ihr Ruf klingt wie 'zi-zi-bäh'.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "blaumeise",
+      "name": "Blaumeise",
+      "scientificName": "Cyanistes caeruleus",
+      "audioUrl": "https://xeno-canto.org/sounds/uploaded/VOLIQOYWKG/XC663102-Blue%20tit%20Song%202021-04-21%20Karlsruhe%20-01.mp3",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Cyanistes_caeruleus_3_Luc_Viatour.jpg/800px-Cyanistes_caeruleus_3_Luc_Viatour.jpg",
+      "description": "Die Blaumeise ist kleiner als die Kohlmeise und hat eine charakteristische blaue Kappe. Sie ist sehr agil und hängt oft kopfüber an Ästen. Ihr Gesang ist ein schnelles, hohes Trillern.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rotkehlchen",
+      "name": "Rotkehlchen",
+      "scientificName": "Erithacus rubecula",
+      "audioUrl": "https://xeno-canto.org/sounds/uploaded/VOLIQOYWKG/XC716377-Robin%20song%202022-03-31%20Karlsruhe%20-01.mp3",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Erithacus_rubecula_with_cocked_head.jpg/800px-Erithacus_rubecula_with_cocked_head.jpg",
+      "description": "Das Rotkehlchen ist leicht an seiner orange-roten Brust zu erkennen. Es singt auch im Winter und oft sogar nachts unter Straßenlaternen. Sein Gesang ist melodisch und etwas wehmütig.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "buchfink",
+      "name": "Buchfink",
+      "scientificName": "Fringilla coelebs",
+      "audioUrl": "https://xeno-canto.org/sounds/uploaded/VOLIQOYWKG/XC663084-Chaffinch%20Song%202021-04-21%20Karlsruhe%20-01.mp3",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Fringilla_coelebs_chaffinch_male_edit2.jpg/800px-Fringilla_coelebs_chaffinch_male_edit2.jpg",
+      "description": "Der Buchfink ist einer der häufigsten Singvögel Europas. Das Männchen hat eine rotbraune Brust und einen blaugrauen Kopf. Sein Gesang ist ein kraftvoller 'Finkenschlag' der mit einem schnellen Schnörkel endet.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "zaunkoenig",
+      "name": "Zaunkönig",
+      "scientificName": "Troglodytes troglodytes",
+      "audioUrl": "https://xeno-canto.org/sounds/uploaded/VOLIQOYWKG/XC716382-Wren%20song%202022-03-31%20Karlsruhe%20-01.mp3",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Troglodytes_troglodytes_-_Eurasian_Wren.jpg/800px-Troglodytes_troglodytes_-_Eurasian_Wren.jpg",
+      "description": "Der Zaunkönig ist einer der kleinsten europäischen Vögel. Trotz seiner geringen Größe hat er einen erstaunlich lauten, schmetternden Gesang. Er hält den Schwanz oft steil aufgerichtet.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "singdrossel",
+      "name": "Singdrossel",
+      "scientificName": "Turdus philomelos",
+      "audioUrl": "https://xeno-canto.org/sounds/uploaded/VOLIQOYWKG/XC716379-Song%20Thrush%202022-03-31%20Karlsruhe%20-01.mp3",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Song_Thrush_%28Turdus_philomelos%29_singing_in_tree.jpg/800px-Song_Thrush_%28Turdus_philomelos%29_singing_in_tree.jpg",
+      "description": "Die Singdrossel ist bekannt für ihren virtuosen Gesang, bei dem Motive oft 2-4 mal wiederholt werden. Sie hat eine braune Oberseite und eine gefleckte Brust. Verwandt mit der Amsel.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "star",
+      "name": "Star",
+      "scientificName": "Sturnus vulgaris",
+      "audioUrl": "https://xeno-canto.org/sounds/uploaded/RJHBGXQHHU/XC491652-Starling%20D%20Kehl%2020190502.mp3",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Toulouse_-_Sturnus_vulgaris_-_2012-02-26_-_3.jpg/800px-Toulouse_-_Sturnus_vulgaris_-_2012-02-26_-_3.jpg",
+      "description": "Der Star ist ein brillanter Stimmenimitator und kann andere Vögel, Handyklingeltöne und sogar menschliche Sprache nachahmen. Im Prachtkleid schillert sein Gefieder metallisch grün-violett.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "haussperling",
+      "name": "Haussperling (Spatz)",
+      "scientificName": "Passer domesticus",
+      "audioUrl": "https://xeno-canto.org/sounds/uploaded/VOLIQOYWKG/XC663107-House%20Sparrow%20Song%202021-04-21%20Karlsruhe%20-01.mp3",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Passer_domesticus_male_%2815%29.jpg/800px-Passer_domesticus_male_%2815%29.jpg",
+      "description": "Der Haussperling lebt seit Jahrtausenden in der Nähe des Menschen. Das Männchen hat einen grauen Scheitel und schwarzen Kehlfleck. Sein Ruf ist ein einfaches, lebhaftes 'Tschilpen'.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "gruenfink",
+      "name": "Grünfink",
+      "scientificName": "Chloris chloris",
+      "audioUrl": "https://xeno-canto.org/sounds/uploaded/VOLIQOYWKG/XC663087-Greenfinch%20Song%202021-04-21%20Karlsruhe%20-01.mp3",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Carduelis_chloris_1_%28Marek_Szczepanek%29.jpg/800px-Carduelis_chloris_1_%28Marek_Szczepanek%29.jpg",
+      "description": "Der Grünfink ist olivgrün bis gelbgrün gefärbt mit leuchtend gelben Flügelmarkierungen. Sein Gesang enthält charakteristische 'djüüüh'-Rufe, die an ein Quietschen erinnern.",
+      "difficulty": "medium"
+    }
+  ]
+}

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐦 Vogelstimmen-Quiz Lörrach</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c23 50%, #2d5016 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: linear-gradient(145deg, #fffef5 0%, #f5f0e1 100%);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            margin-top: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2d5016;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        /* Start Screen */
+        #start-screen {
+            text-align: center;
+        }
+
+        .start-bird {
+            font-size: 80px;
+            margin: 30px 0;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .btn {
+            background: linear-gradient(145deg, #4a7c23 0%, #2d5016 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(45, 80, 22, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(45, 80, 22, 0.5);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* Game Screen */
+        #game-screen {
+            display: none;
+        }
+
+        .score-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: #e8e4d9;
+            border-radius: 10px;
+        }
+
+        .score {
+            font-weight: bold;
+            color: #2d5016;
+        }
+
+        .round {
+            color: #666;
+        }
+
+        .play-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .play-btn {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #ff9800 0%, #f57c00 100%);
+            border: none;
+            cursor: pointer;
+            font-size: 40px;
+            color: white;
+            box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
+            transition: all 0.3s;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .play-btn.playing {
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 152, 0, 0.6); }
+            50% { box-shadow: 0 0 0 20px rgba(255, 152, 0, 0); }
+        }
+
+        .play-hint {
+            margin-top: 15px;
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        .choices {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .choice {
+            position: relative;
+            aspect-ratio: 4/3;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 4px solid transparent;
+        }
+
+        .choice:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .choice img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .choice-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 30px 10px 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .choice.correct {
+            border-color: #4caf50;
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
+        }
+
+        .choice.wrong {
+            border-color: #f44336;
+            opacity: 0.6;
+        }
+
+        .choice.disabled {
+            pointer-events: none;
+        }
+
+        /* Result Section */
+        .result {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #e8f5e9;
+            border-radius: 15px;
+            border-left: 5px solid #4caf50;
+        }
+
+        .result.wrong-result {
+            background: #ffebee;
+            border-left-color: #f44336;
+        }
+
+        .result h3 {
+            color: #2d5016;
+            margin-bottom: 5px;
+        }
+
+        .result .scientific {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .result p {
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .next-btn {
+            display: none;
+            margin-top: 20px;
+        }
+
+        /* End Screen */
+        #end-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .final-score {
+            font-size: 4em;
+            color: #2d5016;
+            margin: 20px 0;
+        }
+
+        .final-message {
+            font-size: 1.3em;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .stars {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .choices {
+                grid-template-columns: 1fr;
+            }
+
+            .play-btn {
+                width: 80px;
+                height: 80px;
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <!-- Start Screen -->
+            <div id="start-screen">
+                <h1>🐦 Vogelstimmen-Quiz</h1>
+                <p class="subtitle">Erkenne die Singvögel aus dem Raum Lörrach!</p>
+                <div class="start-bird">🎵</div>
+                <p style="margin-bottom: 30px; color: #666;">
+                    Höre den Gesang und wähle den richtigen Vogel!<br>
+                    10 Vögel warten auf dich.
+                </p>
+                <button class="btn" onclick="startGame()">Spiel starten</button>
+            </div>
+
+            <!-- Game Screen -->
+            <div id="game-screen">
+                <div class="score-bar">
+                    <span class="score">Punkte: <span id="score">0</span></span>
+                    <span class="round">Vogel <span id="current-round">1</span> von <span id="total-rounds">10</span></span>
+                </div>
+
+                <div class="play-section">
+                    <button class="play-btn" id="play-btn" onclick="playSound()">▶</button>
+                    <p class="play-hint">Klicke zum Abspielen der Vogelstimme</p>
+                </div>
+
+                <div class="choices" id="choices"></div>
+
+                <div class="result" id="result">
+                    <h3 id="result-name"></h3>
+                    <p class="scientific" id="result-scientific"></p>
+                    <p id="result-description"></p>
+                </div>
+
+                <button class="btn next-btn" id="next-btn" onclick="nextRound()">Weiter →</button>
+            </div>
+
+            <!-- End Screen -->
+            <div id="end-screen">
+                <h1>Quiz beendet! 🎉</h1>
+                <div class="stars" id="stars"></div>
+                <div class="final-score"><span id="final-score">0</span>/<span id="final-total">10</span></div>
+                <p class="final-message" id="final-message"></p>
+                <button class="btn" onclick="startGame()">Nochmal spielen</button>
+            </div>
+        </div>
+    </div>
+
+    <audio id="bird-audio" preload="auto"></audio>
+
+    <script>
+        // Bird data embedded directly
+        const birdsData = {
+            birds: [
+                {
+                    id: "amsel",
+                    name: "Amsel",
+                    scientificName: "Turdus merula",
+                    audioUrl: "https://xeno-canto.org/716374/download",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Common_Blackbird.jpg/400px-Common_Blackbird.jpg",
+                    description: "Die Amsel ist einer der bekanntesten Singvögel. Das Männchen ist schwarz mit orangegelbem Schnabel, das Weibchen braun. Ihr melodischer Gesang ertönt besonders in der Morgen- und Abenddämmerung."
+                },
+                {
+                    id: "kohlmeise",
+                    name: "Kohlmeise",
+                    scientificName: "Parus major",
+                    audioUrl: "https://xeno-canto.org/663098/download",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Great_tit_side-on.jpg/400px-Great_tit_side-on.jpg",
+                    description: "Die Kohlmeise ist die größte einheimische Meise. Auffällig sind der schwarze Kopf mit weißen Wangen und der gelbe Bauch mit schwarzem Längsstreifen. Ihr Ruf klingt wie 'zi-zi-bäh'."
+                },
+                {
+                    id: "blaumeise",
+                    name: "Blaumeise",
+                    scientificName: "Cyanistes caeruleus",
+                    audioUrl: "https://xeno-canto.org/663102/download",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Cyanistes_caeruleus_3_Luc_Viatour.jpg/400px-Cyanistes_caeruleus_3_Luc_Viatour.jpg",
+                    description: "Die Blaumeise ist kleiner als die Kohlmeise und hat eine charakteristische blaue Kappe. Sie ist sehr agil und hängt oft kopfüber an Ästen. Ihr Gesang ist ein schnelles, hohes Trillern."
+                },
+                {
+                    id: "rotkehlchen",
+                    name: "Rotkehlchen",
+                    scientificName: "Erithacus rubecula",
+                    audioUrl: "https://xeno-canto.org/716377/download",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Erithacus_rubecula_with_cocked_head.jpg/400px-Erithacus_rubecula_with_cocked_head.jpg",
+                    description: "Das Rotkehlchen ist leicht an seiner orange-roten Brust zu erkennen. Es singt auch im Winter und oft sogar nachts unter Straßenlaternen. Sein Gesang ist melodisch und etwas wehmütig."
+                },
+                {
+                    id: "buchfink",
+                    name: "Buchfink",
+                    scientificName: "Fringilla coelebs",
+                    audioUrl: "https://xeno-canto.org/663084/download",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Fringilla_coelebs_chaffinch_male_edit2.jpg/400px-Fringilla_coelebs_chaffinch_male_edit2.jpg",
+                    description: "Der Buchfink ist einer der häufigsten Singvögel Europas. Das Männchen hat eine rotbraune Brust und einen blaugrauen Kopf. Sein Gesang ist ein kraftvoller 'Finkenschlag'."
+                },
+                {
+                    id: "zaunkoenig",
+                    name: "Zaunkönig",
+                    scientificName: "Troglodytes troglodytes",
+                    audioUrl: "https://xeno-canto.org/716382/download",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Troglodytes_troglodytes_-British_Wildlife_Centre%2C_Surrey%2C_England-8.jpg/400px-Troglodytes_troglodytes_-British_Wildlife_Centre%2C_Surrey%2C_England-8.jpg",
+                    description: "Der Zaunkönig ist einer der kleinsten europäischen Vögel. Trotz seiner geringen Größe hat er einen erstaunlich lauten, schmetternden Gesang. Er hält den Schwanz oft steil aufgerichtet."
+                },
+                {
+                    id: "singdrossel",
+                    name: "Singdrossel",
+                    scientificName: "Turdus philomelos",
+                    audioUrl: "https://xeno-canto.org/716379/download",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Song_Thrush_%28Turdus_philomelos%29_singing_in_tree.jpg/400px-Song_Thrush_%28Turdus_philomelos%29_singing_in_tree.jpg",
+                    description: "Die Singdrossel ist bekannt für ihren virtuosen Gesang, bei dem Motive oft 2-4 mal wiederholt werden. Sie hat eine braune Oberseite und eine gefleckte Brust."
+                },
+                {
+                    id: "star",
+                    name: "Star",
+                    scientificName: "Sturnus vulgaris",
+                    audioUrl: "https://xeno-canto.org/491652/download",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Toulouse_-_Sturnus_vulgaris_-_2012-02-26_-_3.jpg/400px-Toulouse_-_Sturnus_vulgaris_-_2012-02-26_-_3.jpg",
+                    description: "Der Star ist ein brillanter Stimmenimitator und kann andere Vögel und sogar Handyklingeltöne nachahmen. Im Prachtkleid schillert sein Gefieder metallisch grün-violett."
+                },
+                {
+                    id: "haussperling",
+                    name: "Haussperling",
+                    scientificName: "Passer domesticus",
+                    audioUrl: "https://xeno-canto.org/663107/download",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Passer_domesticus_male_%2815%29.jpg/400px-Passer_domesticus_male_%2815%29.jpg",
+                    description: "Der Haussperling (Spatz) lebt seit Jahrtausenden in der Nähe des Menschen. Das Männchen hat einen grauen Scheitel und schwarzen Kehlfleck. Sein Ruf ist ein lebhaftes 'Tschilpen'."
+                },
+                {
+                    id: "gruenfink",
+                    name: "Grünfink",
+                    scientificName: "Chloris chloris",
+                    audioUrl: "https://xeno-canto.org/663087/download",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Carduelis_chloris_1_%28Marek_Szczepanek%29.jpg/400px-Carduelis_chloris_1_%28Marek_Szczepanek%29.jpg",
+                    description: "Der Grünfink ist olivgrün bis gelbgrün gefärbt mit leuchtend gelben Flügelmarkierungen. Sein Gesang enthält charakteristische 'djüüüh'-Rufe, die an ein Quietschen erinnern."
+                }
+            ]
+        };
+
+        let birds = [];
+        let currentRound = 0;
+        let score = 0;
+        let currentBird = null;
+        let answered = false;
+        const audio = document.getElementById('bird-audio');
+
+        function shuffle(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function startGame() {
+            birds = shuffle(birdsData.birds);
+            currentRound = 0;
+            score = 0;
+            
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('end-screen').style.display = 'none';
+            document.getElementById('game-screen').style.display = 'block';
+            document.getElementById('total-rounds').textContent = birds.length;
+            
+            loadRound();
+        }
+
+        function loadRound() {
+            answered = false;
+            currentBird = birds[currentRound];
+            
+            document.getElementById('current-round').textContent = currentRound + 1;
+            document.getElementById('score').textContent = score;
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('next-btn').style.display = 'none';
+            document.getElementById('play-btn').classList.remove('playing');
+            
+            // Get 3 wrong choices
+            const otherBirds = birds.filter(b => b.id !== currentBird.id);
+            const wrongChoices = shuffle(otherBirds).slice(0, 3);
+            const choices = shuffle([currentBird, ...wrongChoices]);
+            
+            const choicesContainer = document.getElementById('choices');
+            choicesContainer.innerHTML = '';
+            
+            choices.forEach(bird => {
+                const div = document.createElement('div');
+                div.className = 'choice';
+                div.dataset.id = bird.id;
+                div.onclick = () => selectChoice(bird.id);
+                div.innerHTML = `
+                    <img src="${bird.imageUrl}" alt="${bird.name}" loading="lazy" 
+                         onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23e8e4d9%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2250%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%2240%22>🐦</text></svg>';">
+                    <div class="choice-label">${bird.name}</div>
+                `;
+                choicesContainer.appendChild(div);
+            });
+
+            // Preload audio
+            audio.src = currentBird.audioUrl;
+            audio.load();
+        }
+
+        function playSound() {
+            const playBtn = document.getElementById('play-btn');
+            
+            if (audio.paused) {
+                audio.play().catch(e => {
+                    console.log('Audio play failed, trying proxy...', e);
+                    // Try with CORS proxy
+                    const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(currentBird.audioUrl);
+                    audio.src = proxyUrl;
+                    audio.load();
+                    audio.play().catch(e2 => {
+                        console.log('Proxy also failed', e2);
+                        // Show hint instead of alert
+                        document.getElementById('play-btn').textContent = '❌';
+                        document.getElementById('play-btn').title = 'Audio nicht verfügbar';
+                    });
+                });
+                playBtn.textContent = '⏸';
+                playBtn.classList.add('playing');
+            } else {
+                audio.pause();
+                playBtn.textContent = '▶';
+                playBtn.classList.remove('playing');
+            }
+        }
+
+        audio.onended = () => {
+            document.getElementById('play-btn').textContent = '▶';
+            document.getElementById('play-btn').classList.remove('playing');
+        };
+
+        function selectChoice(birdId) {
+            if (answered) return;
+            answered = true;
+
+            const choices = document.querySelectorAll('.choice');
+            choices.forEach(c => {
+                c.classList.add('disabled');
+                if (c.dataset.id === currentBird.id) {
+                    c.classList.add('correct');
+                } else if (c.dataset.id === birdId) {
+                    c.classList.add('wrong');
+                }
+            });
+
+            const isCorrect = birdId === currentBird.id;
+            if (isCorrect) {
+                score++;
+                document.getElementById('score').textContent = score;
+            }
+
+            // Show result
+            const result = document.getElementById('result');
+            result.className = isCorrect ? 'result' : 'result wrong-result';
+            result.style.display = 'block';
+            
+            document.getElementById('result-name').textContent = 
+                (isCorrect ? '✓ Richtig! ' : '✗ Falsch! Es war: ') + currentBird.name;
+            document.getElementById('result-scientific').textContent = currentBird.scientificName;
+            document.getElementById('result-description').textContent = currentBird.description;
+
+            document.getElementById('next-btn').style.display = 'block';
+        }
+
+        function nextRound() {
+            audio.pause();
+            currentRound++;
+            
+            if (currentRound >= birds.length) {
+                endGame();
+            } else {
+                loadRound();
+            }
+        }
+
+        function endGame() {
+            document.getElementById('game-screen').style.display = 'none';
+            document.getElementById('end-screen').style.display = 'block';
+            
+            document.getElementById('final-score').textContent = score;
+            document.getElementById('final-total').textContent = birds.length;
+            
+            const percentage = score / birds.length;
+            let stars = '';
+            let message = '';
+            
+            if (percentage >= 0.9) {
+                stars = '⭐⭐⭐';
+                message = 'Ausgezeichnet! Du bist ein echter Vogelexperte!';
+            } else if (percentage >= 0.7) {
+                stars = '⭐⭐';
+                message = 'Sehr gut! Du kennst dich mit Vögeln aus!';
+            } else if (percentage >= 0.5) {
+                stars = '⭐';
+                message = 'Gut gemacht! Mit etwas Übung wirst du noch besser!';
+            } else {
+                stars = '🌱';
+                message = 'Weiter üben! Die Vögel warten auf dich!';
+            }
+            
+            document.getElementById('stars').textContent = stars;
+            document.getElementById('final-message').textContent = message;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entscheidungen 1938 — Eine interaktive Simulation</title>
+    <style>
+        :root {
+            --bg-dark: #1a1a1a;
+            --bg-card: #2a2a2a;
+            --text-main: #e0e0e0;
+            --text-muted: #888;
+            --accent: #c49a6c;
+            --accent-hover: #d4aa7c;
+            --danger: #8b0000;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.8;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Title Screen */
+        .title-screen {
+            text-align: center;
+            padding: 4rem 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .title-screen h1 {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.1em;
+        }
+        
+        .title-screen .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+        }
+        
+        .title-screen .date {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .warning-box {
+            background: var(--danger);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem auto;
+            max-width: 600px;
+            text-align: left;
+        }
+        
+        .warning-box h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Story Content */
+        .story-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .story-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .chapter-header {
+            text-align: center;
+            padding: 2rem 0;
+            border-bottom: 1px solid #444;
+            margin-bottom: 2rem;
+        }
+        
+        .chapter-header h2 {
+            color: var(--accent);
+            font-size: 1.8rem;
+        }
+        
+        .chapter-header .date {
+            color: var(--text-muted);
+            font-style: italic;
+        }
+        
+        .narrative {
+            margin-bottom: 2rem;
+        }
+        
+        .narrative p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+        
+        .narrative p.emphasis {
+            font-style: italic;
+            color: var(--accent);
+        }
+        
+        .narrative p.thought {
+            font-style: italic;
+            padding-left: 2rem;
+            border-left: 3px solid var(--accent);
+        }
+        
+        .dialogue {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: var(--bg-card);
+            border-radius: 8px;
+        }
+        
+        .dialogue .speaker {
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        /* Choices */
+        .choices {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #444;
+        }
+        
+        .choices h3 {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .choice-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            background: var(--bg-card);
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 1rem;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .choice-btn:hover {
+            background: #3a3a3a;
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+        
+        .choice-btn .choice-key {
+            display: inline-block;
+            width: 2rem;
+            height: 2rem;
+            line-height: 2rem;
+            text-align: center;
+            background: var(--accent);
+            color: var(--bg-dark);
+            border-radius: 4px;
+            margin-right: 1rem;
+            font-weight: bold;
+        }
+        
+        /* Stats/Status */
+        .status-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            padding: 0.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            z-index: 100;
+            border-bottom: 1px solid #444;
+        }
+        
+        .status-bar .stat {
+            color: var(--text-muted);
+        }
+        
+        .status-bar .stat span {
+            color: var(--accent);
+        }
+        
+        /* Consequence Box */
+        .consequence {
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .consequence.negative {
+            border-left-color: var(--danger);
+        }
+        
+        .consequence h4 {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Continue Button */
+        .continue-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--accent);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: background 0.2s;
+        }
+        
+        .continue-btn:hover {
+            background: var(--accent-hover);
+        }
+        
+        /* Image placeholder */
+        .scene-image {
+            width: 100%;
+            height: 300px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            margin: 2rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+        
+        /* Reflection */
+        .reflection-box {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+        
+        .reflection-box h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .reflection-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .reflection-box li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #444;
+        }
+        
+        .reflection-box li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Audio indicator */
+        .audio-indicator {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background: var(--bg-card);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid #444;
+            margin-top: 4rem;
+        }
+        
+        footer a {
+            color: var(--accent);
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .title-screen h1 {
+                font-size: 2rem;
+            }
+            
+            .status-bar {
+                font-size: 0.75rem;
+                padding: 0.5rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="status-bar" class="status-bar" style="display: none;">
+        <div class="stat">Kapitel: <span id="current-chapter">1</span>/5</div>
+        <div class="stat">Entscheidungen: <span id="decision-count">0</span></div>
+        <div class="stat"><span id="current-date">9. November 1938</span></div>
+    </div>
+
+    <div class="container">
+        <!-- TITLE SCREEN -->
+        <section id="title" class="story-section active">
+            <div class="title-screen">
+                <h1>ENTSCHEIDUNGEN</h1>
+                <p class="subtitle">Eine interaktive Simulation</p>
+                <p class="date">November 1938</p>
+                
+                <div class="warning-box">
+                    <h3>⚠️ Inhaltswarnung</h3>
+                    <p>Diese Simulation behandelt die Ereignisse der Reichspogromnacht und die Verfolgung jüdischer Menschen im nationalsozialistischen Deutschland.</p>
+                    <p style="margin-top: 0.5rem;">Sie enthält Darstellungen von Gewalt, Diskriminierung und moralisch belastenden Entscheidungssituationen.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Zielgruppe: 18+</strong></p>
+                </div>
+                
+                <p style="margin: 2rem 0; color: var(--text-muted);">
+                    Du schlüpfst in die Rolle von <strong>Werner Hoffmann</strong>, 35 Jahre alt, Buchhalter.<br>
+                    Ein gewöhnlicher Bürger. Kein Held. Kein Verbrecher.<br>
+                    Nur jemand, der Entscheidungen treffen muss.
+                </p>
+                
+                <button class="continue-btn" onclick="startGame()">Beginnen</button>
+                
+                <p style="margin-top: 3rem; font-size: 0.8rem; color: var(--text-muted);">
+                    Für Bildungszwecke erstellt<br>
+                    Berufliche Schule Lörrach
+                </p>
+            </div>
+        </section>
+
+        <!-- CHAPTER 1: PROLOG -->
+        <section id="chapter1" class="story-section">
+            <div class="chapter-header">
+                <h2>Kapitel 1: Ein gewöhnlicher Abend</h2>
+                <p class="date">9. November 1938, 21:00 Uhr</p>
+            </div>
+            
+            <div class="scene-image">
+                <img src="images/generated/werner_apartment.jpg" alt="Wohnzimmer einer deutschen Familie, 1930er Jahre">
+            </div>
+            
+            <div class="narrative">
+                <p>Das Radio spielt leise Musik. Martha strickt am Fenster, die Kinder sind längst im Bett. Ein ganz normaler Donnerstagabend.</p>
+                
+                <p>Du sitzt am Küchentisch und gehst die Abrechnungen durch. Seit drei Jahren arbeitest du jetzt bei der Firma Becker & Söhne. Solide Arbeit, solides Gehalt.</p>
+                
+                <p>Durch die dünne Wand hörst du Stimmen aus der Nachbarwohnung — die Rosenthals. Jakob Rosenthal unterhält sich mit seiner Frau Hannah. Du verstehst nicht, was sie sagen, aber der Ton klingt besorgt.</p>
+                
+                <p class="thought">Die Rosenthals. Du kennst sie seit acht Jahren. Gute Nachbarn. Jakob hat dir geholfen, als du damals den Schrank tragen musstest. David, ihr Sohn, hat früher mit deinen Kindern gespielt.</p>
+                
+                <p>Das war, bevor die neuen Gesetze kamen. Bevor das Spielen "unerwünscht" wurde.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Martha:</span> "Werner? Hörst du das?"</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Du hebst den Kopf. In der Ferne — Sirenen? Nein. Rufe. Und etwas anderes. Das Klirren von Glas.</p>
+                
+                <p>Martha steht auf und geht zum Fenster. Ihr Gesicht wird blass.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Martha:</span> "Werner... da unten... da sind Männer. Vor dem Geschäft der Rosenthals. Sie haben Fackeln."</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was tust du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('1a')">
+                    <span class="choice-key">A</span>
+                    Ans Fenster gehen und schauen, was passiert
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('1b')">
+                    <span class="choice-key">B</span>
+                    Martha vom Fenster wegziehen — "Geh weg da, man könnte uns sehen"
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('1c')">
+                    <span class="choice-key">C</span>
+                    Das Licht ausschalten und leise sein
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('1d')">
+                    <span class="choice-key">D</span>
+                    Sagen "Das geht uns nichts an" und weitermachen
+                </button>
+            </div>
+        </section>
+
+        <!-- CHAPTER 2a: Window -->
+        <section id="chapter2a" class="story-section">
+            <div class="chapter-header">
+                <h2>Die Nacht</h2>
+                <p class="date">9. November 1938, 23:15 Uhr</p>
+            </div>
+            
+            <div class="scene-image">
+                <img src="images/generated/werner_window.jpg" alt="Blick aus Fenster auf nächtliche Straße">
+            </div>
+            
+            <div class="narrative">
+                <p>Du trittst ans Fenster. Was du siehst, lässt dich erstarren.</p>
+                
+                <p>Vor dem Textilgeschäft der Rosenthals steht eine Gruppe von etwa zehn Männern. Einige tragen SA-Uniformen, andere Zivilkleidung. Sie schlagen mit Äxten und Knüppeln auf die Schaufenster ein. Glasscherben glitzern im Licht der Fackeln.</p>
+                
+                <p>Auf der anderen Straßenseite stehen Menschen. Nachbarn. Passanten. Sie schauen zu. Niemand tut etwas.</p>
+                
+                <p class="thought">Da ist Herr Schulze vom dritten Stock. Er lacht.</p>
+                
+                <p>Plötzlich öffnet sich die Tür des Geschäfts. Jakob Rosenthal tritt heraus, die Hände erhoben.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Ein SA-Mann:</span> "Da ist er! Der Judenschwein!"</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Zwei Männer packen Jakob. Ein dritter schlägt ihm ins Gesicht. Er fällt auf die Knie.</p>
+                
+                <p>Durch das Fenster siehst du Hannah Rosenthal im ersten Stock. Sie hält sich die Hand vor den Mund. David steht hinter ihr.</p>
+                
+                <p>Ihr Blick trifft deinen.</p>
+                
+                <p class="emphasis">Sie sieht dich. Und du siehst sie.</p>
+            </div>
+            
+            <div class="consequence">
+                <h4>Die Last des Wissens</h4>
+                <p>Du bist jetzt Zeuge. Was immer du tust oder nicht tust — du hast gesehen, was hier geschieht. Das lässt sich nicht ungeschehen machen.</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was tust du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('2a1')">
+                    <span class="choice-key">A</span>
+                    Das Fenster öffnen und "Aufhören!" rufen
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('2a2')">
+                    <span class="choice-key">B</span>
+                    Die Polizei anrufen
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('2a3')">
+                    <span class="choice-key">C</span>
+                    Vom Fenster zurücktreten und nichts tun
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('2a4')">
+                    <span class="choice-key">D</span>
+                    Nach unten gehen, um zu helfen
+                </button>
+            </div>
+        </section>
+
+        <!-- CHAPTER 2a2: Police Call -->
+        <section id="chapter2a2" class="story-section">
+            <div class="chapter-header">
+                <h2>Der Anruf</h2>
+                <p class="date">9. November 1938, 23:20 Uhr</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Mit zitternden Händen gehst du zum Telefon im Flur. Du wählst die Nummer der Polizei.</p>
+                
+                <p>Es klingelt. Einmal. Zweimal. Dreimal.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Stimme am Telefon:</span> "Polizeirevier 7, Meier."</p>
+                <p><span class="speaker">Du:</span> "Ich möchte einen Überfall melden. In der Goethestraße 14. Ein Geschäft wird verwüstet, ein Mann wird geschlagen—"</p>
+                <p><span class="speaker">Meier:</span> "Goethestraße 14? Das Judengeschäft?"</p>
+                <p><span class="speaker">Du:</span> "Ja, aber—"</p>
+                <p><span class="speaker">Meier:</span> "Name und Adresse, bitte."</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Eine Pause. Du spürst Marthas Blick in deinem Rücken.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Meier:</span> "Hallo? Name und Adresse?"</p>
+            </div>
+            
+            <div class="narrative">
+                <p class="thought">Wenn du deinen Namen gibst... was dann? Herr Schulze ist Blockwart. Er würde es erfahren. Dein Chef, Herr Becker, ist Parteimitglied.</p>
+            </div>
+            
+            <div class="consequence negative">
+                <h4>Erkenntnis</h4>
+                <p>Die Polizei wird nicht helfen. Sie ist Teil dessen, was hier geschieht. Dein Anruf hat dich möglicherweise selbst in Gefahr gebracht.</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was sagst du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('3a')">
+                    <span class="choice-key">A</span>
+                    Deinen echten Namen und Adresse nennen
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('3b')">
+                    <span class="choice-key">B</span>
+                    Einen falschen Namen nennen
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('3c')">
+                    <span class="choice-key">C</span>
+                    Auflegen
+                </button>
+            </div>
+        </section>
+
+        <!-- CHAPTER: Morning After -->
+        <section id="morning" class="story-section">
+            <div class="chapter-header">
+                <h2>Der Morgen danach</h2>
+                <p class="date">10. November 1938, 07:30 Uhr</p>
+            </div>
+            
+            <div class="scene-image">
+                <img src="images/generated/werner_morning.jpg" alt="Zerstörte Straße am Morgen nach der Kristallnacht">
+            </div>
+            
+            <div class="narrative">
+                <p>Du hast kaum geschlafen. Der Lärm ging bis drei Uhr morgens. Dann Stille.</p>
+                
+                <p>Auf dem Weg zur Arbeit siehst du die Verwüstung. Das Schaufenster von Rosenthals Textilgeschäft ist komplett zerstört. Die Auslagen liegen auf der Straße — zerrissene Stoffe, zerbrochene Schaufensterpuppen.</p>
+                
+                <p>Jemand hat mit weißer Farbe "JUDE" an die Tür geschmiert.</p>
+                
+                <p>Die Straßenkehrer sind schon da. Sie fegen das Glas zusammen, als wäre es nur ein Herbststurm gewesen.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Ein Passant zu einem anderen:</span> "Wird auch Zeit, dass aufgeräumt wird mit denen."</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Du siehst nach oben. Die Wohnung der Rosenthals im ersten Stock. Die Vorhänge sind zugezogen.</p>
+                
+                <p class="thought">Leben sie noch dort? Wurden sie abgeholt? Jakob wurde letzte Nacht geschlagen. Wie geht es ihm?</p>
+                
+                <p>Du könntest hochgehen. Nachsehen. Aber es ist 7:30 Uhr. Du musst zur Arbeit. Und Herr Schulze könnte es sehen.</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was tust du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('m1')">
+                    <span class="choice-key">A</span>
+                    Kurz hochgehen und nach den Rosenthals sehen
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('m2')">
+                    <span class="choice-key">B</span>
+                    Zur Arbeit gehen — du kannst später nachsehen
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('m3')">
+                    <span class="choice-key">C</span>
+                    Den Blick abwenden und schnell weitergehen
+                </button>
+            </div>
+        </section>
+
+        <!-- EPILOG -->
+        <section id="epilog" class="story-section">
+            <div class="chapter-header">
+                <h2>Epilog</h2>
+                <p class="date">Was geschah danach?</p>
+            </div>
+            
+            <div class="narrative">
+                <p id="epilog-text">
+                    <!-- Dynamisch basierend auf Entscheidungen -->
+                </p>
+            </div>
+            
+            <div class="consequence">
+                <h4>Historischer Kontext</h4>
+                <p>In der Reichspogromnacht vom 9. auf den 10. November 1938 wurden im gesamten Deutschen Reich über 1.400 Synagogen und Gebetshäuser, tausende Geschäfte und Wohnungen zerstört.</p>
+                <p style="margin-top: 0.5rem;">Etwa 30.000 jüdische Männer wurden verhaftet und in Konzentrationslager deportiert. Mindestens 91 Menschen wurden ermordet.</p>
+                <p style="margin-top: 0.5rem;">Die Pogrome markierten den Übergang von der Diskriminierung zur offenen Gewalt — und kündigten an, was kommen würde.</p>
+            </div>
+            
+            <div class="reflection-box">
+                <h3>Reflexion</h3>
+                <p>Du hast <span id="total-decisions">0</span> Entscheidungen getroffen.</p>
+                <ul id="decision-summary">
+                    <!-- Wird dynamisch befüllt -->
+                </ul>
+            </div>
+            
+            <div class="reflection-box">
+                <h3>Fragen zum Nachdenken</h3>
+                <ul>
+                    <li>Gab es eine "richtige" Entscheidung?</li>
+                    <li>Was hätte dich in dieser Situation beeinflusst?</li>
+                    <li>Was unterscheidet einen Zuschauer von einem Komplizen?</li>
+                    <li>Was hätte die Eskalation stoppen können?</li>
+                </ul>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <button class="continue-btn" onclick="restart()">Neu beginnen</button>
+                <button class="continue-btn" style="background: #444; margin-left: 1rem;" onclick="showCredits()">Abspann</button>
+            </div>
+        </section>
+
+        <!-- CREDITS -->
+        <section id="credits" class="story-section">
+            <div class="title-screen">
+                <h1>ENTSCHEIDUNGEN 1938</h1>
+                <p class="subtitle">Eine interaktive Simulation für Bildungszwecke</p>
+                
+                <div style="margin: 3rem 0; text-align: left; max-width: 500px; margin-left: auto; margin-right: auto;">
+                    <p><strong>Konzept & Entwicklung:</strong><br>Aether ✨ für Tom</p>
+                    <p style="margin-top: 1rem;"><strong>Institution:</strong><br>Berufliche Schule Lörrach</p>
+                    <p style="margin-top: 1rem;"><strong>Historische Quellen:</strong><br>
+                    • Yad Vashem<br>
+                    • Deutsches Historisches Museum<br>
+                    • Bundeszentrale für politische Bildung</p>
+                    <p style="margin-top: 1rem;"><strong>Inspiriert von:</strong><br>
+                    • "Through the Darkest of Times"<br>
+                    • Vladimir Tismaneanu: "The Devil in History"<br>
+                    • Hannah Arendt: "Eichmann in Jerusalem"</p>
+                </div>
+                
+                <p style="color: var(--text-muted); margin-top: 2rem;">
+                    "Die Welt ist nicht durch die Taten böser Menschen bedroht,<br>
+                    sondern durch jene, die das Böse zulassen."<br>
+                    — Albert Einstein (zugeschrieben)
+                </p>
+                
+                <button class="continue-btn" style="margin-top: 2rem;" onclick="restart()">Zurück zum Anfang</button>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>Version 0.1 (Prototyp) | Februar 2026</p>
+        <p>Erstellt für Bildungszwecke | <a href="#">Lehrerhandreichung</a></p>
+    </footer>
+
+    <script>
+        // Game State
+        let gameState = {
+            chapter: 0,
+            decisions: [],
+            decisionCount: 0,
+            flags: {}
+        };
+        
+        // Story Paths
+        const storyPaths = {
+            '1a': { next: 'chapter2a', desc: 'Ans Fenster gegangen', flag: 'witnessed' },
+            '1b': { next: 'chapter2a', desc: 'Martha vom Fenster weggezogen', flag: 'cautious' },
+            '1c': { next: 'chapter2a', desc: 'Licht ausgeschaltet', flag: 'hiding' },
+            '1d': { next: 'morning', desc: '"Das geht uns nichts an" gesagt', flag: 'indifferent' },
+            
+            '2a1': { next: 'morning', desc: 'Aus dem Fenster gerufen', flag: 'brave_foolish' },
+            '2a2': { next: 'chapter2a2', desc: 'Die Polizei angerufen', flag: 'called_police' },
+            '2a3': { next: 'morning', desc: 'Nichts getan', flag: 'passive' },
+            '2a4': { next: 'morning', desc: 'Versucht zu helfen', flag: 'helped' },
+            
+            '3a': { next: 'morning', desc: 'Echten Namen genannt', flag: 'exposed' },
+            '3b': { next: 'morning', desc: 'Falschen Namen genannt', flag: 'lied' },
+            '3c': { next: 'morning', desc: 'Aufgelegt', flag: 'hung_up' },
+            
+            'm1': { next: 'epilog', desc: 'Nach den Rosenthals gesehen', flag: 'checked_neighbors' },
+            'm2': { next: 'epilog', desc: 'Zur Arbeit gegangen', flag: 'went_to_work' },
+            'm3': { next: 'epilog', desc: 'Weggeschaut', flag: 'looked_away' }
+        };
+        
+        function startGame() {
+            document.getElementById('title').classList.remove('active');
+            document.getElementById('chapter1').classList.add('active');
+            document.getElementById('status-bar').style.display = 'flex';
+            gameState.chapter = 1;
+            updateStatus();
+        }
+        
+        function makeChoice(choiceId) {
+            const path = storyPaths[choiceId];
+            if (!path) return;
+            
+            gameState.decisions.push({
+                id: choiceId,
+                description: path.desc,
+                timestamp: new Date().toISOString()
+            });
+            gameState.decisionCount++;
+            gameState.flags[path.flag] = true;
+            
+            // Hide current section
+            document.querySelectorAll('.story-section').forEach(s => s.classList.remove('active'));
+            
+            // Show next section
+            const nextSection = document.getElementById(path.next);
+            if (nextSection) {
+                nextSection.classList.add('active');
+                window.scrollTo(0, 0);
+                
+                // Update chapter counter
+                if (path.next.startsWith('chapter')) {
+                    gameState.chapter = parseInt(path.next.replace('chapter', '').charAt(0)) || gameState.chapter;
+                }
+                if (path.next === 'morning') gameState.chapter = 3;
+                if (path.next === 'epilog') {
+                    gameState.chapter = 5;
+                    generateEpilog();
+                }
+            }
+            
+            updateStatus();
+        }
+        
+        function updateStatus() {
+            document.getElementById('current-chapter').textContent = gameState.chapter;
+            document.getElementById('decision-count').textContent = gameState.decisionCount;
+        }
+        
+        function generateEpilog() {
+            const epilogText = document.getElementById('epilog-text');
+            const summary = document.getElementById('decision-summary');
+            
+            let text = '';
+            
+            // Generate personalized epilog based on flags
+            if (gameState.flags.helped || gameState.flags.checked_neighbors) {
+                text += `<p>Du hast versucht, etwas zu tun. In einer Zeit, in der Wegsehen sicherer war, hast du hingesehen. Das änderte nichts am Lauf der Geschichte — aber vielleicht an dem, was du im Spiegel sahst.</p>`;
+            } else if (gameState.flags.indifferent || gameState.flags.looked_away) {
+                text += `<p>Du hast dich entschieden, nicht hinzusehen. Es war die sichere Entscheidung. Millionen andere trafen dieselbe Wahl. Und so konnte geschehen, was geschah.</p>`;
+            } else {
+                text += `<p>Du hast gesehen. Du hast gewusst. Und du hast — wie so viele — keine Antwort gefunden auf die Frage, was zu tun sei.</p>`;
+            }
+            
+            text += `<p style="margin-top: 1.5rem;">Die Familie Rosenthal wurde am 12. November deportiert. Jakob starb im Januar 1939 im KZ Buchenwald. Hannah und David überlebten bis 1942, dann verliert sich ihre Spur in den Deportationslisten nach Osten.</p>`;
+            
+            text += `<p style="margin-top: 1.5rem;">Herr Schulze wurde nach dem Krieg für drei Jahre interniert. Er starb 1967 in derselben Wohnung im dritten Stock.</p>`;
+            
+            text += `<p style="margin-top: 1.5rem;">Und Werner Hoffmann? Du?</p>`;
+            
+            if (gameState.flags.exposed) {
+                text += `<p style="margin-top: 1rem; color: var(--danger);">Dein Name stand auf einer Liste. Im Dezember 1938 wurdest du wegen "Begünstigung" verhört. Du verlorst deine Arbeit. Die Familie zog weg.</p>`;
+            } else {
+                text += `<p style="margin-top: 1rem;">Du hast den Krieg überlebt. 1945 sagtest du den alliierten Ermittlern, du hättest "von nichts gewusst".</p>`;
+            }
+            
+            epilogText.innerHTML = text;
+            
+            // Generate decision summary
+            let summaryHTML = '';
+            gameState.decisions.forEach((d, i) => {
+                summaryHTML += `<li><strong>Entscheidung ${i+1}:</strong> ${d.description}</li>`;
+            });
+            summary.innerHTML = summaryHTML;
+            
+            document.getElementById('total-decisions').textContent = gameState.decisionCount;
+        }
+        
+        function restart() {
+            gameState = {
+                chapter: 0,
+                decisions: [],
+                decisionCount: 0,
+                flags: {}
+            };
+            
+            document.querySelectorAll('.story-section').forEach(s => s.classList.remove('active'));
+            document.getElementById('title').classList.add('active');
+            document.getElementById('status-bar').style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+        
+        function showCredits() {
+            document.querySelectorAll('.story-section').forEach(s => s.classList.remove('active'));
+            document.getElementById('credits').classList.add('active');
+            document.getElementById('status-bar').style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key >= '1' && e.key <= '4') {
+                const buttons = document.querySelectorAll('.story-section.active .choice-btn');
+                const index = parseInt(e.key) - 1;
+                if (buttons[index]) buttons[index].click();
+            }
+            if (e.key.toLowerCase() === 'a') {
+                const btn = document.querySelector('.story-section.active .choice-btn:nth-child(1)');
+                if (btn) btn.click();
+            }
+            if (e.key.toLowerCase() === 'b') {
+                const btn = document.querySelector('.story-section.active .choice-btn:nth-child(2)');
+                if (btn) btn.click();
+            }
+            if (e.key.toLowerCase() === 'c') {
+                const btn = document.querySelector('.story-section.active .choice-btn:nth-child(3)');
+                if (btn) btn.click();
+            }
+            if (e.key.toLowerCase() === 'd') {
+                const btn = document.querySelector('.story-section.active .choice-btn:nth-child(4)');
+                if (btn) btn.click();
+            }
+        });
+    </script>
+</body>
+</html>
