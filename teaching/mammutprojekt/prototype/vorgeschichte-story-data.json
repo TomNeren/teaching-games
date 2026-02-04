@@ -1,0 +1,544 @@
+{
+  "metadata": {
+    "title": "Der Weg ins Reich",
+    "subtitle": "Indoktrination 1933-1938",
+    "perspective": "prehistory",
+    "protagonist": "Spieler (wählbar: Name, Geschlecht)",
+    "timeframe": "1933-1938",
+    "setting": "Kleinstadt 'Waldheim', Süddeutschland",
+    "warning": "Diese Vorgeschichte zeigt, wie normale Menschen schrittweise indoktriniert wurden. Sie rechtfertigt nicht, sie erklärt. Empfohlen ab 18 Jahren, nur mit pädagogischer Begleitung.",
+    "ageRating": "18+",
+    "version": "0.1-draft",
+    "educationalContext": "Yad Vashem Guidelines — Zeigt die Verführungskraft der Ideologie, nicht ihre Rechtfertigung."
+  },
+
+  "characterSetup": {
+    "namePrompt": "Wie heißt du? (Vorname)",
+    "genderPrompt": "Geschlecht wählen:",
+    "genderOptions": [
+      {
+        "id": "male",
+        "label": "Männlich",
+        "consequences": "Du wirst Mitglied der Hitlerjugend (HJ)"
+      },
+      {
+        "id": "female",
+        "label": "Weiblich",
+        "consequences": "Du wirst Mitglied des Bunds Deutscher Mädel (BDM)"
+      }
+    ],
+    "defaultName": {
+      "male": "Klaus",
+      "female": "Grete"
+    },
+    "background": {
+      "age": 15,
+      "year": 1933,
+      "family": "Vater: Schreinermeister, Mutter: Hausfrau, Schwester (12)",
+      "politicalBackground": "Eltern skeptisch gegenüber NSDAP, aber nicht aktiv dagegen"
+    }
+  },
+
+  "chapters": [
+    {
+      "id": "prolog",
+      "title": "Prolog: Wer bist du?",
+      "date": "Februar 1933",
+      "setting": "Dein Zuhause, Waldheim",
+      "narrativeText": [
+        "Februar 1933. Deutschland ist im Umbruch.",
+        "Du bist 15 Jahre alt und lebst in Waldheim, einer Kleinstadt in Süddeutschland.",
+        "Dein Vater ist Schreinermeister, deine Mutter führt den Haushalt, deine kleine Schwester ist 12.",
+        "Am Radio hört ihr die Nachrichten: Adolf Hitler ist Reichskanzler geworden.",
+        "Deine Eltern sind skeptisch. 'Mal sehen, was daraus wird', sagt dein Vater.",
+        "Aber in der Schule reden alle darüber. 'Endlich geht's aufwärts!', sagen manche.",
+        "Andere schweigen.",
+        "Was denkst du?"
+      ],
+      "choices": [
+        {
+          "id": "hopeful",
+          "text": "Ich bin neugierig. Vielleicht wird's ja wirklich besser.",
+          "consequence": "Du bist offen für Neues.",
+          "tracking": {
+            "trait": "openness",
+            "value": 1
+          }
+        },
+        {
+          "id": "skeptical",
+          "text": "Ich weiß nicht. Meine Eltern sind vorsichtig.",
+          "consequence": "Du vertraust deinen Eltern.",
+          "tracking": {
+            "trait": "familyTrust",
+            "value": 1
+          }
+        },
+        {
+          "id": "indifferent",
+          "text": "Politik interessiert mich nicht. Hauptsache, ich kann mein Leben leben.",
+          "consequence": "Du willst einfach nur in Ruhe gelassen werden.",
+          "tracking": {
+            "trait": "passivity",
+            "value": 1
+          }
+        }
+      ],
+      "nextChapter": "1933-schule"
+    },
+
+    {
+      "id": "1933-schule",
+      "title": "Kapitel 1: März 1933 — Schule",
+      "date": "21. März 1933 (Tag von Potsdam)",
+      "setting": "Klassenraum, Gymnasium Waldheim",
+      "theme": "Machtergreifung, erste Propaganda",
+      "historicalContext": "Am 21. März 1933 fand der 'Tag von Potsdam' statt — Hitlers symbolischer Händedruck mit Reichspräsident Hindenburg. Propaganda-Inszenierung: Tradition trifft Revolution.",
+      "narrativeText": [
+        "März 1933. Du sitzt in der Schule.",
+        "Lehrer Dr. Hoffmann steht vor der Klasse. Hinter ihm hängt ein neues Bild: Hitler und Hindenburg schütteln sich die Hand.",
+        "'Kinder, ein neues Deutschland ist geboren!', ruft Dr. Hoffmann. 'Der Führer und der Reichspräsident haben sich die Hand gereicht. Endlich ist Schluss mit dem Chaos der Weimarer Zeit!'",
+        "Er zeigt auf die Karte Europas. 'Seht ihr dieses kleine Deutschland? Versailles hat uns erniedrigt. 1919 haben sie uns Land geraubt, uns zu Verbrechern erklärt. Aber das ist vorbei!'",
+        "Dein Freund Karl sitzt neben dir und flüstert: 'Mein Vater sagt, die Nazis sind Schläger. Das wird nicht gut gehen.'",
+        "Dr. Hoffmann wendet sich dir zu. 'Du da! Was hältst du von der neuen Regierung?'"
+      ],
+      "choices": [
+        {
+          "id": "enthusiastic",
+          "text": "Ich finde, Herr Dr. Hoffmann hat recht. Endlich geht es aufwärts!",
+          "consequence": "Karl schaut dich enttäuscht an. Dr. Hoffmann nickt anerkennend.",
+          "narrativeResult": "Dr. Hoffmann lächelt. 'Sehr gut! Das ist die richtige Einstellung!' Karl sagt nichts mehr.",
+          "tracking": {
+            "trait": "conformity",
+            "value": 1
+          },
+          "impact": {
+            "teacher": 1,
+            "peers": -1
+          }
+        },
+        {
+          "id": "cautious",
+          "text": "Ich weiß nicht... meine Eltern sagen, man muss abwarten.",
+          "consequence": "Dr. Hoffmann runzelt die Stirn. Karl nickt dir zu.",
+          "narrativeResult": "Dr. Hoffmann: 'Abwarten? Das ist die Haltung, die Deutschland fast zerstört hat! Aber gut, du bist noch jung.' Karl flüstert dir zu: 'Gut gesagt.'",
+          "tracking": {
+            "trait": "caution",
+            "value": 1
+          },
+          "impact": {
+            "teacher": -1,
+            "peers": 1
+          }
+        },
+        {
+          "id": "critical",
+          "text": "Ich finde, man sollte nicht so schnell urteilen. Was, wenn die Nazis...",
+          "consequence": "Dr. Hoffmann unterbricht dich scharf. Karl lächelt.",
+          "narrativeResult": "Dr. Hoffmann: 'Was, wenn? Die NSDAP rettet Deutschland! Wer das nicht sieht, ist ein Defätist! Setz dich!' Die Klasse ist still. Karl zwinkert dir zu.",
+          "tracking": {
+            "trait": "resistance",
+            "value": 1
+          },
+          "impact": {
+            "teacher": -2,
+            "peers": 1
+          }
+        },
+        {
+          "id": "silent",
+          "text": "[Schweigen]",
+          "consequence": "Du sagst nichts. Dr. Hoffmann: 'Wer schweigt, stimmt zu.' Karl flüstert: 'Feigling.'",
+          "narrativeResult": "Die Stunde geht weiter. Du fühlst dich unwohl.",
+          "tracking": {
+            "trait": "passivity",
+            "value": 1
+          },
+          "impact": {
+            "teacher": 0,
+            "peers": -1
+          }
+        }
+      ],
+      "scene2": {
+        "setting": "Schulhof, nach der Stunde",
+        "narrativeText": [
+          "Pause. Auf dem Schulhof.",
+          "Eine Gruppe Schüler im HJ-Hemd verteilt Flugblätter: 'Komm zur Hitlerjugend! Abenteuer, Sport, Kameradschaft!'",
+          "Otto, ein kräftiger Junge mit kurzen Haaren, ruft: 'He, {{playerName}}! Bist du schon dabei?'"
+        ],
+        "choices": [
+          {
+            "id": "interested",
+            "text": "Nein, aber erzähl mal!",
+            "consequence": "Otto lächelt breit.",
+            "narrativeResult": "Otto: 'Wir machen nächste Woche ein Lager am See. Zelten, Lagerfeuer, Wettkämpfe. Komm doch mit!' Er drückt dir ein Flugblatt in die Hand. 'Samstag, 8 Uhr am Bahnhof. Sei dabei!'",
+            "tracking": {
+              "trait": "openness",
+              "value": 1,
+              "hjInterested": true
+            },
+            "nextPath": "hj-invitation"
+          },
+          {
+            "id": "askParents",
+            "text": "Ich muss meine Eltern fragen.",
+            "consequence": "Otto verdreht die Augen.",
+            "narrativeResult": "Otto: 'Deine Eltern? Du bist 15! Zeit, selbst zu entscheiden! Aber gut, frag sie. Nächstes Lager ist am Samstag.' Er gibt dir ein Flugblatt.",
+            "tracking": {
+              "trait": "familyTrust",
+              "value": 1,
+              "hjInterested": true
+            },
+            "nextPath": "hj-invitation"
+          },
+          {
+            "id": "decline",
+            "text": "Nein danke, ich hab genug zu tun.",
+            "consequence": "Otto wird ernst.",
+            "narrativeResult": "Otto: 'Schade. Aber du weißt ja: Wer nicht dabei ist, ist irgendwann allein.' Er dreht sich um und geht zur nächsten Gruppe. Du fühlst dich... ausgeschlossen.",
+            "tracking": {
+              "trait": "isolation",
+              "value": 1,
+              "hjInterested": false
+            },
+            "nextPath": "no-hj-path"
+          }
+        ]
+      },
+      "educationalNote": {
+        "title": "Was ist hier passiert?",
+        "text": [
+          "1933 war für viele ein Jahr der Hoffnung. Nach Jahren der Krise (Arbeitslosigkeit, politische Instabilität) versprachen die Nazis Ordnung, Arbeit, nationale Größe.",
+          "Viele Menschen — auch kluge, anständige Menschen — glaubten daran. Erst später zeigte sich, wohin dieser Weg führte.",
+          "Die Hitlerjugend (HJ) bot, was Jugendliche suchen: Gemeinschaft, Abenteuer, Zugehörigkeit. Aber der Preis war hoch: Gehorsam, Konformität, Indoktrination."
+        ],
+        "questions": [
+          "Was macht das Angebot der HJ attraktiv?",
+          "Warum ist es schwer, 'Nein' zu sagen?",
+          "Was passiert mit denen, die nicht mitmachen?"
+        ]
+      },
+      "nextChapter": "conditional"
+    },
+
+    {
+      "id": "1933-hj-lager",
+      "title": "Kapitel 2: Sommer 1933 — HJ-Lager am See",
+      "date": "Juni 1933",
+      "setting": "Zeltlager am Waldsee, 50 km von Waldheim",
+      "theme": "Gemeinschaft, Natur, Rituale — die 'attraktive' Seite",
+      "condition": "Spieler hat in 1933-schule Interesse an HJ gezeigt",
+      "historicalContext": "HJ-Lager waren zentral für die Indoktrination: Nicht durch Vorträge, sondern durch Erleben. Sport, Natur, Gesang, Kameradschaft — und subtile ideologische Botschaften.",
+      "narrativeText": [
+        "Samstag, 8 Uhr morgens. Bahnhof Waldheim.",
+        "Du stehst mit 30 anderen Jungen/Mädchen auf dem Bahnsteig. Alle tragen HJ/BDM-Hemden. Du nicht — du bist zum ersten Mal dabei.",
+        "Otto ruft: 'Na, da bist du ja! Los, einsteigen!'",
+        "Der Zug fährt eine Stunde. Dann: Wald, See, Zelte.",
+        "Die nächsten drei Tage: Frühsport (Kniebeugen, Laufen), Geländespiele im Wald ('Stämme' kämpfen um eine Flagge), Schwimmen im See.",
+        "Du bist erschöpft, aber auch... gut. Die Gruppe akzeptiert dich. Du gehörst dazu.",
+        "Abends sitzt ihr am Lagerfeuer. Fähnleinführer Ludwig spielt Gitarre, alle singen: 'Wir wollen zu Land ausfahren, über die Fluren weit...'",
+        "Ludwig steht auf. 'Kameraden! Morgen ist Sonnenwendfeier. Wir werden das Feuer entzünden — wie unsere Vorfahren vor tausend Jahren!'",
+        "Er schaut in die Runde. 'Sie waren stark, frei, natürlich. Wir sind ihre Erben! Aber wir müssen stark bleiben. Deutschland hat Feinde. Im Innern und im Ausland.'",
+        "'Wer ist bereit, Deutschland zu dienen?'",
+        "Alle rufen: 'Wir!'",
+        "Ludwig schaut dich an. 'Du auch?'"
+      ],
+      "choices": [
+        {
+          "id": "enthusiastic",
+          "text": "Ja! Für Deutschland!",
+          "consequence": "Die Gruppe johlt, klopft dir auf die Schulter.",
+          "narrativeResult": "Ludwig nickt anerkennend. 'Das ist die richtige Einstellung! Du bist jetzt einer von uns!' Du fühlst dich... stark. Teil von etwas Größerem.",
+          "tracking": {
+            "trait": "conformity",
+            "value": 1,
+            "groupBonding": 2
+          }
+        },
+        {
+          "id": "quiet",
+          "text": "Ja. [leise]",
+          "consequence": "Ludwig runzelt die Stirn.",
+          "narrativeResult": "Ludwig: 'Das klang nicht sehr überzeugend! Du musst lauter sein! Nochmal: Bist du bereit, Deutschland zu dienen?' Alle schauen dich an.",
+          "tracking": {
+            "trait": "caution",
+            "value": 1
+          },
+          "followUpChoice": true
+        },
+        {
+          "id": "silent",
+          "text": "[Schweigen]",
+          "consequence": "Unbehagen in der Gruppe.",
+          "narrativeResult": "Ludwig: 'Wer schweigt, ist kein Kamerad. Wir brauchen Leute, auf die wir uns verlassen können.' Die anderen rücken von dir ab. Du fühlst dich isoliert.",
+          "tracking": {
+            "trait": "passivity",
+            "value": 1,
+            "groupBonding": -2
+          }
+        }
+      ],
+      "scene2": {
+        "title": "Sonnenwendfeier",
+        "date": "Nächster Morgen, Dämmerung",
+        "narrativeText": [
+          "Alle stehen im Kreis um ein riesiges Holzfeuer. Ludwig hält eine Fackel.",
+          "'Das Feuer unserer Ahnen!', ruft er. 'Sie waren frei, stark, unverdorben. Dann kamen die Römer, die Christen, die Juden — sie haben uns fremde Gesetze aufgezwungen!'",
+          "'Aber jetzt kehren wir zurück! Zurück zur Natur, zurück zu unserem Blut!'",
+          "Er wirft die Fackel ins Feuer. Flammen schlagen hoch. Die Gruppe singt: 'Flamme empor!'",
+          "Anna, die BDM-Führerin, ruft: 'Wir verbrennen die alte Zeit! Wir sind die neue Generation!'",
+          "Jemand wirft ein Buch ins Feuer. 'Jüdische Lügen!' Ein anderer: 'Marxistische Propaganda!'",
+          "Ludwig hält dir ein Buch hin. 'Hier, wirf das rein! Es ist von einem jüdischen Autor. \"Entartete\" Literatur.'"
+        ],
+        "choices": [
+          {
+            "id": "burn",
+            "text": "Buch ins Feuer werfen",
+            "consequence": "Die Gruppe jubelt. 'Gut gemacht!'",
+            "narrativeResult": "Du wirfst das Buch ins Feuer. Die Flammen verschlingen es. Die Gruppe johlt, klopft dir auf die Schulter. Du fühlst dich... schuldig? Oder stark? Du bist nicht sicher.",
+            "tracking": {
+              "trait": "conformity",
+              "value": 2,
+              "linesCrossed": 1
+            },
+            "criticalMoment": true
+          },
+          {
+            "id": "hesitate",
+            "text": "Ich... ich hab noch nie ein Buch verbrannt. Das fühlt sich falsch an.",
+            "consequence": "Ludwig wird ungeduldig.",
+            "narrativeResult": "Ludwig: 'Falsch? Das Buch ist Gift! Es vergiftet deutsche Seelen! Du willst doch nicht, dass Deutschland an Gift eingeht?' Er hält dir das Buch weiter hin. 'Na los!'",
+            "tracking": {
+              "trait": "resistance",
+              "value": 1
+            },
+            "followUpChoice": true
+          },
+          {
+            "id": "refuse-silent",
+            "text": "Buch nehmen, aber nicht werfen. Schweigen.",
+            "consequence": "Die Gruppe starrt dich an.",
+            "narrativeResult": "Ludwig: 'Na los! Oder bist du etwa ein Freund der Juden?' Stille. Alle schauen dich an. Du hältst das Buch in der Hand, unentschlossen. Schließlich nimmt Otto es dir aus der Hand und wirft es ins Feuer. 'Feigling', murmelt er.",
+            "tracking": {
+              "trait": "passivity",
+              "value": 1,
+              "groupBonding": -2
+            }
+          },
+          {
+            "id": "refuse-explicit",
+            "text": "Nein. Bücher verbrennen ist barbarisch.",
+            "consequence": "Schockstille.",
+            "narrativeResult": "Ludwig starrt dich an. 'Barbarisch? DU nennst UNS barbarisch? Geh zurück zu deinen Eltern. Du gehörst nicht hierher.' Die anderen wenden sich ab. Du packst deine Sachen und gehst. Das Lager ist für dich vorbei.",
+            "tracking": {
+              "trait": "resistance",
+              "value": 2,
+              "hjExcluded": true
+            },
+            "nextPath": "no-hj-path"
+          }
+        ]
+      },
+      "educationalNote": {
+        "title": "Was ist hier passiert?",
+        "text": [
+          "Die HJ bot, was Jugendliche suchen: Abenteuer, Freunde, Zugehörigkeit. Aber der Preis war hoch: Gehorsam, Konformität, Feindbilder.",
+          "Die Bücherverbrennung war keine Einzelaktion. Am 10. Mai 1933 brannten in 22 deutschen Städten zehntausende Bücher — von Autoren wie Heinrich Heine, Erich Kästner, Sigmund Freud, Karl Marx.",
+          "Das Feuer war symbolisch: Zerstörung der 'undeutschen' Kultur. Wer mitmachte, überschritt eine Grenze. Wer nicht mitmachte, wurde ausgegrenzt."
+        ],
+        "questions": [
+          "Warum war die HJ so attraktiv?",
+          "Was macht Gruppendruck so stark?",
+          "Wann wird Zugehörigkeit gefährlich?",
+          "Hättest du das Buch verbrannt?"
+        ]
+      },
+      "nextChapter": "1934-kino"
+    },
+
+    {
+      "id": "1934-kino",
+      "title": "Kapitel 3: Herbst 1934 — Kino (Wochenschau)",
+      "date": "September 1934",
+      "setting": "Kino 'Lichtspiele Waldheim'",
+      "theme": "Medien, Propaganda, Nürnberger Gesetze (Vorschau)",
+      "historicalContext": "Wochenschauen waren Pflicht vor jedem Kinofilm. Sie zeigten NS-Erfolge, Hitler-Reden, Militär. Millionen sahen sie — und wurden subtil indoktriniert.",
+      "narrativeText": [
+        "Herbst 1934. Du sitzt im Kino. Deine Mutter hat dich zur Wochenschau geschickt — 'Da siehst du, was in der Welt passiert.'",
+        "Auf der Leinwand: Der Reichsparteitag in Nürnberg. Tausende Menschen, Fahnen, Marschmusik. Hitler spricht: 'Deutschland ist erwacht!'",
+        "Die Kamera schwenkt über die Massen. Alle heben den Arm. 'Sieg Heil! Sieg Heil!'",
+        "Du fühlst dich... beeindruckt. So viele Menschen. So viel Ordnung.",
+        "Neben dir sitzt Herr Goldstein, der jüdische Ladenbesitzer aus deiner Straße. Er ist unruhig, schaut auf seine Hände.",
+        "Die Wochenschau zeigt nun: 'Neue Gesetze zum Schutz des deutschen Blutes.' Der Sprecher: 'Endlich ist Deutschland geschützt vor Rassenschande! Ehen zwischen Deutschen und Juden sind verboten!'",
+        "(Anmerkung: Die Nürnberger Gesetze kamen erst 1935, aber die Wochenschau kündigt sie an.)",
+        "Jubel im Kino. Einige klatschen.",
+        "Herr Goldstein steht auf, will gehen. Dabei stößt er gegen deinen Arm."
+      ],
+      "choices": [
+        {
+          "id": "empathy",
+          "text": "Entschuldigung, Herr Goldstein. Ist alles in Ordnung?",
+          "consequence": "Goldstein schaut dich dankbar an.",
+          "narrativeResult": "Herr Goldstein: 'Danke, mein Kind. Ich... ich kann das nicht mehr sehen.' Er geht schnell hinaus. Einige Leute drehen sich um, starren dich an. Eine Frau murmelt: 'Judenfreund.' Du sinkst in deinen Sitz zurück.",
+          "tracking": {
+            "trait": "empathy",
+            "value": 1,
+            "goldsteinRelation": 1
+          },
+          "risk": true
+        },
+        {
+          "id": "ignore",
+          "text": "[Nichts sagen, weiter auf die Leinwand schauen]",
+          "consequence": "Goldstein geht. Du bleibst sitzen.",
+          "narrativeResult": "Du tust so, als hättest du nichts bemerkt. Die Wochenschau läuft weiter. Du fühlst dich... unwohl. Aber du bist unauffällig.",
+          "tracking": {
+            "trait": "passivity",
+            "value": 1
+          }
+        },
+        {
+          "id": "repeat-propaganda",
+          "text": "Wissen Sie, Herr Goldstein, vielleicht ist das Gesetz ja gar nicht so schlecht. Es schützt beide Seiten.",
+          "consequence": "Goldstein erstarrt.",
+          "narrativeResult": "Herr Goldstein schaut dich entsetzt an. Für einen Moment sieht er aus, als würde er etwas sagen wollen. Dann schüttelt er den Kopf und geht, ohne ein Wort. Du hast ihn verletzt. Die Frau neben dir nickt anerkennend: 'Richtig so.'",
+          "tracking": {
+            "trait": "conformity",
+            "value": 1,
+            "goldsteinRelation": -2
+          }
+        }
+      ],
+      "scene2": {
+        "setting": "Draußen vor dem Kino",
+        "narrativeText": [
+          "Nach dem Film. Draußen wartet Otto (HJ).",
+          "'War das nicht großartig?', ruft er. 'Der Führer ist ein Genie! Hast du gesehen, wie alle ihm zujubeln?'",
+          "Er senkt die Stimme. 'Sag mal, du kennst doch diesen Goldstein. Kauft deine Mutter noch bei ihm?'"
+        ],
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Ja, warum?",
+            "consequence": "Otto wird ernst.",
+            "narrativeResult": "Otto: 'Das sollte sie nicht. Juden sind... na ja, du weißt schon. \"Kauft nicht bei Juden!\" Steht überall. Deine Mutter sollte lieber bei deutschen Geschäften kaufen.' Er schaut dich prüfend an.",
+            "tracking": {
+              "trait": "honesty",
+              "value": 1
+            },
+            "followUpChoice": true
+          },
+          {
+            "id": "no-lie",
+            "text": "Nein, wir kaufen woanders.",
+            "consequence": "Otto nickt zufrieden.",
+            "narrativeResult": "Otto: 'Gut! So muss das sein. Die Juden müssen lernen, dass sie hier nicht mehr willkommen sind.' Er klopft dir auf die Schulter. Du fühlst dich... schuldig? Erleichtert? Beides?",
+            "tracking": {
+              "trait": "conformity",
+              "value": 1,
+              "lie": true
+            }
+          },
+          {
+            "id": "defend",
+            "text": "Herr Goldstein ist ein anständiger Mann. Warum soll ich nicht bei ihm kaufen?",
+            "consequence": "Otto starrt dich an.",
+            "narrativeResult": "Otto: 'Du verstehst es nicht. Juden sind... anders. Sie schaden Deutschland. Der Führer weiß das. Hast du nicht die Wochenschau gesehen?' Er dreht sich um. 'Ich dachte, du wärst einer von uns.' Er geht. Du stehst allein da.",
+            "tracking": {
+              "trait": "resistance",
+              "value": 1,
+              "groupBonding": -1
+            }
+          }
+        }
+      },
+      "educationalNote": {
+        "title": "Was ist hier passiert?",
+        "text": [
+          "Propaganda funktioniert nicht durch plumpe Lügen, sondern durch Wiederholung, Emotionen, Gemeinschaftsgefühl.",
+          "Die Wochenschauen zeigten Macht, Ordnung, Jubel. Wer will da nicht dazugehören?",
+          "Gleichzeitig wurden Feindbilder gepflanzt — subtil, schrittweise. 'Juden sind anders. Juden schaden Deutschland.'",
+          "Die Nürnberger Gesetze (Sept. 1935) verboten Ehen und sexuelle Beziehungen zwischen 'Ariern' und 'Juden'. Sie legalisierten die Ausgrenzung."
+        ],
+        "questions": [
+          "Wie wirkt Propaganda auf dich?",
+          "Warum ist es schwer, einem Nachbarn zu helfen, wenn die Gruppe dagegen ist?",
+          "Was passiert mit Menschen wie Herrn Goldstein?"
+        ]
+      },
+      "nextChapter": "1935-arzt"
+    }
+  ],
+
+  "tracking": {
+    "traits": {
+      "conformity": {
+        "label": "Anpassung",
+        "description": "Du hast dich der Gruppe angepasst."
+      },
+      "resistance": {
+        "label": "Widerstand",
+        "description": "Du hast Propaganda hinterfragt."
+      },
+      "passivity": {
+        "label": "Passivität",
+        "description": "Du hast weggeschaut."
+      },
+      "empathy": {
+        "label": "Empathie",
+        "description": "Du hast Mitgefühl gezeigt."
+      },
+      "familyTrust": {
+        "label": "Familienvertrauen",
+        "description": "Du vertraust deinen Eltern."
+      },
+      "openness": {
+        "label": "Offenheit",
+        "description": "Du warst offen für Neues."
+      },
+      "caution": {
+        "label": "Vorsicht",
+        "description": "Du warst vorsichtig."
+      },
+      "isolation": {
+        "label": "Isolation",
+        "description": "Du wurdest ausgegrenzt."
+      }
+    },
+    "relationships": {
+      "teacher": "Lehrer Dr. Hoffmann",
+      "peers": "Schulkameraden",
+      "hjGroup": "HJ/BDM-Gruppe",
+      "family": "Familie",
+      "goldsteinRelation": "Familie Goldstein"
+    }
+  },
+
+  "endings": {
+    "info": "Die Enden werden basierend auf den Entscheidungen des Spielers berechnet.",
+    "paths": [
+      {
+        "id": "werner-path",
+        "title": "Du wirst... Werner (Zuschauer)",
+        "condition": "Hohe Passivität, niedriger Widerstand",
+        "text": "Du hast den Kopf unten gehalten. Du wolltest nur deine Ruhe. Aber 1942, in der Reichspogromnacht, musst du entscheiden: Hilfst du deinen jüdischen Nachbarn — oder schaust du weg?",
+        "nextStory": "werner-1942"
+      },
+      {
+        "id": "fritz-path",
+        "title": "Du wirst... Fritz (Täter)",
+        "condition": "Hohe Konformität, niedriger Widerstand",
+        "text": "Du hast mitgemacht. Aus Überzeugung, aus Gehorsam, vielleicht auch aus Angst. Jetzt bist du Polizist. 1942 bekommst du den Befehl, bei einer 'Umsiedlung' zu helfen. Was tust du?",
+        "nextStory": "fritz-1942"
+      },
+      {
+        "id": "resistance-path",
+        "title": "Du hast widerstanden",
+        "condition": "Hoher Widerstand, niedrige Konformität",
+        "text": "Du hast gezweifelt. Du hast Fragen gestellt. Das hat dich Freunde gekostet. Aber du bist dir treu geblieben. 1942: Wirst du weiter Mut zeigen?",
+        "nextStory": "alternative-path"
+      }
+    ]
+  }
+}

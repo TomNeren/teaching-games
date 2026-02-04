@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Der Weg ins Reich — Vorgeschichte 1933-1938</title>
+    <style>
+        :root {
+            --bg-dark: #1a1a1a;
+            --bg-card: #2a2a2a;
+            --text-main: #e0e0e0;
+            --text-muted: #888;
+            --accent: #c49a6c;
+            --accent-hover: #d4aa7c;
+            --danger: #8b0000;
+            --warning: #8b6914;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.8;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Title Screen */
+        .title-screen {
+            text-align: center;
+            padding: 4rem 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .title-screen h1 {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.1em;
+        }
+        
+        .title-screen .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+        }
+        
+        .warning-box {
+            background: var(--danger);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem auto;
+            max-width: 600px;
+            text-align: left;
+        }
+        
+        .warning-box h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .educational-note {
+            background: var(--warning);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem auto;
+            max-width: 600px;
+            text-align: left;
+        }
+        
+        .educational-note h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        /* Story Section */
+        .story-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .story-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .chapter-header {
+            text-align: center;
+            padding: 2rem 0;
+            border-bottom: 1px solid #444;
+            margin-bottom: 2rem;
+        }
+        
+        .chapter-header h2 {
+            color: var(--accent);
+            font-size: 1.8rem;
+        }
+        
+        .chapter-header .date {
+            color: var(--text-muted);
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+        
+        .narrative {
+            margin-bottom: 2rem;
+        }
+        
+        .narrative p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+        
+        .narrative p.emphasis {
+            font-style: italic;
+            color: var(--accent);
+        }
+        
+        .narrative p.thought {
+            font-style: italic;
+            padding-left: 2rem;
+            border-left: 3px solid var(--accent);
+            color: #bbb;
+        }
+        
+        .dialogue {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: var(--bg-card);
+            border-radius: 8px;
+        }
+        
+        .dialogue .speaker {
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        /* Character Setup */
+        .setup-form {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 500px;
+            margin: 2rem auto;
+        }
+        
+        .setup-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .setup-form input[type="text"] {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--bg-dark);
+            border: 1px solid #444;
+            border-radius: 4px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .setup-form input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        .gender-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .gender-btn {
+            flex: 1;
+            padding: 1rem;
+            background: var(--bg-dark);
+            border: 2px solid #444;
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .gender-btn:hover {
+            border-color: var(--accent);
+        }
+        
+        .gender-btn.selected {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--bg-dark);
+            font-weight: bold;
+        }
+        
+        /* Choices */
+        .choices {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #444;
+        }
+        
+        .choices h3 {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .choice-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            background: var(--bg-card);
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 1rem;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .choice-btn:hover {
+            background: #3a3a3a;
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+        
+        .choice-btn .choice-key {
+            display: inline-block;
+            width: 2rem;
+            height: 2rem;
+            line-height: 2rem;
+            text-align: center;
+            background: var(--accent);
+            color: var(--bg-dark);
+            border-radius: 4px;
+            margin-right: 1rem;
+            font-weight: bold;
+        }
+        
+        /* Continue Button */
+        .continue-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--accent);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: background 0.2s;
+        }
+        
+        .continue-btn:hover {
+            background: var(--accent-hover);
+        }
+        
+        .continue-btn.secondary {
+            background: #444;
+            color: var(--text-main);
+            margin-left: 1rem;
+        }
+        
+        /* Status Bar */
+        .status-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            padding: 0.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            z-index: 100;
+            border-bottom: 1px solid #444;
+        }
+        
+        .status-bar .stat {
+            color: var(--text-muted);
+        }
+        
+        .status-bar .stat span {
+            color: var(--accent);
+        }
+        
+        /* Consequence Box */
+        .consequence {
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .consequence.negative {
+            border-left-color: var(--danger);
+        }
+        
+        .consequence h4 {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Educational Box */
+        .educational-box {
+            background: var(--bg-card);
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .educational-box h4 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        .educational-box.toggle {
+            cursor: pointer;
+        }
+        
+        .educational-box.toggle h4::before {
+            content: '▶ ';
+            font-size: 0.8rem;
+        }
+        
+        .educational-box.toggle.open h4::before {
+            content: '▼ ';
+        }
+        
+        .educational-box .content {
+            display: none;
+            margin-top: 1rem;
+        }
+        
+        .educational-box.open .content {
+            display: block;
+        }
+        
+        /* Reflection Box */
+        .reflection-box {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+        
+        .reflection-box h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .reflection-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .reflection-box li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #444;
+            line-height: 1.6;
+        }
+        
+        .reflection-box li:last-child {
+            border-bottom: none;
+        }
+        
+        .reflection-box li::before {
+            content: '→ ';
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid #444;
+            margin-top: 4rem;
+        }
+        
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .title-screen h1 {
+                font-size: 2rem;
+            }
+            
+            .status-bar {
+                font-size: 0.75rem;
+                padding: 0.5rem 1rem;
+            }
+            
+            .choice-btn {
+                padding: 0.75rem 1rem;
+            }
+            
+            .gender-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="status-bar" class="status-bar" style="display: none;">
+        <div class="stat">Jahr: <span id="current-year">1933</span></div>
+        <div class="stat"><span id="player-name">Du</span>, <span id="player-age">15</span> Jahre</div>
+        <div class="stat">Station <span id="current-station">1</span>/10</div>
+    </div>
+
+    <div class="container">
+        <!-- TITLE SCREEN -->
+        <section id="title" class="story-section active">
+            <div class="title-screen">
+                <h1>DER WEG INS REICH</h1>
+                <p class="subtitle">Vorgeschichte 1933-1938</p>
+                
+                <div class="warning-box">
+                    <h3>⚠️ Inhaltswarnung</h3>
+                    <p>Diese Vorgeschichte zeigt, wie normale Menschen schrittweise indoktriniert wurden. Sie enthält Darstellungen von Propaganda, Diskriminierung und moralisch belastenden Situationen.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Empfohlen ab 18 Jahren, nur mit pädagogischer Begleitung.</strong></p>
+                </div>
+                
+                <div class="educational-note">
+                    <h3>Pädagogischer Hinweis</h3>
+                    <p>Diese Simulation zeigt die Verführungskraft der NS-Ideologie, nicht ihre Rechtfertigung. Sie soll helfen zu verstehen, wie gewöhnliche Menschen zu Tätern oder Zuschauern wurden.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Verstehen ≠ Verzeihen</strong></p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">Basierend auf: Johann Chapoutot, "Das Gesetz des Blutes" (2016)</p>
+                </div>
+                
+                <button class="continue-btn" onclick="startSetup()">Beginnen</button>
+                
+                <p style="margin-top: 2rem; font-size: 0.85rem; color: var(--text-muted);">
+                    <a href="menu.html" style="color: var(--text-muted);">← Zurück zum Hauptmenü</a>
+                </p>
+            </div>
+        </section>
+
+        <!-- CHARACTER SETUP -->
+        <section id="setup" class="story-section">
+            <div class="chapter-header">
+                <h2>Wer bist du?</h2>
+                <p class="date">Februar 1933</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Du bist 15 Jahre alt und lebst in Waldheim, einer Kleinstadt in Süddeutschland.</p>
+                <p>Dein Vater ist Schreinermeister, deine Mutter führt den Haushalt, deine kleine Schwester ist 12 Jahre alt.</p>
+                <p>Am 30. Januar 1933 wurde Adolf Hitler zum Reichskanzler ernannt. Deine Eltern sind skeptisch, aber nicht aktiv dagegen.</p>
+                <p class="emphasis">In den nächsten Jahren wirst du Entscheidungen treffen, die dich prägen werden.</p>
+            </div>
+            
+            <div class="setup-form">
+                <label for="player-name-input">Wie heißt du? (Vorname)</label>
+                <input type="text" id="player-name-input" placeholder="Klaus / Grete">
+                
+                <label>Geschlecht wählen:</label>
+                <div class="gender-buttons">
+                    <button class="gender-btn" onclick="selectGender('male')">
+                        Männlich<br><small style="font-size: 0.8rem; color: #888;">→ Hitlerjugend (HJ)</small>
+                    </button>
+                    <button class="gender-btn" onclick="selectGender('female')">
+                        Weiblich<br><small style="font-size: 0.8rem; color: #888;">→ Bund Deutscher Mädel (BDM)</small>
+                    </button>
+                </div>
+                
+                <button class="continue-btn" onclick="confirmSetup()" style="width: 100%;">Weiter</button>
+            </div>
+        </section>
+
+        <!-- STATION 1: Schule (März 1933) -->
+        <section id="station1" class="story-section">
+            <div class="chapter-header">
+                <h2>Station 1: Schule</h2>
+                <p class="date">21. März 1933 — Tag von Potsdam</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Du sitzt in der Schule. Lehrer Dr. Hoffmann steht vor der Klasse. Hinter ihm hängt ein neues Bild: Hitler und Hindenburg schütteln sich die Hand.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Dr. Hoffmann:</span> "Kinder, ein neues Deutschland ist geboren! Der Führer und der Reichspräsident haben sich die Hand gereicht. Endlich ist Schluss mit dem Chaos der Weimarer Zeit!"</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Er zeigt auf die Karte Europas. "Seht ihr dieses kleine Deutschland? Versailles hat uns erniedrigt. 1919 haben sie uns Land geraubt, uns zu Verbrechern erklärt. Aber das ist vorbei!"</p>
+                <p>Dein Freund Karl sitzt neben dir und flüstert: "Mein Vater sagt, die Nazis sind Schläger. Das wird nicht gut gehen."</p>
+                <p>Dr. Hoffmann wendet sich dir zu. "<span class="player-name-ref">Du</span> da! Was hältst du von der neuen Regierung?"</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was sagst du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('1-1a')">
+                    <span class="choice-key">1</span>
+                    Ich finde, Herr Dr. Hoffmann hat recht. Endlich geht es aufwärts!
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('1-1b')">
+                    <span class="choice-key">2</span>
+                    Ich weiß nicht... meine Eltern sagen, man muss abwarten.
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('1-1c')">
+                    <span class="choice-key">3</span>
+                    Ich finde, man sollte nicht so schnell urteilen. Was, wenn die Nazis...
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('1-1d')">
+                    <span class="choice-key">4</span>
+                    [Schweigen]
+                </button>
+            </div>
+        </section>
+
+        <!-- STATION 1 - SCENE 2: Schulhof -->
+        <section id="station1-2" class="story-section">
+            <div class="chapter-header">
+                <h2>Station 1: Schulhof</h2>
+                <p class="date">Pause, gleicher Tag</p>
+            </div>
+            
+            <div class="narrative">
+                <p id="s1-consequence-text"></p>
+                <p>Auf dem Schulhof verteilt eine Gruppe Schüler im <span class="org-name">HJ</span>-Hemd Flugblätter: "Komm zur <span class="org-name">Hitlerjugend</span>! Abenteuer, Sport, Kameradschaft!"</p>
+                <p>Otto, ein kräftiger Junge mit kurzen Haaren, ruft: "He, <span class="player-name-ref">Klaus</span>! Bist du schon dabei?"</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was antwortest du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('1-2a')">
+                    <span class="choice-key">1</span>
+                    Nein, aber erzähl mal!
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('1-2b')">
+                    <span class="choice-key">2</span>
+                    Ich muss meine Eltern fragen.
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('1-2c')">
+                    <span class="choice-key">3</span>
+                    Nein danke, ich hab genug zu tun.
+                </button>
+            </div>
+            
+            <div class="educational-box toggle" onclick="toggleBox(this)">
+                <h4>📖 Historischer Kontext: Tag von Potsdam</h4>
+                <div class="content">
+                    <p>Am 21. März 1933 inszenierte Hitler den "Tag von Potsdam" als Versöhnung zwischen "altem" (Hindenburg) und "neuem" (Hitler) Deutschland. Die Propaganda zeigte: Die Nazis sind keine Revolution, sondern Tradition.</p>
+                    <p style="margin-top: 0.5rem;">In Wahrheit war dies der Beginn der Diktatur. Zwei Tage später wurde das Ermächtigungsgesetz verabschiedet.</p>
+                </div>
+            </div>
+            
+            <div class="educational-box toggle" onclick="toggleBox(this)">
+                <h4>💭 Reflexionsfrage</h4>
+                <div class="content">
+                    <p>Was macht das Angebot der HJ attraktiv? Warum ist es schwer, "Nein" zu sagen?</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATION 2: HJ-Lager (Sommer 1933) -->
+        <section id="station2" class="story-section">
+            <div class="chapter-header">
+                <h2>Station 2: <span class="org-name-long">HJ</span>-Lager am See</h2>
+                <p class="date">Juni 1933</p>
+            </div>
+            
+            <div class="narrative">
+                <p id="s2-intro-text"></p>
+                <p>Abends sitzt ihr am Lagerfeuer. Fähnleinführer Ludwig spielt Gitarre, alle singen: "Wir wollen zu Land ausfahren, über die Fluren weit..."</p>
+                <p>Du bist erschöpft, aber auch... gut. Die Gruppe akzeptiert dich. Du gehörst dazu.</p>
+                <p>Ludwig steht auf. "Kameraden! Morgen ist Sonnenwendfeier. Wir werden das Feuer entzünden — wie unsere Vorfahren vor tausend Jahren!"</p>
+                <p>"Sie waren stark, frei, natürlich. Wir sind ihre Erben! Aber wir müssen stark bleiben. Deutschland hat Feinde. Im Innern und im Ausland."</p>
+                <p>Er schaut in die Runde. "Wer ist bereit, Deutschland zu dienen?"</p>
+                <p>Alle rufen: "Wir!"</p>
+                <p>Ludwig schaut dich an. "<span class="player-name-ref">Du</span> auch?"</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was sagst du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('2-1a')">
+                    <span class="choice-key">1</span>
+                    Ja! Für Deutschland! [mit Begeisterung]
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('2-1b')">
+                    <span class="choice-key">2</span>
+                    Ja. [leiser, zurückhaltend]
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('2-1c')">
+                    <span class="choice-key">3</span>
+                    [Schweigen]
+                </button>
+            </div>
+        </section>
+
+        <!-- STATION 2 - SCENE 2: Bücherverbrennung -->
+        <section id="station2-2" class="story-section">
+            <div class="chapter-header">
+                <h2>Station 2: Sonnenwendfeier</h2>
+                <p class="date">Nächster Morgen, Dämmerung</p>
+            </div>
+            
+            <div class="narrative">
+                <p id="s2-2-consequence-text"></p>
+                <p>Alle stehen im Kreis um ein riesiges Holzfeuer. Ludwig hält eine Fackel.</p>
+                <p>"Das Feuer unserer Ahnen!", ruft er. "Sie waren frei, stark, unverdorben. Dann kamen die Römer, die Christen, die Juden — sie haben uns fremde Gesetze aufgezwungen!"</p>
+                <p>"Aber jetzt kehren wir zurück! Zurück zur Natur, zurück zu unserem Blut!"</p>
+                <p>Er wirft die Fackel ins Feuer. Flammen schlagen hoch. Die Gruppe singt: "Flamme empor!"</p>
+                <p><span class="leader-name">Anna</span> ruft: "Wir verbrennen die alte Zeit! Wir sind die neue Generation!"</p>
+                <p>Jemand wirft ein Buch ins Feuer. "Jüdische Lügen!" Ein anderer: "Marxistische Propaganda!"</p>
+                <p>Ludwig hält dir ein Buch hin. "Hier, wirf das rein! Es ist von einem jüdischen Autor. 'Entartete' Literatur."</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was tust du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('2-2a')">
+                    <span class="choice-key">1</span>
+                    Buch ins Feuer werfen
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('2-2b')">
+                    <span class="choice-key">2</span>
+                    Ich... ich hab noch nie ein Buch verbrannt. Das fühlt sich falsch an.
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('2-2c')">
+                    <span class="choice-key">3</span>
+                    Buch nehmen, aber nicht werfen. Schweigen.
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('2-2d')">
+                    <span class="choice-key">4</span>
+                    Nein. Bücher verbrennen ist barbarisch.
+                </button>
+            </div>
+            
+            <div class="educational-box toggle" onclick="toggleBox(this)">
+                <h4>📖 Historischer Kontext: Bücherverbrennungen</h4>
+                <div class="content">
+                    <p>Am 10. Mai 1933 brannten in 22 deutschen Städten zehntausende Bücher — von Autoren wie Heinrich Heine, Erich Kästner, Sigmund Freud, Karl Marx.</p>
+                    <p style="margin-top: 0.5rem;">Die Verbrennungen waren nicht spontan, sondern organisiert von der Deutschen Studentenschaft und der SA. Ziel: Zerstörung der "undeutschen" Kultur.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATION 3: Kino (Herbst 1934) -->
+        <section id="station3" class="story-section">
+            <div class="chapter-header">
+                <h2>Station 3: Kino</h2>
+                <p class="date">September 1934 — Wochenschau</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Du sitzt im Kino "Lichtspiele Waldheim". Deine Mutter hat dich zur Wochenschau geschickt — "Da siehst du, was in der Welt passiert."</p>
+                <p>Auf der Leinwand: Der Reichsparteitag in Nürnberg. Tausende Menschen, Fahnen, Marschmusik. Hitler spricht: "Deutschland ist erwacht!"</p>
+                <p>Die Kamera schwenkt über die Massen. Alle heben den Arm. "Sieg Heil! Sieg Heil!"</p>
+                <p>Neben dir sitzt Herr Goldstein, der jüdische Ladenbesitzer aus deiner Straße. Er ist unruhig, schaut auf seine Hände.</p>
+                <p>Die Wochenschau zeigt nun: "Neue Gesetze zum Schutz des deutschen Blutes." Der Sprecher: "Endlich ist Deutschland geschützt vor Rassenschande! Ehen zwischen Deutschen und Juden sind verboten!"</p>
+                <p>Jubel im Kino. Einige klatschen.</p>
+                <p>Herr Goldstein steht auf, will gehen. Dabei stößt er gegen deinen Arm.</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was tust du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('3-1a')">
+                    <span class="choice-key">1</span>
+                    Entschuldigung, Herr Goldstein. Ist alles in Ordnung?
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('3-1b')">
+                    <span class="choice-key">2</span>
+                    [Nichts sagen, weiter auf die Leinwand schauen]
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('3-1c')">
+                    <span class="choice-key">3</span>
+                    Wissen Sie, Herr Goldstein, vielleicht ist das Gesetz ja gar nicht so schlecht...
+                </button>
+            </div>
+        </section>
+
+        <!-- STATION 3 - SCENE 2: Nach dem Kino -->
+        <section id="station3-2" class="story-section">
+            <div class="chapter-header">
+                <h2>Station 3: Nach dem Kino</h2>
+                <p class="date">Draußen vor dem Kino</p>
+            </div>
+            
+            <div class="narrative">
+                <p id="s3-consequence-text"></p>
+                <p>Draußen wartet Otto (<span class="org-name">HJ</span>). "War das nicht großartig?", ruft er. "Der Führer ist ein Genie! Hast du gesehen, wie alle ihm zujubeln?"</p>
+                <p>Er senkt die Stimme. "Sag mal, du kennst doch diesen Goldstein. Kauft deine Mutter noch bei ihm?"</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was antwortest du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('3-2a')">
+                    <span class="choice-key">1</span>
+                    Ja, warum?
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('3-2b')">
+                    <span class="choice-key">2</span>
+                    Nein, wir kaufen woanders.
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('3-2c')">
+                    <span class="choice-key">3</span>
+                    Herr Goldstein ist ein anständiger Mann. Warum soll ich nicht bei ihm kaufen?
+                </button>
+            </div>
+            
+            <div class="educational-box toggle" onclick="toggleBox(this)">
+                <h4>📖 Historischer Kontext: Nürnberger Gesetze</h4>
+                <div class="content">
+                    <p>Die Nürnberger Gesetze (September 1935) verboten Ehen und sexuelle Beziehungen zwischen "Ariern" und "Juden". Sie definierten, wer als "Jude" galt — nach "Rasse", nicht Religion.</p>
+                    <p style="margin-top: 0.5rem;">Dies war der Beginn der systematischen Entrechtung. Jüdische Bürger verloren ihre Staatsangehörigkeit, ihre Berufe, ihre Existenzgrundlage.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATION 4: Arztpraxis (Winter 1935) -->
+        <section id="station4" class="story-section">
+            <div class="chapter-header">
+                <h2>Station 4: Arztpraxis</h2>
+                <p class="date">Winter 1935 — Schuluntersuchung</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Du sitzt im Wartezimmer von Dr. Schneider. Schuluntersuchung — Pflicht für alle <span class="org-name">HJ</span>/<span class="org-name">BDM</span>-Mitglieder.</p>
+                <p>An der Wand hängt ein Plakat: "Erbgesunde Ehen — gesunde Kinder! Achte auf deine Erblinie!"</p>
+                <p>Darunter: Diagramme mit "erbkranken" Familien (schwarze Kreise) vs. "erbgesunden" (weiße Kreise).</p>
+                <p>Dr. Schneider ruft dich herein. Er ist freundlich, um die 50, graue Schläfen.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Dr. Schneider:</span> "So, lass mal sehen... Größe, Gewicht, alles in Ordnung. Augen? Zähne? Gut."</p>
+                <p style="margin-top: 0.5rem;">Er blättert in deiner Akte. "Deine Familie... Vater gesund, Mutter gesund. Großeltern?"</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Du zögerst. "Mein Opa mütterlicherseits war... er hatte Anfälle. Epilepsie, glaube ich."</p>
+                <p>Dr. Schneider wird ernst. "Epilepsie? Das ist... bedenklich. Weißt du, seit 1933 haben wir das Gesetz zur Verhütung erbkranken Nachwuchses. Menschen mit Epilepsie dürfen keine Kinder bekommen. Sie werden sterilisiert."</p>
+                <p>Er schaut dich an. "Hattest du jemals Anfälle?"</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was sagst du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('4-1a')">
+                    <span class="choice-key">1</span>
+                    Nein, nie. [Wahrheit]
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('4-1b')">
+                    <span class="choice-key">2</span>
+                    Ich... ich bin mir nicht sicher. Einmal hatte ich als Kind...
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('4-1c')">
+                    <span class="choice-key">3</span>
+                    Das geht Sie nichts an. Das ist privat.
+                </button>
+            </div>
+        </section>
+
+        <!-- STATION 4 - SCENE 2: Rassenhygiene-Propaganda -->
+        <section id="station4-2" class="story-section">
+            <div class="chapter-header">
+                <h2>Station 4: Die Broschüre</h2>
+                <p class="date">Gleicher Tag</p>
+            </div>
+            
+            <div class="narrative">
+                <p id="s4-consequence-text"></p>
+                <p>Dr. Schneider zeigt dir eine Broschüre: "Erbkrank — Last für die Gemeinschaft."</p>
+                <p>Auf einem Bild: Ein behindertes Kind im Rollstuhl. Darunter: "60.000 Reichsmark kostet dieses Kind den Staat. Für das gleiche Geld könnten 10 gesunde Familien leben."</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Dr. Schneider:</span> "Verstehst du? Es ist nicht grausam, es ist... human. Wir ersparen diesen Menschen Leid. Und wir schützen die Gemeinschaft."</p>
+                <p style="margin-top: 0.5rem;">Er schließt deine Akte. "Du bist gesund. Aber pass auf, wen du heiratest."</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was antwortest du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('4-2a')">
+                    <span class="choice-key">1</span>
+                    Ja, ich verstehe. Das macht Sinn.
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('4-2b')">
+                    <span class="choice-key">2</span>
+                    Aber... ist es nicht falsch, Menschen zu sterilisieren?
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('4-2c')">
+                    <span class="choice-key">3</span>
+                    [Schweigen, nicken, raus aus der Praxis]
+                </button>
+            </div>
+            
+            <div class="educational-box toggle" onclick="toggleBox(this)">
+                <h4>📖 Historischer Kontext: NS-Rassenhygiene</h4>
+                <div class="content">
+                    <p>Das "Gesetz zur Verhütung erbkranken Nachwuchses" (1933) führte zur Zwangssterilisation von ca. 400.000 Menschen. Betroffen waren Menschen mit Epilepsie, Schizophrenie, "angeborener Schwachsinnigkeit" u.a.</p>
+                    <p style="margin-top: 0.5rem;">Ab 1939 eskalierte die Gewalt: In der "Aktion T4" wurden ca. 70.000 Menschen mit Behinderungen ermordet — als "lebensunwertes Leben" deklariert.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATION 5: RAD-Lager (Frühjahr 1936) -->
+        <section id="station5" class="story-section">
+            <div class="chapter-header">
+                <h2>Station 5: Reichsarbeitsdienst</h2>
+                <p class="date">Frühjahr 1936</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Du bist 18 geworden. Post vom Arbeitsamt: Einberufung zum Reichsarbeitsdienst (RAD) — 6 Monate Pflichtdienst, Bau von Straßen, Dämmen, Feldarbeit.</p>
+                <p>Deine Mutter: "Sechs Monate! Wer soll hier mithelfen?"</p>
+                <p>Dein Vater: "Das ist Gesetz. Jeder muss. Ist vielleicht gar nicht schlecht — <span class="gender-pronoun">er</span> lernt mal richtig anpacken."</p>
+                <p>Im Arbeitsamt. Herr Lehmann (Beamter) tippt auf seiner Schreibmaschine.</p>
+            </div>
+            
+            <div class="dialogue">
+                <p><span class="speaker">Herr Lehmann:</span> "So, <span class="gender-address">junger Mann</span>. RAD-Lager Thüringen. Straßenbau. Abfahrt in zwei Wochen. Hast du Fragen?"</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was sagst du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('5-1a')">
+                    <span class="choice-key">1</span>
+                    Nein, Herr Lehmann. Ich freue mich, Deutschland zu dienen.
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('5-1b')">
+                    <span class="choice-key">2</span>
+                    Was, wenn ich nicht kann? Ich meine... meine Mutter braucht mich hier.
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('5-1c')">
+                    <span class="choice-key">3</span>
+                    Was, wenn ich einfach nicht gehe?
+                </button>
+            </div>
+        </section>
+
+        <!-- STATION 5 - SCENE 2: RAD-Lager -->
+        <section id="station5-2" class="story-section">
+            <div class="chapter-header">
+                <h2>Station 5: Im RAD-Lager</h2>
+                <p class="date">Einige Wochen später, Thüringen</p>
+            </div>
+            
+            <div class="narrative">
+                <p id="s5-consequence-text"></p>
+                <p>Morgens 5 Uhr. Appell. 100 junge <span class="gender-plural">Männer</span> in Uniform, Spaten geschultert wie Gewehre.</p>
+                <p>Lagerführer Braun schreit: "Wir bauen nicht nur Straßen! Wir bauen das neue Deutschland! Mit unseren Händen, mit unserem Schweiß, mit unserem Blut!"</p>
+                <p>Tagsüber: Schaufeln, Steine schleppen, Erde abtragen. Die Hände bluten. Der Rücken schmerzt.</p>
+                <p>Abends: Schulung. Braun zeigt Bilder von Bauern auf Feldern. "Blut und Boden! Der deutsche Bauer ist die Wurzel der Rasse! Wir helfen ihm, das Land fruchtbar zu machen!"</p>
+                <p><span class="comrade-name">Franz</span> flüstert: "Ich dachte, wir helfen Bauern. Aber das hier ist doch nur... Schinderei."</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was antwortest du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('5-2a')">
+                    <span class="choice-key">1</span>
+                    Psst, Franz! Wenn das jemand hört...
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('5-2b')">
+                    <span class="choice-key">2</span>
+                    Franz, wir dienen Deutschland. Das ist wichtiger als unser Komfort.
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('5-2c')">
+                    <span class="choice-key">3</span>
+                    Du hast recht. Das hier ist Ausbeutung. Aber was können wir tun?
+                </button>
+            </div>
+            
+            <div class="educational-box toggle" onclick="toggleBox(this)">
+                <h4>📖 Historischer Kontext: Reichsarbeitsdienst</h4>
+                <div class="content">
+                    <p>Der Reichsarbeitsdienst (RAD) war ab 1935 für alle 18-25-Jährigen Pflicht (zunächst Männer, ab 1939 auch Frauen). Ziel: "Volksgemeinschaft", körperliche Abhärtung, Disziplinierung.</p>
+                    <p style="margin-top: 0.5rem;">In Wahrheit war der RAD Vorbereitung auf den Krieg: Kasernierung, Drill, Gehorsam. Die Arbeitsprojekte hatten oft militärischen Wert (Straßen zur Truppenverlegung, Befestigungen).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATION 6: Olympiade (Sommer 1936) -->
+        <section id="station6" class="story-section">
+            <div class="chapter-header">
+                <h2>Station 6: Olympiade Berlin</h2>
+                <p class="date">Sommer 1936</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Berlin, Olympiastadion. Du bist mit der <span class="org-name">HJ</span>/<span class="org-name">BDM</span> hier — Belohnung für "Dienst und Treue".</p>
+                <p>Um dich herum 100.000 Menschen. Hakenkreuz-Fahnen, Olympiaringe, Musik. Hitler sitzt in der Ehrenloge.</p>
+                <p>Auf der Leinwand: Leni Riefenstahl filmt. Später wird daraus "Olympia" — Propaganda als Kunst.</p>
+                <p>Ludwig ruft: "Seht ihr? Die ganze Welt ist hier! Sie sehen, was Deutschland kann! Wir sind wieder wer!"</p>
+                <p>Dann: 100m-Lauf. Jesse Owens (schwarz, USA) gewinnt. Gold.</p>
+                <p>Ludwig wird still. Jemand murmelt: "Ein Neger... wie konnte er gewinnen?"</p>
+                <p>Ein anderer: "Der Führer hat ihm nicht gratuliert. Richtig so."</p>
+                <p>Otto wendet sich dir zu: "Was meinst du — darf ein Schwarzer schneller sein als ein Deutscher?"</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was antwortest du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('6-1a')">
+                    <span class="choice-key">1</span>
+                    Nein. Schwarze sind doch... anders. Unterlegen.
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('6-1b')">
+                    <span class="choice-key">2</span>
+                    Keine Ahnung. Er war heute einfach schneller.
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('6-1c')">
+                    <span class="choice-key">3</span>
+                    Er war der Beste. Warum sollte das mit der Hautfarbe zu tun haben?
+                </button>
+            </div>
+        </section>
+
+        <!-- STATION 6 - SCENE 2: Abendfeier -->
+        <section id="station6-2" class="story-section">
+            <div class="chapter-header">
+                <h2>Station 6: Abendfeier</h2>
+                <p class="date">Gleicher Abend</p>
+            </div>
+            
+            <div class="narrative">
+                <p id="s6-consequence-text"></p>
+                <p>Zurück im <span class="org-name">HJ</span>-Lager. Großes Fest: Musik, Tanz, Würstchen.</p>
+                <p><span class="leader-name">Anna</span> kommt zu dir. "Das war ein toller Tag, oder? Deutschland ist wieder stolz!"</p>
+                <p><span class="gender-pronoun-capital">Sie</span> lächelt. "Sag mal, hast du schon <span class="romantic-partner">eine Freundin</span>?"</p>
+                <p>Du wirst rot. "Äh, nein..."</p>
+                <p><span class="leader-name">Anna</span>: "Weißt du, was das Wichtigste ist? Dass <span class="romantic-partner-possessive">deine Partnerin</span> 'erbgesund' und 'arisch' ist. Kinder sind die Zukunft der Rasse!"</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was sagst du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('6-2a')">
+                    <span class="choice-key">1</span>
+                    Ja, das weiß ich. Ich werde nur <span class="romantic-partner-acc">eine Arierin</span> heiraten.
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('6-2b')">
+                    <span class="choice-key">2</span>
+                    Ich werde heiraten, wen ich liebe.
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('6-2c')">
+                    <span class="choice-key">3</span>
+                    Darüber will ich nicht reden.
+                </button>
+            </div>
+            
+            <div class="educational-box toggle" onclick="toggleBox(this)">
+                <h4>📖 Historischer Kontext: Olympiade 1936</h4>
+                <div class="content">
+                    <p>Die Olympiade 1936 war ein Propaganda-Meisterwerk: Die Welt sah ein "friedliches", "modernes" Deutschland. Antisemitische Schilder wurden versteckt, Gewalt pausierte.</p>
+                    <p style="margin-top: 0.5rem;">Jesse Owens gewann vier Goldmedaillen. Die NS-Propaganda versuchte, seine Erfolge herunterzuspielen, aber vor internationalen Kameras blieb wenig Spielraum. Hitler gratulierte keinem ausländischen Sieger persönlich.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATION 7: Entartete Kunst (Herbst 1937) -->
+        <section id="station7" class="story-section">
+            <div class="chapter-header">
+                <h2>Station 7: "Entartete Kunst"</h2>
+                <p class="date">Herbst 1937, München</p>
+            </div>
+            
+            <div class="narrative">
+                <p>München, Ausstellung "Entartete Kunst". Du bist mit der <span class="org-name">HJ</span> hier — Schulungsfahrt.</p>
+                <p>Die Ausstellung zeigt moderne Kunst: Expressionismus, Kubismus, abstrakte Malerei. Daneben: Schilder mit "Verhöhnung des deutschen Volkes", "Jüdischer Kulturbolschewismus".</p>
+                <p>Ludwig erklärt: "Seht ihr diese 'Kunst'? Das ist keine Kunst! Das ist Zersetzung! Juden und Kommunisten wollen unsere Kultur zerstören!"</p>
+                <p>Er zeigt auf ein Bild von Otto Dix: Ein Kriegskrüppel, verstümmelt, bettelt auf der Straße.</p>
+                <p>"Das ist Verhöhnung unserer Helden! Deutsche Soldaten sind Helden, keine... Krüppel!"</p>
+                <p>Neben dir steht <span class="comrade-name-f">Greta</span>. <span class="gender-pronoun-capital-f">Sie</span> flüstert: "Aber... das Bild zeigt doch die Wahrheit. Im Krieg werden Menschen verletzt."</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was sagst du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('7-1a')">
+                    <span class="choice-key">1</span>
+                    Psst, Greta! Willst du Ärger?
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('7-1b')">
+                    <span class="choice-key">2</span>
+                    Ludwig hat recht. Das ist Zersetzung. Echte deutsche Kunst zeigt Stärke.
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('7-1c')">
+                    <span class="choice-key">3</span>
+                    Ich finde, das Bild ist... ehrlich. Warum sollen wir lügen?
+                </button>
+            </div>
+        </section>
+
+        <!-- STATION 7 - SCENE 2: "Deutsche Kunst" -->
+        <section id="station7-2" class="story-section">
+            <div class="chapter-header">
+                <h2>Station 7: "Deutsche Kunst"</h2>
+                <p class="date">Nebenan, gleicher Tag</p>
+            </div>
+            
+            <div class="narrative">
+                <p id="s7-consequence-text"></p>
+                <p>Nebenan: Ausstellung "Große Deutsche Kunstausstellung". Riesige Gemälde: Blonde Bauern, starke Arbeiter, heroische Soldaten.</p>
+                <p>Ludwig: "DAS ist deutsche Kunst! Schönheit, Stärke, Wahrheit!"</p>
+                <p>Ein Bild zeigt eine Mutter mit vier Kindern, alle blond. Titel: "Das Mutterkreuz".</p>
+                <p>Ludwig: "Das ist eure Zukunft, <span class="gender-group">Mädchen</span>! Kinder für Deutschland! <span class="gender-group-opp">Jungen</span>, eure Zukunft ist der Dienst!"</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was denkst du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('7-2a')">
+                    <span class="choice-key">1</span>
+                    Ja, das ist schön. So sollte Deutschland sein.
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('7-2b')">
+                    <span class="choice-key">2</span>
+                    [Schweigen, Unbehagen]
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('7-2c')">
+                    <span class="choice-key">3</span>
+                    Das ist alles so... uniform. Wo ist die Vielfalt?
+                </button>
+            </div>
+            
+            <div class="educational-box toggle" onclick="toggleBox(this)">
+                <h4>📖 Historischer Kontext: "Entartete Kunst"</h4>
+                <div class="content">
+                    <p>Die Ausstellung "Entartete Kunst" (1937) zeigte über 650 Werke moderner Künstler — um sie zu diffamieren. Über 2 Millionen Menschen sahen sie.</p>
+                    <p style="margin-top: 0.5rem;">Parallel lief die "Große Deutsche Kunstausstellung": Monumentale, heroische, konformistische Kunst. Die Nazis definierten, was "deutsch" war — und verfolgten alles andere.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATION 8: Familienfeier (Januar 1938) -->
+        <section id="station8" class="story-section">
+            <div class="chapter-header">
+                <h2>Station 8: Familienfeier</h2>
+                <p class="date">Januar 1938</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Sonntagnachmittag, Kaffeetafel bei euch zu Hause. Gäste: Deine Eltern, Onkel Heinrich (SA-Mann), Tante Margarete (seine Frau), Opa Ernst (Weltkriegsveteran, skeptisch gegenüber NS).</p>
+                <p>Onkel Heinrich trägt SA-Uniform, stolz. "Habt ihr gehört? Österreich kommt heim ins Reich! Der Führer macht es möglich!"</p>
+                <p>Opa Ernst brummt: "Heim ins Reich... Ich erinnere mich an 1914. Auch da hieß es, es wird großartig. Und dann...?"</p>
+                <p>Heinrich: "Das war ein anderes Deutschland! Weimar war schwach, verraten. Das neue Reich ist stark!"</p>
+                <p>Opa: "Stark? Ihr marschiert mit Fackeln, verbrennt Bücher, jagt Juden. Das ist nicht Stärke, das ist..."</p>
+                <p>Heinrich: "Was? Sag schon!"</p>
+                <p>Opa: "Barbarei."</p>
+                <p>Stille. Alle schauen auf dich. Heinrich: "Und du? Was denkst du? Bist du auf der Seite deines Opas — oder auf der Seite Deutschlands?"</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was sagst du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('8-1a')">
+                    <span class="choice-key">1</span>
+                    Ich stehe zu Deutschland. Opa versteht das neue Deutschland nicht.
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('8-1b')">
+                    <span class="choice-key">2</span>
+                    Ich... ich denke, beide haben recht. Wir müssen stark sein, aber auch human.
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('8-1c')">
+                    <span class="choice-key">3</span>
+                    Opa hat recht. Das hier fühlt sich falsch an.
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('8-1d')">
+                    <span class="choice-key">4</span>
+                    [Schweigen, Tränen in den Augen]
+                </button>
+            </div>
+        </section>
+
+        <!-- STATION 8 - SCENE 2: Nach der Feier -->
+        <section id="station8-2" class="story-section">
+            <div class="chapter-header">
+                <h2>Station 8: Gespräch mit Mutter</h2>
+                <p class="date">Abends, beim Aufräumen</p>
+            </div>
+            
+            <div class="narrative">
+                <p id="s8-consequence-text"></p>
+                <p>Abends, du räumst mit deiner Mutter auf. Sie ist still.</p>
+                <p>"Mama, wer hat recht? Onkel Heinrich oder Opa?"</p>
+                <p>Mutter: "Ich weiß es nicht. Dein Vater und ich... wir halten den Kopf unten. Wir wollen nur, dass unsere Familie heil bleibt."</p>
+                <p>Sie schaut dich an. "Du musst selbst entscheiden. Aber eines sag ich dir: Pass auf, dass du nicht vergisst, wer du bist."</p>
+            </div>
+            
+            <button class="continue-btn" onclick="goToStation('station9')">Weiter</button>
+            
+            <div class="educational-box toggle" onclick="toggleBox(this)">
+                <h4>📖 Historischer Kontext: Spaltung der Familien</h4>
+                <div class="content">
+                    <p>Die NS-Ideologie spaltete Familien. Kinder denunzierten Eltern, Geschwister zerstritten sich über Politik. Wer nicht mitmachte, galt als "Volksfeind".</p>
+                    <p style="margin-top: 0.5rem;">Viele Familien wählten Schweigen statt Konflikt — "Halten wir den Kopf unten". Das verhinderte offenen Widerstand, rettete aber manche Beziehungen.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATION 9: Reichspogromnacht (9. November 1938) -->
+        <section id="station9" class="story-section">
+            <div class="chapter-header">
+                <h2>Station 9: Reichspogromnacht</h2>
+                <p class="date">10. November 1938, morgens</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Du gehst zur Arbeit (<span class="player-job">Lehrling beim Schreinermeister</span>). Die Straße ist voller Glasscherben.</p>
+                <p>Goldsteins Laden — zertrümmerte Fenster. Die Tür aufgebrochen. Innen: Chaos. Stoffe zerrissen, Kasse leer.</p>
+                <p>An der Wand: "JUDE" in roter Farbe.</p>
+                <p>Einige Nachbarn stehen da, schauen. Niemand hilft.</p>
+                <p>Du siehst Frau Goldstein auf der Straße knien, sie sammelt Scherben ein, weint.</p>
+                <p>Otto (<span class="org-name">HJ</span>) kommt dazu, lacht. "Geschieht ihnen recht! Juden haben Deutschland lange genug ausgebeutet!"</p>
+                <p>Andere johlen. Jemand wirft einen Stein. Frau Goldstein zuckt zusammen.</p>
+                <p>Otto schaut dich an. "Na, kommst du mit? Wir 'räumen' heute noch mehr Judenläden auf!"</p>
+            </div>
+            
+            <div class="choices">
+                <h3>Was tust du?</h3>
+                
+                <button class="choice-btn" onclick="makeChoice('9-1a')">
+                    <span class="choice-key">1</span>
+                    Ja, komm, zeig mir, wo! [mitlaufen]
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('9-1b')">
+                    <span class="choice-key">2</span>
+                    Nein, ich... ich muss nach Hause. [weglaufen]
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('9-1c')">
+                    <span class="choice-key">3</span>
+                    Zu Frau Goldstein gehen, ihr helfen
+                </button>
+                
+                <button class="choice-btn" onclick="makeChoice('9-1d')">
+                    <span class="choice-key">4</span>
+                    Dazwischen gehen: "Hört auf! Das sind Menschen!"
+                </button>
+            </div>
+            
+            <div class="educational-box toggle" onclick="toggleBox(this)">
+                <h4>⚠️ Historischer Kontext: Reichspogromnacht</h4>
+                <div class="content">
+                    <p>In der Nacht vom 9. auf den 10. November 1938 wurden im gesamten Deutschen Reich über 1.400 Synagogen und Gebetshäuser zerstört, tausende Geschäfte und Wohnungen verwüstet.</p>
+                    <p style="margin-top: 0.5rem;">Etwa 30.000 jüdische Männer wurden verhaftet und in Konzentrationslager deportiert. Mindestens 91 Menschen wurden ermordet (Dunkelziffer höher).</p>
+                    <p style="margin-top: 0.5rem;">Die Pogrome waren organisiert, nicht spontan. SA, SS und Partei orchestrierten die Gewalt. Die meisten Deutschen schauten zu.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATION 9 - SCENE 2: Zu Hause -->
+        <section id="station9-2" class="story-section">
+            <div class="chapter-header">
+                <h2>Station 9: Zu Hause</h2>
+                <p class="date">Gleicher Abend</p>
+            </div>
+            
+            <div class="narrative">
+                <p id="s9-consequence-text"></p>
+                <p>Du kommst nach Hause. Deine Mutter weint. "Haben sie auch bei Goldsteins...? Oh Gott."</p>
+                <p>Dein Vater: "Sag nichts. Wir halten uns raus. Sonst sind wir die Nächsten."</p>
+                <p>Deine kleine Schwester (jetzt 17): "Aber Papa, Herr Goldstein war immer nett zu uns!"</p>
+                <p>Vater: "Das spielt jetzt keine Rolle mehr."</p>
+                <p>Du liegst im Bett. Draußen Sirenen, Schreie. Du kannst nicht schlafen.</p>
+            </div>
+            
+            <button class="continue-btn" onclick="goToStation('station10')">Weiter</button>
+        </section>
+
+        <!-- STATION 10: Epilog -->
+        <section id="station10" class="story-section">
+            <div class="chapter-header">
+                <h2>Station 10: Epilog</h2>
+                <p class="date">Dezember 1938 / 1942</p>
+            </div>
+            
+            <div class="narrative">
+                <p>Winter 1938/39. Du bist 20. Die <span class="org-name">HJ</span>-Zeit ist vorbei, aber der Dienst geht weiter.</p>
+                <p class="emphasis">Am 1. September 1939 beginnt der Krieg.</p>
+                <p>Die Jahre vergehen. Du arbeitest, heiratest vielleicht, bekommst Kinder. Das Leben geht weiter.</p>
+                <p>Aber die Entscheidungen, die du getroffen hast, bleiben.</p>
+                <p class="thought">Wer bin ich geworden? Was habe ich zugelassen? Was habe ich getan?</p>
+            </div>
+            
+            <div class="reflection-box">
+                <h3>Dein Weg durch das Reich</h3>
+                <p style="margin-bottom: 1rem;">Du hast <span id="total-decisions">0</span> Entscheidungen getroffen:</p>
+                <ul id="decision-summary">
+                    <!-- Wird dynamisch befüllt -->
+                </ul>
+            </div>
+            
+            <div id="character-analysis" class="consequence">
+                <h4>Deine Entwicklung</h4>
+                <p id="analysis-text"></p>
+            </div>
+            
+            <div class="narrative" style="margin-top: 3rem;">
+                <p class="emphasis">Es ist 1942. Deutschland ist im Krieg. Die Entscheidungen, die du zwischen 1933 und 1938 getroffen hast, haben dich geformt.</p>
+                <p style="margin-top: 2rem; font-size: 1.1rem; text-align: center; color: var(--accent);">Aus dir könnte werden...</p>
+            </div>
+            
+            <div class="reflection-box" style="margin-top: 2rem;">
+                <h3>Die drei Perspektiven (1942)</h3>
+                <ul>
+                    <li><strong>Werner Hoffmann</strong> (Zuschauer) — Du hast den Kopf unten gehalten. Du wolltest nur deine Ruhe. Jetzt bist du Buchhalter, verheiratet, hast Kinder. Aber die Geschichte holt dich ein.</li>
+                    <li><strong>Friedrich "Fritz" Müller</strong> (Täter) — Du hast mitgemacht. Aus Überzeugung oder Gehorsam, vielleicht auch aus Angst. Jetzt bist du Polizist. Du bekommst Befehle, die du nicht mehr ignorieren kannst.</li>
+                    <li><strong>David Rosenthal</strong> (Opfer) — Wenn du anders gelebt hättest. Wenn deine Familie jüdisch gewesen wäre. Du hättest keine Wahl gehabt. Du wärst das Opfer.</li>
+                </ul>
+            </div>
+            
+            <div class="reflection-box" style="margin-top: 2rem;">
+                <h3>Reflexionsfragen</h3>
+                <ul>
+                    <li>Was hat dich am meisten überrascht?</li>
+                    <li>Wo war es am schwersten, "Nein" zu sagen?</li>
+                    <li>Warum haben so viele Menschen mitgemacht?</li>
+                    <li>Was hättest du anders gemacht?</li>
+                    <li>Erkennst du Mechanismen (Gruppendruck, Propaganda) auch heute?</li>
+                    <li>Was braucht es, um Zivilcourage zu zeigen?</li>
+                </ul>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <button class="continue-btn" onclick="location.reload()">Neu beginnen</button>
+                <button class="continue-btn secondary" onclick="window.location.href='menu.html'">Zu den Perspektiven (1942)</button>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>Der Weg ins Reich | Version 1.0</p>
+        <p>Teil des Projekts "Entscheidungen 1933-1945"</p>
+        <p style="margin-top: 0.5rem;">Basierend auf: Johann Chapoutot, "Das Gesetz des Blutes" (2016)</p>
+        <p style="margin-top: 0.5rem;">Für Bildungszwecke | Berufliche Schule Lörrach | <a href="menu.html">Hauptmenü</a></p>
+    </footer>
+
+    <!-- Audio Player -->
+    <div id="audio-controls" style="position: fixed; top: 1rem; right: 1rem; z-index: 1000; background: rgba(26, 26, 26, 0.95); padding: 0.5rem 1rem; border-radius: 8px; display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; border: 1px solid #444;">
+        <span style="color: #888;">🎵</span>
+        <button id="muteToggle" onclick="toggleMute()" style="background: transparent; border: 1px solid #666; color: #c49a6c; padding: 0.25rem 0.75rem; border-radius: 4px; cursor: pointer; font-family: inherit; font-size: 0.8rem; transition: all 0.2s;">
+            🔊 Musik
+        </button>
+        <input type="range" id="volumeSlider" min="0" max="100" value="25" oninput="setVolume(this.value)" style="width: 80px; accent-color: #c49a6c;">
+    </div>
+    <audio id="bgMusic1" loop preload="auto"></audio>
+    <audio id="bgMusic2" loop preload="auto"></audio>
+
+    <script>
+        // Audio Manager (from index.html)
+        const audioManager = {
+            player1: null,
+            player2: null,
+            currentPlayer: 1,
+            isMuted: false,
+            baseVolume: 0.25,
+            
+            tracks: {
+                peaceful: 'audio/1.%20Sepia%20Afternoon.mp3',
+                hope: 'audio/2.%20Trembling%20Into%20Light.mp3',
+                tension: 'audio/3.%20Hanging%20Shadow.mp3',
+                danger: 'audio/4.%20Red%20Line%20Sirens.mp3',
+                grief: 'audio/5.%20Midnight%20Room%20of%20Empty%20Chairs.mp3',
+                farewell: 'audio/6.%20Last%20Light%20in%20the%20Room.mp3',
+                chaos: 'audio/7.%20Waltz%20of%20the%20Falling%20Order.mp3',
+                courage: 'audio/8.%20Stand%20in%20the%20Fire.mp3',
+                remember: 'audio/9.%20Remember.mp3'
+            },
+            
+            sceneMapping: {
+                'title': 'peaceful',
+                'setup': 'peaceful',
+                'station1': 'peaceful',
+                'station1-2': 'hope',
+                'station2': 'hope',
+                'station2-2': 'tension',
+                'station3': 'tension',
+                'station3-2': 'tension',
+                'station4': 'tension',
+                'station4-2': 'tension',
+                'station5': 'farewell',
+                'station5-2': 'courage',
+                'station6': 'hope',
+                'station6-2': 'peaceful',
+                'station7': 'chaos',
+                'station7-2': 'tension',
+                'station8': 'chaos',
+                'station8-2': 'grief',
+                'station9': 'danger',
+                'station9-2': 'grief',
+                'station10': 'remember'
+            },
+            
+            init() {
+                this.player1 = document.getElementById('bgMusic1');
+                this.player2 = document.getElementById('bgMusic2');
+                this.player1.volume = this.baseVolume;
+                this.player2.volume = 0;
+            },
+            
+            playForScene(sceneId) {
+                const mood = this.sceneMapping[sceneId] || 'peaceful';
+                this.crossfadeTo(this.tracks[mood]);
+            },
+            
+            crossfadeTo(trackUrl, duration = 2000) {
+                if (this.isMuted) return;
+                
+                const currentAudio = this.currentPlayer === 1 ? this.player1 : this.player2;
+                const nextAudio = this.currentPlayer === 1 ? this.player2 : this.player1;
+                
+                if (currentAudio.src.includes(trackUrl.split('/').pop())) return;
+                
+                nextAudio.src = trackUrl;
+                nextAudio.volume = 0;
+                nextAudio.play().catch(e => console.log('Audio blocked:', e));
+                
+                const steps = 50;
+                const interval = duration / steps;
+                let step = 0;
+                
+                const fadeInterval = setInterval(() => {
+                    step++;
+                    const progress = step / steps;
+                    
+                    currentAudio.volume = this.baseVolume * (1 - progress);
+                    nextAudio.volume = this.baseVolume * progress;
+                    
+                    if (step >= steps) {
+                        clearInterval(fadeInterval);
+                        currentAudio.pause();
+                        currentAudio.volume = 0;
+                        this.currentPlayer = this.currentPlayer === 1 ? 2 : 1;
+                    }
+                }, interval);
+            },
+            
+            mute() {
+                this.isMuted = true;
+                this.player1.volume = 0;
+                this.player2.volume = 0;
+                document.getElementById('muteToggle').innerHTML = '🔇 Musik';
+                document.getElementById('muteToggle').style.color = '#666';
+            },
+            
+            unmute() {
+                this.isMuted = false;
+                const currentAudio = this.currentPlayer === 1 ? this.player1 : this.player2;
+                currentAudio.volume = this.baseVolume;
+                document.getElementById('muteToggle').innerHTML = '🔊 Musik';
+                document.getElementById('muteToggle').style.color = '#c49a6c';
+            },
+            
+            setVolume(value) {
+                this.baseVolume = value / 100;
+                if (!this.isMuted) {
+                    const currentAudio = this.currentPlayer === 1 ? this.player1 : this.player2;
+                    currentAudio.volume = this.baseVolume;
+                }
+            }
+        };
+        
+        function toggleMute() {
+            audioManager.isMuted ? audioManager.unmute() : audioManager.mute();
+        }
+        
+        function setVolume(value) {
+            audioManager.setVolume(value);
+        }
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key.toLowerCase() === 'm' && !e.ctrlKey && !e.altKey) {
+                toggleMute();
+            }
+            // Number keys 1-4 for choices
+            if (e.key >= '1' && e.key <= '4') {
+                const buttons = document.querySelectorAll('.story-section.active .choice-btn');
+                const index = parseInt(e.key) - 1;
+                if (buttons[index]) buttons[index].click();
+            }
+        });
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            audioManager.init();
+            audioManager.playForScene('title');
+        });
+        
+        // Game State
+        let gameState = {
+            playerName: '',
+            gender: '', // 'male' or 'female'
+            year: 1933,
+            age: 15,
+            currentStation: 1,
+            decisions: [],
+            tracking: {
+                conformity: 0,
+                resistance: 0,
+                empathy: 0,
+                passivity: 0,
+                conviction: 0
+            },
+            flags: {}
+        };
+        
+        // Story Paths
+        const storyPaths = {
+            // Station 1
+            '1-1a': { trait: 'conformity', next: 'station1-2', text: 'Dr. Hoffmann lächelt anerkennend. "Sehr gut! Das ist die richtige Einstellung!" Karl sagt nichts mehr, schaut weg.' },
+            '1-1b': { trait: 'caution', next: 'station1-2', text: 'Dr. Hoffmann runzelt die Stirn. "Abwarten? Das ist die Haltung, die Deutschland fast zerstört hat!" Karl nickt dir zu.' },
+            '1-1c': { trait: 'resistance', next: 'station1-2', text: 'Dr. Hoffmann unterbricht: "Die NSDAP rettet Deutschland! Wer das nicht sieht, ist ein Defätist!" Die Klasse ist still. Karl zwinkert dir zu.' },
+            '1-1d': { trait: 'passivity', next: 'station1-2', text: 'Du sagst nichts. Dr. Hoffmann: "Wer schweigt, stimmt zu." Karl flüstert: "Feigling."' },
+            
+            // Station 1-2
+            '1-2a': { trait: 'openness', next: 'station2', flag: 'hj_interested', text: 'Otto: "Wir machen nächste Woche ein Lager am See. Komm doch mit!" Er gibt dir ein Flugblatt.' },
+            '1-2b': { trait: 'familyTrust', next: 'station2', flag: 'hj_interested', text: 'Otto: "Deine Eltern? Du bist 15! Aber gut, frag sie." Er gibt dir ein Flugblatt.' },
+            '1-2c': { trait: 'isolation', next: 'station2', flag: 'hj_declined', text: 'Otto: "Schade. Aber du weißt ja: Wer nicht dabei ist, ist irgendwann allein."' },
+            
+            // Station 2
+            '2-1a': { trait: 'conviction', next: 'station2-2', text: 'Die Gruppe johlt. Ludwig nickt anerkennend. Du fühlst dich stark. Teil von etwas Größerem.' },
+            '2-1b': { trait: 'caution', next: 'station2-2', text: 'Ludwig: "Das klang nicht überzeugend! Lauter!" Die Gruppe schaut dich an, wartet.' },
+            '2-1c': { trait: 'passivity', next: 'station2-2', text: 'Ludwig: "Wer schweigt, ist kein Kamerad." Die anderen rücken von dir ab. Du fühlst dich isoliert.' },
+            
+            // Station 2-2
+            '2-2a': { trait: 'conformity', next: 'station3', flag: 'burned_book', text: 'Du wirfst das Buch ins Feuer. Die Flammen verschlingen es. Die Gruppe jubelt. Du fühlst dich... schuldig? Oder stark?' },
+            '2-2b': { trait: 'resistance', next: 'station3', text: 'Ludwig: "Falsch? Das Buch ist Gift! Du willst doch nicht, dass Deutschland eingeht?" Er hält dir das Buch weiter hin.' },
+            '2-2c': { trait: 'passivity', next: 'station3', text: 'Du stehst da, unentschlossen. Otto nimmt dir das Buch aus der Hand und wirft es ins Feuer. "Feigling", murmelt er.' },
+            '2-2d': { trait: 'resistance', next: 'station3', flag: 'refused_burning', text: 'Ludwig starrt dich an. "Barbarisch? DU nennst UNS barbarisch? Geh! Du gehörst nicht hierher." Du packst deine Sachen.' },
+            
+            // Station 3
+            '3-1a': { trait: 'empathy', next: 'station3-2', flag: 'helped_goldstein', text: 'Herr Goldstein schaut dich dankbar an. "Danke, mein Kind." Einige Leute drehen sich um, starren dich an. Eine Frau murmelt: "Judenfreund."' },
+            '3-1b': { trait: 'passivity', next: 'station3-2', text: 'Du tust so, als hättest du nichts bemerkt. Die Wochenschau läuft weiter. Du bist unauffällig.' },
+            '3-1c': { trait: 'conformity', next: 'station3-2', text: 'Goldstein schaut dich entsetzt an. Dann schüttelt er den Kopf und geht. Die Frau neben dir nickt: "Richtig so."' },
+            
+            // Station 3-2
+            '3-2a': { trait: 'honesty', next: 'station4', text: 'Otto: "Das sollte sie nicht. Juden sind... na ja. Deine Mutter sollte lieber bei deutschen Geschäften kaufen."' },
+            '3-2b': { trait: 'conformity', next: 'station4', flag: 'lied_about_goldstein', text: 'Otto: "Gut! So muss das sein." Du fühlst dich... schuldig? Erleichtert? Beides?' },
+            '3-2c': { trait: 'resistance', next: 'station4', text: 'Otto starrt dich an. "Du verstehst es nicht. Der Führer weiß das." Er dreht sich um. "Ich dachte, du wärst einer von uns."' },
+            
+            // Station 4
+            '4-1a': { trait: 'honesty', next: 'station4-2', text: 'Dr. Schneider: "Gut. Aber du musst aufpassen. Epilepsie kann vererbt werden."' },
+            '4-1b': { trait: 'caution', next: 'station4-2', flag: 'medical_concern', text: 'Dr. Schneider wird sehr ernst. "Das müssen wir untersuchen. Komm nächste Woche wieder."' },
+            '4-1c': { trait: 'resistance', next: 'station4-2', text: 'Dr. Schneider: "Privat? Es geht um die Gesundheit des Volkes! Wenn du Informationen zurückhältst, machst du dich verdächtig."' },
+            
+            // Station 4-2
+            '4-2a': { trait: 'conformity', next: 'station5', text: 'Dr. Schneider nickt. "Gut. Du hast verstanden." Du verlässt die Praxis.' },
+            '4-2b': { trait: 'resistance', next: 'station5', text: 'Dr. Schneider: "Falsch? Findest du es richtig, dass kranke Kinder leiden?" Du hast keine Antwort.' },
+            '4-2c': { trait: 'passivity', next: 'station5', text: 'Du nickst, sagst nichts. Dr. Schneider: "Auf Wiedersehen." Du bist innerlich verstört.' },
+            
+            // Station 5
+            '5-1a': { trait: 'conviction', next: 'station5-2', text: 'Lehmann nickt anerkennend. "Gute Einstellung!"' },
+            '5-1b': { trait: 'familyTrust', next: 'station5-2', text: 'Lehmann: "Das geht alle an. Deutschland braucht dich jetzt."' },
+            '5-1c': { trait: 'resistance', next: 'station5-2', text: 'Lehmann wird kalt. "Dann wirst du bestraft. Gefängnis. Und deine Familie wird als volksfeindlich registriert."' },
+            
+            // Station 5-2
+            '5-2a': { trait: 'caution', next: 'station6', text: 'Franz nickt dir zu. "Hab ich recht oder nicht?"' },
+            '5-2b': { trait: 'conviction', next: 'station6', text: 'Franz schaut dich an. "Du glaubst das wirklich, oder?"' },
+            '5-2c': { trait: 'passivity', next: 'station6', text: 'Franz: "Nichts. Wir müssen durch. Aber danach... ich weiß nicht."' },
+            
+            // Station 6
+            '6-1a': { trait: 'conformity', next: 'station6-2', flag: 'racist_view', text: 'Otto: "Genau! Die Rasse zählt, nicht ein einzelner Lauf."' },
+            '6-1b': { trait: 'passivity', next: 'station6-2', text: 'Otto: "Das ist keine Antwort. Du musst schon wissen, was du denkst!"' },
+            '6-1c': { trait: 'resistance', next: 'station6-2', text: 'Otto starrt dich an. "Du hast nichts verstanden."' },
+            
+            // Station 6-2
+            '6-2a': { trait: 'conformity', next: 'station7', text: 'Anna: "Gut! Du hast verstanden."' },
+            '6-2b': { trait: 'resistance', next: 'station7', text: 'Anna: "Liebe? Liebe ist wichtig, aber die Rasse ist wichtiger."' },
+            '6-2c': { trait: 'passivity', next: 'station7', text: 'Anna: "Du bist komisch. Pass auf, dass die anderen das nicht merken."' },
+            
+            // Station 7
+            '7-1a': { trait: 'caution', next: 'station7-2', text: 'Greta schweigt, schaut dich enttäuscht an.' },
+            '7-1b': { trait: 'conformity', next: 'station7-2', text: 'Ludwig nickt anerkennend. "Genau!"' },
+            '7-1c': { trait: 'resistance', next: 'station7-2', text: 'Ludwig: "Lügen? Raus! Du gehörst nicht hierher!" Die Gruppe demütigt dich.' },
+            
+            // Station 7-2
+            '7-2a': { trait: 'conformity', next: 'station8', text: 'Ludwig: "Gut! Du hast verstanden."' },
+            '7-2b': { trait: 'passivity', next: 'station8', text: 'Ludwig: "Du bist still. Gefällt dir das nicht?"' },
+            '7-2c': { trait: 'resistance', next: 'station8', text: 'Ludwig: "Vielfalt? Das ist jüdisches Denken! Deutschland braucht Einheit!"' },
+            
+            // Station 8
+            '8-1a': { trait: 'conformity', next: 'station8-2', flag: 'sided_with_heinrich', text: 'Heinrich lächelt. Opa schaut dich traurig an, sagt nichts mehr.' },
+            '8-1b': { trait: 'passivity', next: 'station8-2', text: 'Heinrich: "Human? Mitleid ist Schwäche!" Opa: "Siehst du, wie sie denken?"' },
+            '8-1c': { trait: 'resistance', next: 'station8-2', flag: 'sided_with_opa', text: 'Heinrich wird wütend: "Du bist ein Verräter!" Opa legt dir die Hand auf die Schulter.' },
+            '8-1d': { trait: 'passivity', next: 'station8-2', text: 'Mutter: "Lass das Kind in Ruhe!" Heinrich: "Mit 20? Das ist ein Staatsbürger!"' },
+            
+            // Station 9
+            '9-1a': { trait: 'conformity', next: 'station9-2', flag: 'participated_pogrom', text: 'Otto: "So ist\'s recht! Endlich ein echter Kamerad!" Ihr geht los. Du wirst zum Täter.' },
+            '9-1b': { trait: 'passivity', next: 'station9-2', flag: 'fled_pogrom', text: 'Otto: "Feigling! Oder bist du ein Judenfreund?" Du rennst weg.' },
+            '9-1c': { trait: 'empathy', next: 'station9-2', flag: 'helped_pogrom_victim', text: 'Otto: "Was machst du da?!" Einige Nachbarn starren dich an. Jemand murmelt: "Der ist verrückt."' },
+            '9-1d': { trait: 'resistance', next: 'station9-2', flag: 'opposed_pogrom', text: 'Otto: "Menschen? Das sind Juden! Du bist ein Verräter!" Gewalt droht — gegen Goldsteins, vielleicht auch gegen dich.' }
+        };
+        
+        // Functions
+        function startSetup() {
+            showSection('setup');
+        }
+        
+        function selectGender(gender) {
+            gameState.gender = gender;
+            document.querySelectorAll('.gender-btn').forEach(btn => btn.classList.remove('selected'));
+            event.target.closest('.gender-btn').classList.add('selected');
+        }
+        
+        function confirmSetup() {
+            const nameInput = document.getElementById('player-name-input');
+            if (!nameInput.value) {
+                nameInput.value = gameState.gender === 'male' ? 'Klaus' : 'Grete';
+            }
+            gameState.playerName = nameInput.value;
+            
+            if (!gameState.gender) {
+                alert('Bitte wähle ein Geschlecht aus.');
+                return;
+            }
+            
+            updatePlayerReferences();
+            showSection('station1');
+            updateStatus();
+        }
+        
+        function updatePlayerReferences() {
+            // Update all player name references
+            document.querySelectorAll('.player-name-ref').forEach(el => {
+                el.textContent = gameState.playerName;
+            });
+            
+            // Update gender-specific text
+            if (gameState.gender === 'male') {
+                document.querySelectorAll('.org-name').forEach(el => el.textContent = 'HJ');
+                document.querySelectorAll('.org-name-long').forEach(el => el.textContent = 'Hitlerjugend');
+                document.querySelectorAll('.leader-name').forEach(el => el.textContent = 'Ludwig');
+                document.querySelectorAll('.gender-pronoun').forEach(el => el.textContent = 'er');
+                document.querySelectorAll('.gender-pronoun-capital').forEach(el => el.textContent = 'Er');
+                document.querySelectorAll('.gender-pronoun-f').forEach(el => el.textContent = 'er');
+                document.querySelectorAll('.gender-pronoun-capital-f').forEach(el => el.textContent = 'Er');
+                document.querySelectorAll('.gender-address').forEach(el => el.textContent = 'junger Mann');
+                document.querySelectorAll('.gender-plural').forEach(el => el.textContent = 'Männer');
+                document.querySelectorAll('.gender-group').forEach(el => el.textContent = 'Jungen');
+                document.querySelectorAll('.gender-group-opp').forEach(el => el.textContent = 'Mädchen');
+                document.querySelectorAll('.comrade-name').forEach(el => el.textContent = 'Franz');
+                document.querySelectorAll('.comrade-name-f').forEach(el => el.textContent = 'Karl');
+                document.querySelectorAll('.romantic-partner').forEach(el => el.textContent = 'eine Freundin');
+                document.querySelectorAll('.romantic-partner-possessive').forEach(el => el.textContent = 'deine Partnerin');
+                document.querySelectorAll('.romantic-partner-acc').forEach(el => el.textContent = 'eine Arierin');
+                document.querySelectorAll('.player-job').forEach(el => el.textContent = 'Lehrling beim Schreinermeister');
+            } else {
+                document.querySelectorAll('.org-name').forEach(el => el.textContent = 'BDM');
+                document.querySelectorAll('.org-name-long').forEach(el => el.textContent = 'Bund Deutscher Mädel');
+                document.querySelectorAll('.leader-name').forEach(el => el.textContent = 'Anna');
+                document.querySelectorAll('.gender-pronoun').forEach(el => el.textContent = 'sie');
+                document.querySelectorAll('.gender-pronoun-capital').forEach(el => el.textContent = 'Sie');
+                document.querySelectorAll('.gender-pronoun-f').forEach(el => el.textContent = 'sie');
+                document.querySelectorAll('.gender-pronoun-capital-f').forEach(el => el.textContent = 'Sie');
+                document.querySelectorAll('.gender-address').forEach(el => el.textContent = 'junge Frau');
+                document.querySelectorAll('.gender-plural').forEach(el => el.textContent = 'Frauen');
+                document.querySelectorAll('.gender-group').forEach(el => el.textContent = 'Mädchen');
+                document.querySelectorAll('.gender-group-opp').forEach(el => el.textContent = 'Jungen');
+                document.querySelectorAll('.comrade-name').forEach(el => el.textContent = 'Lotte');
+                document.querySelectorAll('.comrade-name-f').forEach(el => el.textContent = 'Greta');
+                document.querySelectorAll('.romantic-partner').forEach(el => el.textContent = 'einen Freund');
+                document.querySelectorAll('.romantic-partner-possessive').forEach(el => el.textContent = 'dein Partner');
+                document.querySelectorAll('.romantic-partner-acc').forEach(el => el.textContent = 'einen Arier');
+                document.querySelectorAll('.player-job').forEach(el => el.textContent = 'Haushaltshilfe');
+            }
+        }
+        
+        function makeChoice(choiceId) {
+            const path = storyPaths[choiceId];
+            if (!path) return;
+            
+            // Record decision
+            gameState.decisions.push({
+                station: gameState.currentStation,
+                choiceId: choiceId,
+                description: document.querySelector('.story-section.active .choices button.choice-btn').textContent.trim()
+            });
+            
+            // Update tracking
+            if (path.trait) {
+                gameState.tracking[path.trait]++;
+            }
+            
+            if (path.flag) {
+                gameState.flags[path.flag] = true;
+            }
+            
+            // Show consequence if available
+            if (path.text) {
+                const consequenceEl = document.getElementById(`s${gameState.currentStation}-consequence-text`) || 
+                                      document.getElementById(`s${gameState.currentStation}-2-consequence-text`);
+                if (consequenceEl) {
+                    consequenceEl.innerHTML = `<p>${path.text}</p>`;
+                }
+            }
+            
+            // Go to next section
+            showSection(path.next);
+        }
+        
+        function showSection(sectionId) {
+            document.querySelectorAll('.story-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            window.scrollTo(0, 0);
+            audioManager.playForScene(sectionId);
+            
+            // Update station counter
+            if (sectionId.startsWith('station')) {
+                const match = sectionId.match(/station(\d+)/);
+                if (match) {
+                    gameState.currentStation = parseInt(match[1]);
+                    updateStatus();
+                }
+            }
+            
+            // Generate final analysis on station 10
+            if (sectionId === 'station10') {
+                generateFinalAnalysis();
+            }
+        }
+        
+        function goToStation(stationId) {
+            showSection(stationId);
+        }
+        
+        function updateStatus() {
+            document.getElementById('current-year').textContent = 1933 + gameState.currentStation - 1;
+            document.getElementById('player-name').textContent = gameState.playerName || 'Du';
+            document.getElementById('player-age').textContent = 15 + gameState.currentStation - 1;
+            document.getElementById('current-station').textContent = gameState.currentStation;
+            document.getElementById('status-bar').style.display = 'flex';
+        }
+        
+        function generateFinalAnalysis() {
+            // Decision summary
+            const summaryEl = document.getElementById('decision-summary');
+            summaryEl.innerHTML = '';
+            gameState.decisions.forEach((d, i) => {
+                const li = document.createElement('li');
+                li.textContent = `Station ${d.station}: ${d.description}`;
+                summaryEl.appendChild(li);
+            });
+            
+            document.getElementById('total-decisions').textContent = gameState.decisions.length;
+            
+            // Character analysis
+            const analysis = document.getElementById('analysis-text');
+            const t = gameState.tracking;
+            
+            let text = '';
+            
+            if (t.conformity >= 8) {
+                text = `Du hast dich stark angepasst. Du hast die Ideologie übernommen, bist Teil der Bewegung geworden. Aus dir könnte <strong>Fritz</strong> werden — ein Täter, der glaubt, das Richtige zu tun.`;
+            } else if (t.resistance >= 8) {
+                text = `Du hast widerstanden. Du hast Fragen gestellt, Mut gezeigt, Grenzen gesetzt. Das hat dich isoliert — aber du bist dir treu geblieben. Aus dir könnte jemand werden, der im Widerstand kämpft.`;
+            } else if (t.passivity >= 8) {
+                text = `Du hast weggeschaut. Du wolltest nicht auffallen, nicht entscheiden. Aus dir könnte <strong>Werner</strong> werden — ein Zuschauer, der später sagt: "Ich habe nichts gewusst."`;
+            } else if (t.empathy >= 5) {
+                text = `Du hast Mitgefühl gezeigt. Du hast Menschen als Menschen gesehen, nicht als Kategorien. Das war gefährlich — aber richtig.`;
+            } else {
+                text = `Du hast dich durchgewurstelt. Mal angepasst, mal gezweifelt, mal weggeschaut. Wie die meisten. Und genau das machte es möglich.`;
+            }
+            
+            analysis.innerHTML = text;
+        }
+        
+        function toggleBox(element) {
+            element.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>
