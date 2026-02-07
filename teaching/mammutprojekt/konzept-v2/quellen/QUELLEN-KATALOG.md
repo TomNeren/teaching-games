@@ -135,12 +135,21 @@ Stand: 2026-02-07 (Schraut-Buch hinzugefügt!)
 
 ## 📚 Sekundärquellen (bereits gesammelt)
 
-| Datei | Inhalt |
-|-------|--------|
-| `wirsching-deutsche-geschichte-20jh.txt` | Überblick 1900-1990 |
-| `winkler-langer-weg-band2.txt` | 1933-1990 |
-| `fischer-weltgeschichte-35-nachkrieg.txt` | Europa 1945-1982 |
-| `lemo-kaiserreich-alltag.md` | Alltagsgeschichte |
+| Datei | Inhalt | Zeilen |
+|-------|--------|--------|
+| `dollinger-kaiserreich.txt` | **Texte, Bilder, Dokumente 1848-1918** | 26.000 |
+| `froehlich-kaiserreich.txt` | Politisches Zeremoniell | 22.600 |
+| `wirsching-deutsche-geschichte-20jh.txt` | Überblick 1900-1990 | 3.000 |
+| `winkler-langer-weg-band2.txt` | 1933-1990 | 8.400 |
+| `fischer-weltgeschichte-35-nachkrieg.txt` | Europa 1945-1982 | 20.100 |
+| `buergerinnen-im-kaiserreich-schraut.txt` | Frauenbiografien | 7.300 |
+| `lemo-kaiserreich-alltag.md` | Alltagsgeschichte | — |
+
+### Hans Dollinger: "Das Kaiserreich" (1966) ⭐ NEU
+- **Primärquellensammlung** mit Originaldokumenten
+- Verfassung, Reden, Gesetze, Zeitungsartikel
+- Chroniken 1848-1918
+- Besonders wertvoll für authentische Zitate im Spiel!
 
 ---
 
