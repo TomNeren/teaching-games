@@ -144,6 +144,26 @@ Stand: 2026-02-07
 
 ---
 
+---
+
+## 📖 Wunschliste: Nicht digitalisiert (aber wichtig!)
+
+### Michael Fröhlich (Hg.): "Das Kaiserreich"
+- *Portrait einer Epoche in Biografien*
+- Primus Verlag, 2001, 463 Seiten
+- **39 Biografien**: Politiker, Künstler, Wissenschaftler, Unternehmer
+- ISBN: 978-3896784001
+
+### Sylvia Schraut: "Bürgerinnen im Kaiserreich"
+- *Biografie eines Lebensstils*
+- Kohlhammer, 2013
+- **15 Biografien bürgerlicher Frauen** (1850-1919)
+- Enthält u.a.: Hedwig Dohm, Margarethe Krupp, Hedwig Pringsheim, Margarethe Steiff, Franziska Tiburtius, Clara Zetkin
+- Perfekt für weibliche Bürgertum-Perspektive!
+- ISBN: 978-3170224360
+
+---
+
 ## 🎯 Empfehlung: Sofort nutzbar
 
 1. **Internet Archive "German Worker"** — für authentische Arbeiterstimmen
