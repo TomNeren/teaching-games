@@ -58,14 +58,36 @@ Interaktive NS-Simulation für Toms Unterricht:
 
 ## Offene Fäden
 
-- [ ] Klassenübersicht und Unterrichtsinhalte von Tom
+- [x] Klassenübersicht — 8 Klassen empfangen, gespeichert unter `/teaching/classes/`
+- [x] Skills-ZIP — 7 Skills analysiert + integriert (`/teaching/tom-skills-extracted/`)
+- [x] Suno-Songs — 9 Tracks in alle 3 Perspektiven integriert + GitHub gepusht
+- [x] Fritz-Perspektive (Täter) — spielbar, im Menü
+- [x] Echte Bilder mit Hugging Face generieren (12 Bilder ✓)
+- [x] TQF Dim 4+5 in Notion ergänzt
 - [ ] GCP-Projekt für Gmail-Integration einrichten
 - [ ] Avatar finden
-- [ ] Täter-Perspektive für Mammutprojekt → Story-Struktur fertig!
-- [x] Echte Bilder mit Hugging Face generieren (12 Bilder ✓)
-- [ ] Suno-MP3s von Tom empfangen und integrieren
+- [ ] Bücher von Tom (EPUB/PDF/MOBI) — iCloud-Link ausstehend
+- [ ] Stundenplan + Stoffverteilungsplan von Tom
+- [ ] GitHub Pages aktivieren
+- [ ] Skills als OpenClaw Skills konvertieren (Workflow, Methoden-Bibliothek, H5P)
+- [ ] Holocaust-Stunde v2 mit Mammutprojekt-Konzept (Sub-Agent läuft)
+
+### Wichtige Lektionen
+- **Handover-Fehler**: Bei Delegation an Sub-Agents IMMER das exakte Konzept mitgeben, nicht nur Klasseninfo
+- **2BFH2-GGK**: NUR Niveau C, keine A/B Differenzierung! Stilles Schreiben statt Fishbowl
+- **Telegram Limit**: ~20MB für Bot API. Lösung: iCloud-Links + Playwright-Download
+- **PPTX MCP Server**: `mcporter call pptx.<tool>` — 37 Tools, standardmäßig 16:9
 
 ---
+
+## Tägliches Kunstwerk (ab 2026-02-03)
+
+- **MCP-Server**: Met Museum (`metmuseum` via mcporter), kein API-Key nötig
+- **Cron-Job**: `daily-artwork`, täglich 7:00 UTC (8:00 CET), sessionTarget=main
+- **Tracking**: `art-history.json` — gezeigte objectIds + Department-Rotation
+- **11 Departments** rotierend: European Paintings, Asian Art, Egyptian, Modern, American, Islamic, Medieval, Drawings, Greek/Roman, Lehman Collection, European Sculpture
+- **Erstes Werk**: Carpaccio "Meditation on the Passion" (objectId 435851)
+- **Format**: Bild via media URL → Erklärung (Warum gewählt, Bildanalyse, Künstler, Fun Fact)
 
 ## Notizen
 

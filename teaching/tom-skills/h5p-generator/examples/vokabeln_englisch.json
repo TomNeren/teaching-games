@@ -1,0 +1,15 @@
+{
+    "title": "Englisch Vokabeln - Tiere",
+    "cards": [
+        {"front": "dog", "back": "der Hund"},
+        {"front": "cat", "back": "die Katze"},
+        {"front": "bird", "back": "der Vogel"},
+        {"front": "fish", "back": "der Fisch"},
+        {"front": "horse", "back": "das Pferd"},
+        {"front": "cow", "back": "die Kuh"},
+        {"front": "pig", "back": "das Schwein"},
+        {"front": "sheep", "back": "das Schaf"},
+        {"front": "chicken", "back": "das Huhn"},
+        {"front": "duck", "back": "die Ente"}
+    ]
+}

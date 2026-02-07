@@ -1,0 +1,50 @@
+{
+    "title": "Mathe Quiz - Grundschule",
+    "questions": [
+        {
+            "question": "Was ist 5 + 3?",
+            "answers": ["6", "7", "8", "9"],
+            "correct": 2,
+            "type": "mc"
+        },
+        {
+            "question": "Was ist 10 - 4?",
+            "answers": ["5", "6", "7", "8"],
+            "correct": 1,
+            "type": "mc"
+        },
+        {
+            "question": "Was ist 3 × 4?",
+            "answers": ["10", "11", "12", "13"],
+            "correct": 2,
+            "type": "mc"
+        },
+        {
+            "question": "12 ist größer als 15.",
+            "correct": false,
+            "type": "tf"
+        },
+        {
+            "question": "Eine gerade Zahl lässt sich durch 2 teilen.",
+            "correct": true,
+            "type": "tf"
+        },
+        {
+            "description": "Rechne aus und fülle die Lücken",
+            "text": "7 + 8 = *15* und 20 - 5 = *15*",
+            "type": "blanks"
+        },
+        {
+            "question": "Welche Zahl kommt nach 99?",
+            "answers": ["98", "100", "101", "999"],
+            "correct": 1,
+            "type": "mc"
+        },
+        {
+            "question": "Was ist die Hälfte von 20?",
+            "answers": ["5", "10", "15", "40"],
+            "correct": 1,
+            "type": "mc"
+        }
+    ]
+}

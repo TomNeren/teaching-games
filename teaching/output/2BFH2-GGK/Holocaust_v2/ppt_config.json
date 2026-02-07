@@ -1,0 +1,67 @@
+[
+  {
+    "template_id": "title_slide",
+    "content": {
+      "title": "Entscheidungen 1933-1945",
+      "subtitle": "Wie konnten normale Menschen zuschauen?",
+      "author": "GGK · 2BFH2"
+    }
+  },
+  {
+    "template_id": "text_with_image",
+    "content": {
+      "title": "Das Foto",
+      "content": "Boykott jüdischer Geschäfte\n1. April 1933\n\nPassanten gehen vorbei..."
+    }
+  },
+  {
+    "template_id": "text_only",
+    "content": {
+      "title": "Stilles Schreiben",
+      "content": "• Was siehst du?\n• Was denkst du?\n• Was fühlst du?\n\n→ 3 Minuten Zeit"
+    }
+  },
+  {
+    "template_id": "two_column",
+    "content": {
+      "title": "Wähle deine Perspektive",
+      "left_content": "🔵 David\n\nJüdischer Junge\nOpferperspektive\n\nErlebt Ausgrenzung und Entrechtung",
+      "right_content": "🟤 Werner\n\nDeutscher Hitlerjunge\nZuschauerperspektive\n\nErlebt Gruppendruck und Konformität"
+    }
+  },
+  {
+    "template_id": "text_only",
+    "content": {
+      "title": "Während du spielst...",
+      "content": "Beantworte auf dem Arbeitsblatt:\n\n• Warum hast du dich so entschieden?\n• Was hätte passieren können, wenn du anders gewählt hättest?\n• Was hat dein Charakter gefühlt?"
+    }
+  },
+  {
+    "template_id": "text_only",
+    "content": {
+      "title": "Perspektivwechsel",
+      "content": "Finde einen Partner, der die ANDERE Perspektive gespielt hat.\n\nErzählt euch gegenseitig:\n• Was ist dir passiert?\n• Welche Entscheidungen musstest du treffen?\n• Wie hat sich dein Charakter gefühlt?\n\n→ 8 Minuten (4 Min. pro Person)"
+    }
+  },
+  {
+    "template_id": "text_only",
+    "content": {
+      "title": "Reflexion: Und ich?",
+      "content": "Stilles Schreiben (10 Minuten):\n\n\"Warum ist es so schwer, sich gegen die Mehrheit zu stellen?\"\n\nOptional:\n\"Wo sehe ich heute ähnliche Mechanismen?\""
+    }
+  },
+  {
+    "template_id": "text_only",
+    "content": {
+      "title": "Exit-Ticket",
+      "content": "Schreibe auf deine Karteikarte:\n\n\"Das Wichtigste, das ich heute gelernt habe...\""
+    }
+  },
+  {
+    "template_id": "text_only",
+    "content": {
+      "title": "Ausblick",
+      "content": "Nächste Stunde:\n\nVon der Ausgrenzung zur Vernichtung\n\nWie wurde aus Zuschauen Mittäterschaft?"
+    }
+  }
+]

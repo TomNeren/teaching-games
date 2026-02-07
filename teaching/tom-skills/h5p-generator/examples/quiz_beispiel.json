@@ -1,0 +1,38 @@
+{
+    "title": "Deutschland Quiz",
+    "questions": [
+        {
+            "question": "Was ist die Hauptstadt von Deutschland?",
+            "answers": ["München", "Berlin", "Hamburg", "Frankfurt"],
+            "correct": 1,
+            "type": "mc"
+        },
+        {
+            "question": "Wie viele Bundesländer hat Deutschland?",
+            "answers": ["14", "15", "16", "17"],
+            "correct": 2,
+            "type": "mc"
+        },
+        {
+            "question": "Deutschland grenzt an die Nordsee.",
+            "correct": true,
+            "type": "tf"
+        },
+        {
+            "question": "Der höchste Berg Deutschlands ist der Mount Everest.",
+            "correct": false,
+            "type": "tf"
+        },
+        {
+            "question": "Welcher Fluss fließt durch Köln?",
+            "answers": ["Elbe", "Donau", "Rhein", "Main"],
+            "correct": 2,
+            "type": "mc"
+        },
+        {
+            "description": "Ergänze die Lücken",
+            "text": "Die deutsche Flagge hat die Farben *Schwarz*, *Rot* und *Gold*.",
+            "type": "blanks"
+        }
+    ]
+}

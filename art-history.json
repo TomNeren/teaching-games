@@ -1,0 +1,55 @@
+{
+  "shown": [
+    435851,
+    39901,
+    437878,
+    551895
+  ],
+  "departments": [
+    {
+      "id": 11,
+      "name": "European Paintings"
+    },
+    {
+      "id": 6,
+      "name": "Asian Art"
+    },
+    {
+      "id": 10,
+      "name": "Egyptian Art"
+    },
+    {
+      "id": 21,
+      "name": "Modern and Contemporary Art"
+    },
+    {
+      "id": 1,
+      "name": "American Decorative Arts"
+    },
+    {
+      "id": 14,
+      "name": "Islamic Art"
+    },
+    {
+      "id": 17,
+      "name": "Medieval Art"
+    },
+    {
+      "id": 9,
+      "name": "Drawings and Prints"
+    },
+    {
+      "id": 13,
+      "name": "Greek and Roman Art"
+    },
+    {
+      "id": 15,
+      "name": "The Robert Lehman Collection"
+    },
+    {
+      "id": 12,
+      "name": "European Sculpture and Decorative Arts"
+    }
+  ],
+  "lastDepartmentIndex": 2
+}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schicksalswege — Ein Spiel durch die deutsche Geschichte</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Start Screen -->
+        <div id="start-screen" class="screen active">
+            <div class="title-card">
+                <h1 class="fraktur">Schicksalswege</h1>
+                <p class="subtitle">Ein Spiel durch die deutsche Geschichte<br>1871 – 1990</p>
+            </div>
+            
+            <div class="intro-text">
+                <p>Begleite eine Familie über vier Generationen durch die bewegtesten Jahrzehnte der deutschen Geschichte.</p>
+                <p>Deine Entscheidungen formen ihr Schicksal — und vererben sich an die nächste Generation.</p>
+            </div>
+            
+            <button class="btn-primary" onclick="showScreen('family-select')">Spiel beginnen</button>
+        </div>
+
+        <!-- Family Selection -->
+        <div id="family-select" class="screen">
+            <h2>Wähle deine Familie</h2>
+            <p class="instruction">Jede Familie erlebt die Geschichte aus einer anderen Perspektive.</p>
+            
+            <div class="family-grid">
+                <div class="family-card" onclick="selectFamily('arbeiter')">
+                    <div class="family-icon">⚒️</div>
+                    <h3>Familie Schumann</h3>
+                    <p class="family-type">Arbeiterfamilie</p>
+                    <p class="family-desc">Aus der Berliner Mietskaserne in eine ungewisse Zukunft. Zwischen Fabrikarbeit und dem Traum von einer besseren Welt.</p>
+                    <div class="family-themes">
+                        <span class="theme">SPD</span>
+                        <span class="theme">Aufstieg</span>
+                        <span class="theme">Solidarität</span>
+                    </div>
+                </div>
+                
+                <div class="family-card" onclick="selectFamily('buerger')">
+                    <div class="family-icon">📚</div>
+                    <h3>Familie Hoffmann</h3>
+                    <p class="family-type">Bürgerfamilie</p>
+                    <p class="family-desc">Bildung, Kultur, Fortschritt — aber auch Konventionen und Erwartungen. Ein Leben zwischen Tradition und Moderne.</p>
+                    <div class="family-themes">
+                        <span class="theme">Bildung</span>
+                        <span class="theme">Kultur</span>
+                        <span class="theme">Anpassung</span>
+                    </div>
+                </div>
+                
+                <div class="family-card" onclick="selectFamily('juedisch')">
+                    <div class="family-icon">✡️</div>
+                    <h3>Familie Goldstein</h3>
+                    <p class="family-type">Jüdische Familie</p>
+                    <p class="family-desc">Erfolgreiche Integration — und wachsender Antisemitismus. Wie weit geht Assimilation? Was bleibt von der Identität?</p>
+                    <div class="family-themes">
+                        <span class="theme">Identität</span>
+                        <span class="theme">Antisemitismus</span>
+                        <span class="theme">Flucht</span>
+                    </div>
+                </div>
+                
+                <div class="family-card" onclick="selectFamily('adel')">
+                    <div class="family-icon">🏰</div>
+                    <h3>Familie von Tresckow</h3>
+                    <p class="family-type">Adelsfamilie</p>
+                    <p class="family-desc">Ein ostelbisches Gut, preußische Tradition, militärische Ehre. Doch die alte Ordnung wankt.</p>
+                    <div class="family-themes">
+                        <span class="theme">Ehre</span>
+                        <span class="theme">Pflicht</span>
+                        <span class="theme">Niedergang</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Character Introduction -->
+        <div id="character-intro" class="screen">
+            <div class="era-banner">
+                <span class="era-label">Deutsches Kaiserreich</span>
+                <span class="era-year">1871</span>
+            </div>
+            
+            <div class="character-portrait">
+                <div class="portrait-frame" id="portrait-image">
+                    <!-- Portrait will be inserted here -->
+                </div>
+            </div>
+            
+            <div class="character-info" id="character-info">
+                <!-- Character info will be inserted here -->
+            </div>
+            
+            <button class="btn-primary" onclick="startStory()">Geschichte beginnen</button>
+        </div>
+
+        <!-- Story Scene -->
+        <div id="story-scene" class="screen">
+            <div class="scene-header">
+                <div class="era-badge" id="current-era">1871</div>
+                <div class="character-badge" id="current-character">Heinrich Schumann</div>
+            </div>
+            
+            <div class="scene-image" id="scene-image">
+                <!-- Scene image placeholder -->
+            </div>
+            
+            <div class="story-text" id="story-text">
+                <!-- Story text will be inserted here -->
+            </div>
+            
+            <div class="choices" id="choices">
+                <!-- Choices will be inserted here -->
+            </div>
+        </div>
+
+        <!-- Generational Transition -->
+        <div id="generation-transition" class="screen">
+            <div class="transition-content">
+                <h2 class="fraktur">Die Zeit vergeht...</h2>
+                <div class="years-passing" id="years-passing">
+                    <!-- Animation of years passing -->
+                </div>
+                <div class="legacy-summary" id="legacy-summary">
+                    <!-- What the previous generation achieved/suffered -->
+                </div>
+                <button class="btn-primary" onclick="continueToNextGeneration()">Nächste Generation</button>
+            </div>
+        </div>
+
+        <!-- Family Tree / Status -->
+        <div id="family-tree" class="overlay">
+            <div class="overlay-content">
+                <button class="close-btn" onclick="closeOverlay()">×</button>
+                <h2>Stammbaum</h2>
+                <div class="tree-container" id="tree-container">
+                    <!-- Family tree will be generated here -->
+                </div>
+                <div class="legacy-stats" id="legacy-stats">
+                    <!-- Stats: Bildung, Vermögen, Politische Haltung, etc. -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>

@@ -2,6 +2,67 @@
 
 <!-- Tracks delivered headlines to avoid duplicates -->
 
+## 2026-02-05
+- [19de11ef] 🇩🇪 German intelligence warns of rising foreign cyber threats
+- [f288502d] 🇩🇪 Hungary jails German activist Maja T to 8 years
+- [e0c7fe01] 🇩🇪 Tuberculosis mass testing at Brandenburg kindergarten
+- [c672498e] 🇩🇪 CDU enttäuscht von Merz — Partei wird rebellisch
+- [71098848] 🇩🇪 Leon Draisaitl Fahnenträger für Olympia Mailand
+- [0261f637] 🇩🇪 Stromausfall Berlin — Kurbelradios und Vorsorge
+- [69ecd2e5] 🇩🇪 Bremer Verfassungsgericht: V-Mann-Enttarnung
+- [9303d836] 🇩🇪 Tod eines 15-jährigen Schülers in Berlin
+- [73515a65] 🇪🇺 EU Wettbewerbsfähigkeit: Umsetzung bleibt Herausforderung
+- [b4a42aef] 🇪🇺 Lettland & Estland: EU-Gesandter für Russland-Kontakte
+- [f8bf9367] 🇪🇺 EU-Parlament nimmt Handelsabkommen mit USA wieder auf
+- [e4e4c9ff] 🇺🇸 Trump streicht Jobschutz für Bundesangestellte
+- [fe29ddae] 🇺🇸 US-Arbeitgeber: Meiste Kündigungen seit Großer Rezession
+- [dbe981bf] 🇺🇸 Gallup: Amerikaner außergewöhnlich besorgt über Politik
+- [d3dafe77] 🇺🇸 Iran droht mit Abbruch der Atomgespräche
+- [b95bb92c] 🇵🇾 Mercosur-Singapur Freihandelsabkommen tritt in Kraft
+- [cd55d57e] 🇵🇾 CONMEBOL Sub20 Femenina 2026 beginnt in Paraguay
+- [bd287d9e] 🇵🇾 Paraguay tritt US-Initiative für kritische Mineralien bei
+- [f5385cc7] 🇵🇾 Krebs in Paraguay: Weltkrebstag und Behandlungszugang
+- [b8be9b59] 🌍 Nigeria: 170+ Tote bei bewaffnetem Angriff in Kwara
+- [e05f7be8] 🌍 Südafrika: DA-Chef Steenhuisen tritt nicht wieder an
+- [a5c73dae] 🌍 UN: Sudan-Konflikt schlimmste humanitäre Krise weltweit
+- [0f2a7ee8] 🌍 Burkina Faso: Junta schränkt Hilfsorganisationen ein
+- [15adc043] 🌍 Uganda: Bobi Wine will Commonwealth-Suspendierung
+- [5bc0aaf6] 🌍 Ägypten: El-Sisi empfängt Erdoğan
+- [c2d2e484] 🇨🇳 Xi: Taiwan "wichtigstes Thema" in China-US-Beziehungen
+- [61c83682] 🇨🇳 Xi: USA sollen bei Waffenlieferungen an Taiwan vorsichtig sein
+- [d58c0611] 🌏 Philippinen treiben Verhaltenskodex für Südchinesisches Meer voran
+- [731de17b] 🌏 Trump & Südostasien: Transaktionalismus untergräbt Vertrauen
+- [42fd37f0] 🌏 ASEAN wächst 4,3% — Kanada sucht Energiezugang
+- [e302182b] 🌏 Grab-App wird "Kredit-Pass" für Millionen in Südostasien
+
+## 2026-02-04
+- [a8b1c2d3] 🇩🇪 Bundeswehr verschickt 40.000+ Musterungsbriefe
+- [b9c2d3e4] 🇩🇪 AfD-Jugendorganisation: extremistische Verbindungen bestätigt
+- [c0d3e4f5] 🇩🇪 Winterchaos: Schnee legt A7 und Verkehr lahm
+- [d1e4f5g6] 🇪🇺 Ukraine-Russland-Gespräche in Abu Dhabi
+- [e2f5g6h7] 🇪🇺 EU stockpiles kritische Rohstoffe (DE, FR, IT führend)
+- [f3g6h7i8] 🇪🇺 EU offen für Zollunion-Gespräche mit UK
+- [g4h7i8j9] 🇪🇺 Spanien & Griechenland: Social-Media-Verbote für Jugendliche
+- [h5i8j9k0] 🇪🇺 Draghi warnt: Europa droht Unterordnung und Deindustrialisierung
+- [i6j9k0l1] 🇺🇸 Trump unterzeichnet Gesetz zur Beendigung des Shutdowns
+- [j7k0l1m2] 🇺🇸 Demokrat gewinnt Texas-Nachwahl — GOP-Mehrheit schrumpft
+- [k8l1m2n3] 🇺🇸 Trump-Xi Telefonat: Handel, Taiwan, Iran, Ukraine
+- [l9m2n3o4] 🇺🇸 Trump kündigt Critical Minerals Reserve "Project Vault" an
+- [m0n3o4p5] 🇵🇾 60% der Häftlinge in Untersuchungshaft — Überbelegungskrise
+- [n1o4p5q6] 🇵🇾 Comic über Frauen im Widerstand gegen Stroessner
+- [o2p5q6r7] 🇵🇾 Cannabis-Medizin: Neue Regulierung in Paraguay
+- [p3q6r7s8] 🌍 Saif al-Islam Gaddafi in Libyen ermordet
+- [q4r7s8t9] 🌍 Trump verlängert AGOA um ein Jahr
+- [r5s8t9u0] 🌍 WHO: $1-Mrd-Appell für humanitäre Gesundheitshilfe 2026
+- [s6t9u0v1] 🌍 Südsudan: Präsident feuert Berater nach Ernennung eines Toten
+- [t7u0v1w2] 🌍 Westafrika: Militärjuntas verschärfen Repression (HRW)
+- [u8v1w2x3] 🇨🇳 Xi lädt Putin zu China-Besuch in H1 2026 ein
+- [v9w2x3y4] 🇨🇳 NEV-Verkäufe Jan: 900.000 Einheiten (+1% YoY)
+- [w0x3y4z5] 🇨🇳 EU-US Mineralien-Deal zielt auf China-Abhängigkeit
+- [x1y4z5a6] 🌏 Malaysia als ASEAN-Modell: Anwar Ibrahim "knackt" Trump
+- [y2z5a6b7] 🌏 Vietnam: MViSTA Unterseekabel verbindet Südostasien
+- [z3a6b7c8] 🌏 Südostasien: 144 Mio. Besucher 2025 — Vor-Covid übertroffen
+
 ## 2026-02-02
 - [a1b2c3d4] 🇩🇪 ÖPNV-Streiks im ganzen Land
 - [b2c3d4e5] 🇩🇪 Energiekooperation Deutschland-Saudi-Arabien ausgebaut
