@@ -3,7 +3,8 @@
     435851,
     39901,
     437878,
-    551895
+    551895,
+    488221
   ],
   "departments": [
     {
@@ -51,5 +52,5 @@
       "name": "European Sculpture and Decorative Arts"
     }
   ],
-  "lastDepartmentIndex": 2
+  "lastDepartmentIndex": 3
 }
