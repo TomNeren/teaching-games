@@ -109,8 +109,27 @@ Stand: 2026-02-07 (Schraut-Buch hinzugefügt!)
 
 ### Deutsche Originale
 - **August Bebel: "Aus meinem Leben"** (1910-1914)
-- **Adelheid Popp: "Jugend einer Arbeiterin"** (1909)
-- Moritz Bromme: "Lebensgeschichte eines modernen Fabrikarbeiters" (1905)
+- **Adelheid Popp: "Jugend einer Arbeiterin"** (1909) ✅ heruntergeladen
+- Moritz Bromme: "Lebensgeschichte eines modernen Fabrikarbeiters" (1905) ✅ heruntergeladen
+
+### ✅ Heruntergeladen von Zeno.org (2026-02-07)
+
+**Pfad:** `quellen/arbeiter-autobiografien/`
+
+| Datei | Autor | Beruf | Größe |
+|-------|-------|-------|-------|
+| `bromme-lebensgeschichte.txt` | Moritz Bromme (1873-1926) | Fabrikarbeiter | **796 KB** |
+| `viersbeck-dienstmaedchen.txt` | Doris Viersbeck | Dienstmädchen, Köchin | **208 KB** |
+| `bergg-proletarierleben.txt` | Franz Bergg | Kellner, Seemann | **128 KB** |
+| `baader-steiniger-weg.txt` | Ottilie Baader (1847-1925) | Näherin, SPD-Funktionärin | 36 KB |
+| `rehbein-landarbeiter.txt` | Franz Rehbein | Landarbeiter | 16 KB |
+| `adelheid-popp-jugend-einer-arbeiterin.txt` | Adelheid Popp | Fabrikarbeiterin | (von FES) |
+
+**Besonders wertvoll für Schicksalswege:**
+- **Bromme**: Detaillierte Schilderung des Arbeiteralltags, Fabrikarbeit, Sozialistengesetze, Krankheit
+- **Viersbeck**: Perspektive einer Frau im Dienstbotenstand, Hamburger Verhältnisse
+- **Bergg**: Von der Kindheit über Lehre bis zur Seefahrt
+- **Baader**: Politisierung einer Arbeiterin, Frauenbewegung, SPD unter dem Sozialistengesetz
 
 ---
 
