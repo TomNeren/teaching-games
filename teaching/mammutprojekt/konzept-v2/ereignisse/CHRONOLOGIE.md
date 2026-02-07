@@ -34,6 +34,7 @@
 ---
 
 ## 1873 — Gründerkrach
+→ Details: [1873-gruenderkrach.md](1873-gruenderkrach.md)
 
 | Datum | Ereignis | Tags |
 |-------|----------|------|
@@ -54,7 +55,8 @@
 
 ---
 
-## 1875
+## 1875 — SPD-Gründung
+→ Details: [1875-spd-gruendung.md](1875-spd-gruendung.md)
 
 | Datum | Ereignis | Tags |
 |-------|----------|------|
@@ -108,8 +110,10 @@
 
 ---
 
-## 1883
+## 1883-1889 — Sozialversicherung
+→ Details: [1883-1889-sozialversicherung.md](1883-1889-sozialversicherung.md)
 
+### 1883
 | Datum | Ereignis | Tags |
 |-------|----------|------|
 | 15.06. | **Krankenversicherungsgesetz** | 🔴 |
