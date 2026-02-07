@@ -1,7 +1,7 @@
 # Quellen-Katalog Mammutprojekt v2
 ## Digitalisierte Ressourcen für das Kaiserreich (1871-1918)
 
-Stand: 2026-02-07
+Stand: 2026-02-07 (Schraut-Buch hinzugefügt!)
 
 ---
 
@@ -146,21 +146,44 @@ Stand: 2026-02-07
 
 ---
 
-## 📖 Wunschliste: Nicht digitalisiert (aber wichtig!)
+## 📚 Verfügbare Bücher (extrahiert)
+
+### Sylvia Schraut: "Bürgerinnen im Kaiserreich" ⭐ NEU
+- *Biografie eines Lebensstils*
+- Kohlhammer, 2013, 160 Seiten
+- **Datei:** `buergerinnen-im-kaiserreich-schraut.pdf` + `.txt` (7383 Zeilen)
+- **15 Biografien bürgerlicher Frauen** (1831-1942)
+- Thematisch strukturiert: Kindheit → Ehe → Mutterschaft → Witwe → Frauenbewegung
+
+**Enthaltene Biografien:**
+| Name | Lebensdaten | Rolle |
+|------|-------------|-------|
+| Anna Blos | 1866-1933 | Lehrerin, SPD-Journalistin |
+| Lily Braun | 1865-1916 | Adelige → Sozialdemokratin |
+| Emilie Bücher | 1853-1909 | Professorengattin |
+| Hedwig Dohm | 1831-1919 | Schriftstellerin, radikale Feministin |
+| Elisabeth Gnauck-Kühne | 1850-1917 | Pädagogin, kath. Frauenbewegung |
+| Auguste Hauschner | 1850-1924 | jüd. Schriftstellerin, Salonnière |
+| Hedwig Heyl | 1850-1934 | "Beste Hausfrau der Nation" |
+| Margarethe Krupp | 1854-1931 | Unternehmerin, Mäzenatin |
+| Mathilde Lammers | 1837-1905 | Lehrerin, Bildungsreformerin |
+| Anna Pappritz | 1861-1939 | Abolitionistin |
+| Hedwig Pringsheim | 1855-1942 | Schauspielerin, Salonnière (Thomas Manns Schwiegermutter!) |
+| Margarete Steiff | 1847-1909 | Unternehmerin (Steiff-Tiere!) |
+| Franziska Tiburtius | 1843-1927 | Erste Ärztin in Berlin |
+| Marie Wegner | 1859-1920 | Gutsbesitzertochter |
+
+**Perfekt für:** Hoffmann-Familie (Bürgertum-Perspektive)
+
+---
+
+## 📖 Wunschliste: Noch nicht verfügbar
 
 ### Michael Fröhlich (Hg.): "Das Kaiserreich"
 - *Portrait einer Epoche in Biografien*
 - Primus Verlag, 2001, 463 Seiten
 - **39 Biografien**: Politiker, Künstler, Wissenschaftler, Unternehmer
 - ISBN: 978-3896784001
-
-### Sylvia Schraut: "Bürgerinnen im Kaiserreich"
-- *Biografie eines Lebensstils*
-- Kohlhammer, 2013
-- **15 Biografien bürgerlicher Frauen** (1850-1919)
-- Enthält u.a.: Hedwig Dohm, Margarethe Krupp, Hedwig Pringsheim, Margarethe Steiff, Franziska Tiburtius, Clara Zetkin
-- Perfekt für weibliche Bürgertum-Perspektive!
-- ISBN: 978-3170224360
 
 ---
 
