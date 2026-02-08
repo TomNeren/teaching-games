@@ -143,6 +143,9 @@ Stand: 2026-02-07 (Schraut-Buch hinzugefügt!)
 | `winkler-langer-weg-band2.txt` | 1933-1990 | 8.400 |
 | `fischer-weltgeschichte-35-nachkrieg.txt` | Europa 1945-1982 | 20.100 |
 | `buergerinnen-im-kaiserreich-schraut.txt` | Frauenbiografien | 7.300 |
+| **`fischer-konsum-im-kaiserreich.txt`** ⭐ **NEU** | **Haushaltsstatistiken & Konsummuster** | **44.252** |
+| **`fuenderich-wohnen-im-kaiserreich.txt`** ⭐ **NEU** | **Wohnkultur & bürgerliche Selbstrepräsentation** | **19.198** |
+| **`renn-adel-im-untergang.txt`** ⭐ **NEU** | **Autobiographischer Adelstoman** | **6.918** |
 | `lemo-kaiserreich-alltag.md` | Alltagsgeschichte | — |
 
 ### Hans Dollinger: "Das Kaiserreich" (1966) ⭐ NEU
@@ -202,6 +205,57 @@ Stand: 2026-02-07 (Schraut-Buch hinzugefügt!)
 | Marie Wegner | 1859-1920 | Gutsbesitzertochter |
 
 **Perfekt für:** Hoffmann-Familie (Bürgertum-Perspektive)
+
+### Hendrik K. Fischer: "Konsum im Kaiserreich" ⭐ NEU
+- *Eine statistisch-analytische Untersuchung privater Haushalte im wilhelminischen Deutschland*
+- Akademie Verlag, 2011, 467 Seiten
+- **Datei:** `fischer-konsum-im-kaiserreich.txt` (44.252 Zeilen)
+- **Der "Kölner Datensatz": 3.983 historische Haushalte** (1871-1914)
+- Detaillierte Ausgabenstatistiken nach Klassen & Schichten
+- Engelkurven-Analysen (Nahrungsausgaben-Anteil)
+- **Extrahiert:** `quellen/extrakte/fischer-konsum-extrakt.md`
+
+**Zentrale Erkenntnisse:**
+- Konsummuster differenzieren sich erst ab 3.000 Mark Jahreseinkommen
+- 90% aller Haushalte unter dieser Schwelle = „Bild einfallslosen Gleichmaßes"
+- HISCLASS-Systematik für historische Berufe
+- Konkrete Ausgabenkategorien: Nahrung, Wohnung, Kleidung, Bildung, Vergnügen
+
+**Perfekt für:** Realistische Haushaltsbudgets aller 4 Familienperspektiven
+
+### Maren-Sophie Fünderich: "Wohnen im Kaiserreich" ⭐ NEU
+- *Einrichtungsstil und Möbeldesign im Kontext bürgerlicher Selbstrepräsentation*
+- De Gruyter, 2019, 337 Seiten
+- **Datei:** `fuenderich-wohnen-im-kaiserreich.txt` (19.198 Zeilen)
+- Detaillierte Beschreibungen von Wohnkultur & Möblierung
+- Kontrast: Arbeiter vs. Bürger vs. Großbürger
+- **Extrahiert:** `quellen/extrakte/fuenderich-wohnen-extrakt.md`
+
+**Zentrale Erkenntnisse:**
+- Salon als Zentrum bürgerlicher Selbstrepräsentation
+- „Es muß nach mehr aussehen, als es kostet" (Carl Behr, 1890)
+- Typische 7-Zimmer bürgerliche Wohnung: Salon nur für Besuch
+- Arbeiter: „preisgünstig, schlicht und pflegeleicht" (Werkskaufhaus-Niveau)
+- Serienmöbel ermöglichten Mittelstand „großbürgerliche Selbstrepräsentation"
+
+**Perfekt für:** Ambiente-Beschreibungen für alle Familienhäuser
+
+### Ludwig Renn: "Adel im Untergang" ⭐ NEU
+- *Autobiographischer Roman* (1947)
+- Autor: Arnold Vieth von Golßenau (1889-1979) — sächsischer Adel
+- **Datei:** `renn-adel-im-untergang.txt` (6.918 Zeilen)
+- Authentische Innensicht auf Adelskindheit & Militärerziehung
+- Prinzenschule Dresden, Kadettenanstalt, Offizierskorps
+- **Extrahiert:** `quellen/extrakte/renn-adel-extrakt.md`
+
+**Zentrale Erkenntnisse:**
+- Prinzenschule vs. Kadettenanstalt als Bildungswege
+- „Ein nützliches Wesen werden" — Kritik adeliger Frauen
+- Duell-Kultur schon bei 12-Jährigen Kadetten
+- „Satisfaktionsfähig" als Standesunterschied
+- Militärische Prägung: „Leibriemen wie Spiegel"
+
+**Perfekt für:** Albrecht von Steinberg (Adel-Perspektive), authentische Militärszenen
 
 ---
 
