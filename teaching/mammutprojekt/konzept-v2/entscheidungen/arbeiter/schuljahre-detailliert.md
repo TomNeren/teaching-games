@@ -245,13 +245,51 @@ Runde 7: Nach der Schule
 
 ---
 
-## Historische Genauigkeit
+## Historische Genauigkeit & Lehrinhalte
 
-Alle Szenen basieren auf realen Ereignissen aus Brommes Autobiografie (1905). Die Schulstruktur folgt Nipperdeys Analyse:
+### Quellenbasis
+- **Bromme** (1905): Autobiografie, liefert alle narrativen Szenen
+- **Nipperdey** (1986): Schulstruktur, Statistiken, Analyse des Systems
+- **Berghahn** "Imperial Germany" (2005): Sozialstatistik, Kinderarbeit, Mobilität
+- **Popp** (1909): Weibliche Arbeiterperspektive (für spätere Erweiterung)
 
-- **Klassengrößen:** 75 Kinder pro Lehrer (1881), sinkend auf 56
-- **Volksschule:** 35% sechsklassig (1881) → 68% (1911)
-- **Soziale Mobilität:** Nur 3% der Altersgruppe besuchten höhere Schulen
-- **Lehrereinkommen:** Doppelt so hoch wie Arbeiter, halb so hoch wie Gymnasiallehrer
-- **Körperliche Züchtigung:** Üblich und legal, Lehrer führten Buch über Schläge
-- **Sozialistengesetz (1878-1890):** Verbotene Schriften, Verfolgung, Kinder als Schmuggler
+### Eingebaute Fakten (für Lehrzwecke)
+
+**Das Schulsystem:**
+- 1881: Nur 35% der Stadtschulen sechs+ klassig → 1911: 68% (Nipperdey)
+- Ein Lehrer auf 75 Kinder (1881), sinkend auf 56 (Nipperdey)
+- 1901: 146.000 Volksschullehrer im Reich, 1911: 187.485 (Berghahn)
+- Lehrergehalt: doppelt so hoch wie Arbeiter, halb so hoch wie Gymnasiallehrer (Nipperdey)
+- Körperliche Züchtigung üblich und legal
+
+**Soziale Mobilität (oder deren Fehlen):**
+- Nur 3% der Altersgruppe besuchten höhere Schulen (Nipperdey: 3% → 7% bis 1914)
+- Studenten 1871: 20.500 → 1914: 71.700 (Nipperdey)
+- Stipendianten: 20% (1887) → nur noch 10% (1911) (Berghahn)
+- An der Uni Bonn: 0,2% der Studenten aus der Arbeiterklasse (Berghahn)
+- Mädchengymnasium erst ab 1908 möglich (Nipperdey)
+
+**Kinderarbeit:**
+- 540.000 schulpflichtige Kinder mit Nebenarbeit offiziell registriert (Berghahn)
+- Tatsächlich: 40% aller Schulkinder arbeiteten mind. 3h/Tag, 6-7 Tage/Woche (preußische Erhebung, Berghahn)
+- Zeitungen austragen, Kegel aufstellen, Gläser spülen, Feldarbeit
+- Kinderschutzgesetz 1904: Versuchte Regulierung, aber eigene Kinder kaum geschützt (Berghahn)
+- Auf dem Land: 1,8 Mio. Kinder in der Landwirtschaft allein in Preußen (Berghahn)
+
+**Klassengegensätze in der Schule:**
+- Bürgerkinder: Spielzeug, Kinderbücher, Gute-Nacht-Geschichten, Nachhilfe möglich (Berghahn)
+- Arbeiterkinder: Bier oder Zucker in Schnaps als Beruhigungsmittel, keine Aufsicht (Berghahn)
+- Berlin 1912: geschätzt 20.000 unbeaufsichtigte Kinder (Berghahn)
+- Mädchen mussten mehr vom Lohn abgeben als Jungen (Berghahn)
+- Schwestern mussten zugunsten der Brüder auf Bildung verzichten (Berghahn)
+
+**Sozialistengesetz (1878-1890):**
+- Verbotene Schriften, Verfolgung, Kinder als Schmuggler
+- Lehrer lehrten offiziell anti-sozialdemokratische Propaganda (Bromme, Nipperdey)
+- Trotzdem: Weder Katholizismus noch Sozialdemokratie durch Schule aufzuhalten (Nipperdey)
+
+### Pädagogischer Hinweis für den Unterricht
+> Jede Spielrunde enthält historische Fakten, die im Spiel als **Pop-up-Boxen** oder **Fußnoten** angezeigt werden können. So lernen die Schüler nicht nur die Geschichte der Figur, sondern auch die Strukturen dahinter.
+>
+> Beispiel: Wenn der Spieler in Runde 2 „Betteln" wählt, erscheint ein Infokasten:
+> *„40% aller Schulkinder im Kaiserreich arbeiteten mindestens 3 Stunden am Tag. Viele trugen morgens Zeitungen aus oder stellten nachts Kegel auf. Das Kinderschutzgesetz von 1904 versuchte das zu regulieren — aber schützte die eigenen Kinder einer Familie kaum."*
