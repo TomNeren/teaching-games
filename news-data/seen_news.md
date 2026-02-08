@@ -2,6 +2,26 @@
 
 <!-- Tracks delivered headlines to avoid duplicates -->
 
+## 2026-02-08
+- [a1f2b3c4] 🇩🇪 Emma Aicher holt Silber in der Olympia-Abfahrt — erste deutsche Medaille
+- [b2c3d4e5] 🇩🇪 SPD-Chef Klingbeil fordert Gesundheitsabgabe für alle
+- [c3d4e5f6] 🇩🇪 Justizministerin Hubig legt Mietrechtsreform vor
+- [d4e5f6g7] 🇩🇪 Franziska Preuß holt Bronze in Mixed-Staffel Biathlon
+- [e5f6g7h8] 🇪🇺 Spanien & Portugal: Sturm Marta — 2 Tote, 11.000 Vertriebene
+- [f6g7h8i9] 🇪🇺 EU umwirbt Golfstaaten für Freihandelsabkommen
+- [g7h8i9j0] 🇪🇺 Russland liefert Rekordmenge LNG an Europa im Januar
+- [h8i9j0k1] 🇪🇺 Radio Free Europe schließt Büros in Rumänien und Ungarn
+- [i9j0k1l2] 🇺🇸 Washington Post: 1/3 der Belegschaft entlassen, CEO tritt zurück
+- [j0k1l2m3] 🇺🇸 Trump teilt rassistisches Video über Obamas, verweigert Entschuldigung
+- [k1l2m3n4] 🇺🇸 Tulsi Gabbard unter Druck wegen Geheimdienstbericht-Handling
+- [l2m3n4o5] 🇺🇸 Trump kehrt zu Diplomatie mit Iran zurück
+- [m3n4o5p6] 🇵🇾 Paraguay schlägt Rumänien im Davis Cup 3-1
+- [n4o5p6q7] 🌍 Sudan: RSF-Drohnenangriff tötet 24 Vertriebene, USA/UN verurteilen
+- [o5p6q7r8] 🇨🇳 Xi: Renminbi soll globale Reservewährung werden
+- [p6q7r8s9] 🌏 Thailand: PM Anutin gewinnt Parlamentswahl — Konservative siegen
+- [q7r8s9t0] 🌏 Südostasien navigiert "Trump-Stürme" — Diversifizierung als Strategie
+- [r8s9t0u1] 🌏 Indonesien schließt Freihandelsabkommen mit EU ab
+
 ## 2026-02-05
 - [19de11ef] 🇩🇪 German intelligence warns of rising foreign cyber threats
 - [f288502d] 🇩🇪 Hungary jails German activist Maja T to 8 years

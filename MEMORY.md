@@ -56,6 +56,16 @@ Interaktive NS-Simulation für Toms Unterricht:
 - Entscheidungsbasiert: Spieler erleben Konsequenzen
 - Reflexion wichtiger als "Gewinn"
 
+## Schicksalswege — Generational History Game (ab 2026-02-07)
+
+Evolution des Mammutprojekts: Aus der NS-Simulation wird ein generationsübergreifendes Entscheidungsspiel (1871→1945).
+
+**Konzept:** 4 Familien (Arbeiter/Bürger/Jüdisch/Adel), 3 Generationen, 6 vererbbare Attribute.
+**Quellen:** ~115k Zeilen Primärquellen (Autobiografien, Dollinger, Nipperdey, Dickinson, Schraut).
+**Workspace:** `/teaching/mammutprojekt/konzept-v2/`
+**Prototyp:** `prototype/` (HTML/CSS/JS, spielbar aber noch ohne echte Inhalte)
+**Status:** Arbeiter Gen 1 spielbar, Rest in Arbeit. Adel-Quellen fehlen noch.
+
 ## Offene Fäden
 
 - [x] Klassenübersicht — 8 Klassen empfangen, gespeichert unter `/teaching/classes/`
